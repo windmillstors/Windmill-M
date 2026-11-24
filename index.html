@@ -154,7 +154,7 @@ input[type=search]{-webkit-appearance:none;appearance:none}
 .btn.dg{color:var(--rd)}
 .btn.pl{width:auto;margin:0;padding:8px 14px;border-radius:12px;font-size:13px;display:inline-flex;align-items:center;gap:6px}
 .btn.pa{margin-top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px 8px;font-size:12px;border-style:dashed;border-color:var(--ln2)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.two>*{min-width:0}input[type=date],input[type=time]{min-width:0;-webkit-appearance:none;appearance:none;min-height:44px}
 .toast{position:fixed;left:50%;bottom:118px;transform:translateX(-50%);background:rgba(23,22,26,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;padding:10px 16px;border-radius:14px;font-size:13px;font-weight:500;z-index:20;display:none;box-shadow:var(--sh2);max-width:calc(100% - 32px);text-align:center}
 .mu{color:var(--mu);text-align:center;padding:14px;font-size:13px}
 .mu a{color:var(--ac)}
@@ -207,6 +207,30 @@ input[type=search]{-webkit-appearance:none;appearance:none}
 .rm.bad{background:#BF3B32}
 .leaflet-popup-content{font:13px Inter,system-ui,sans-serif}
 
+
+.btn{display:flex;align-items:center;justify-content:center;gap:7px}
+.mini{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:10px;font-size:12px;font-weight:600;color:var(--ac);background:var(--acs);border:1px solid var(--gb)}
+.mini.dg{color:var(--rd);background:var(--rds)}
+.pa2{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ev>i.okc{color:var(--ok);background:var(--oks)}.ev>i.msc{color:var(--rd);background:var(--rds)}
+.ev>span.sd{color:var(--ok);font-weight:600}.ev>span.sx{color:var(--rd);font-weight:600}
+.pn2{display:block;margin-top:4px;font-style:italic}
+.sub{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);margin:14px 0 2px;padding-top:12px;border-top:1px solid var(--sep)}
+.rm.wk{background:#2E5B86}
+
+.rpt{font-size:13.5px;line-height:1.55;overflow-wrap:anywhere;margin-top:4px}
+.rpl{font-size:11.5px;font-weight:600;color:var(--mu);margin-top:10px}
+.rpw{text-transform:none;letter-spacing:0;font-weight:500}
+.sd2{display:inline-flex;align-items:center;gap:4px;color:var(--ok);font-weight:600}
+
+.tag.Wk{background:var(--wns);color:var(--wn)}
+.adm .ab{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+
+button.avt{border:0;cursor:pointer;padding:0}
+.stp{background:var(--gl2);border:1px solid var(--sep);border-radius:12px;padding:10px 12px;margin:12px 0 4px;font-size:13px;line-height:1.55}
+.cd.secw{border-color:color-mix(in srgb,var(--wn) 55%,transparent)}.cd.secw h3{color:var(--wn);justify-content:flex-start}
+#rst.ok{color:var(--ok);font-weight:600}#rst.bad{color:var(--rd);font-weight:700}
+.tgb{margin-top:10px}.tgh{display:flex;justify-content:space-between;font-size:12.5px}.tgb small{color:var(--mu);font-size:11.5px;display:block;margin-top:4px}
 @media (hover:hover){.cl:hover,.k:hover{border-color:var(--ln2)}.btn:hover{filter:brightness(1.06)}.nav button:hover{color:var(--ac)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @keyframes pop{from{opacity:0;transform:scale(.97)}}
@@ -245,19 +269,21 @@ body:has(.nav:empty){padding-left:0}
 var CLOUD="https://marketing-windmill-cafe-default-rtdb.firebaseio.com",KEY="AIzaSyCOpXagdrFOWuSF1mcFTuc5HucsIzD4Kqo",TK="",TX=0,TF=0;
 function tk(){if(!KEY)return Promise.resolve("");if(TK&&Date.now()<TX)return Promise.resolve(TK);if(Date.now()-TF<60000)return Promise.resolve("");
 var rt="";try{rt=localStorage.getItem("wm_rt")||""}catch(e){}
+if(!rt&&secOn()){TF=Date.now();return Promise.resolve("")}
 var q=rt?fetch("https://securetoken.googleapis.com/v1/token?key="+KEY,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(rt)}):fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:'{"returnSecureToken":true}'});
 return q.then(function(r){return r.json()}).then(function(d){var t=d.idToken||d.id_token,r2=d.refreshToken||d.refresh_token,e=+(d.expiresIn||d.expires_in||3600);if(!t){try{localStorage.removeItem("wm_rt")}catch(x){}TF=Date.now();return ""}try{localStorage.setItem("wm_rt",r2)}catch(x){}TK=t;TX=Date.now()+(e-120)*1000;return t}).catch(function(){TF=Date.now();return ""})}
 var ES=null,RT=0,GOT=0,LQ=1;
-function live(){if(!CLOUD||!window.EventSource)return;if(ES){try{ES.close()}catch(e){}ES=null}
+function live(){if(!CLOUD||!window.EventSource)return;if(secOn()&&!U)return;if(ES){try{ES.close()}catch(e){}ES=null}
 tk().then(function(t){var e=new EventSource(CLOUD+"/.json?"+(LQ?"orderBy=%22%24key%22&endAt=%22users%22&":"")+(t?"auth="+t:""));ES=e;
 e.addEventListener("put",function(x){ev2(x,0)});e.addEventListener("patch",function(x){ev2(x,1)});
 e.addEventListener("auth_revoked",function(){TK="";TX=0;live()});
-e.onerror=function(){if(e.readyState===2){ES=null;if(!GOT&&LQ)LQ=0;setTimeout(live,6000)}}})}
+e.addEventListener("cancel",function(){try{e.close()}catch(x){}ES=null;try{localStorage.setItem("wm_sec","1")}catch(x){}if(U){tclr();toast("Please sign in again");doOut()}});
+e.onerror=function(){if(e.readyState===2){ES=null;setTimeout(live,6000)}}})}
 function ev2(x,m){var j;try{j=JSON.parse(x.data)}catch(e){return}if(!j)return;GOT=1;
 var ks=(j.path||"/").split("/").filter(Boolean),d=j.data,o,k,i;if(ks[0]=="zph")return;
-if(!ks.length){if(m){if(d)for(k in d){if(k!="zph")S[k]=d[k]===null?{}:d[k]}}else{if(!d||!d.users){sv("users",S.users);sv("cl",S.cl);sv("days",S.days);return}S.users=d.users;S.cl=d.cl||{};S.days=d.days||{};S.cfg=d.cfg||{};S.plans=d.plans||{};qapply();qflush()}}
+if(!ks.length){if(m){if(d)for(k in d){if(k!="zph")S[k]=d[k]===null?{}:d[k]}}else{if(!d||!d.users){sv("users",S.users);sv("cl",S.cl);sv("days",S.days);return}S.users=d.users;S.cl=d.cl||{};S.days=d.days||{};S.cfg=d.cfg||{};S.plans=d.plans||{};S.br=d.br||{};S.rp=d.rp||{};qapply();qflush()}}
 else{o=S;for(i=0;i<ks.length-1;i++){o=o[ks[i]]=o[ks[i]]||{}}var l=ks[ks.length-1];if(m){var c=o[l]=o[l]||{};for(k in d){if(d[k]===null)delete c[k];else c[k]=d[k]}}else if(d===null)delete o[l];else o[l]=d}
-if(!S.cl)S.cl={};if(!S.days)S.days={};if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};
+if(!S.cl)S.cl={};if(!S.days)S.days={};if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};if(!S.br)S.br={};if(!S.rp)S.rp={};
 try{localStorage.setItem("wm3",JSON.stringify(S))}catch(e){}
 clearTimeout(RT);RT=setTimeout(function(){var a=document.activeElement;if($("sh").className.indexOf("open")>=0||(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))){RP=1;return}if(U&&!S.users[U]){logout(1);return}render()},200)}
 var GB=0;
@@ -266,11 +292,11 @@ navigator.geolocation.getCurrentPosition(ok,function(){navigator.geolocation.get
 var VG=null,VGT=0;
 function vloc(){var e=$("vgs");VG=null;if(e)e.innerHTML=I("pin",14)+" Getting location…";gps(function(g){VG=g;VGT=Date.now();var e=$("vgs");if(!e)return;e.innerHTML=g?I("pin",14)+" Location captured (±"+g.ac+" m)":I("pin",14)+' Location not available. Turn on location, then <a href="#" onclick="vloc();return false" style="color:var(--g)">try again</a>'},1)}
 function cf(path,o){return tk().then(function(t){return fetch(CLOUD+"/"+path+".json"+(t?"?auth="+t:""),o)})}
-var P={phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',wa:'<path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.3-1.2-1.8-1-.8.6a3 3 0 0 1-1.6-1.6l.6-.8-1-1.8z"/>',cam:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',gear:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',power:'<path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/>',store:'<path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',inn:'<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',check:'<path d="M20 6 9 17l-5-5"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',trash:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',coffee:'<path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v3M10 2v3M14 2v3"/>',case:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',chev:'<path d="M15 18l-6-6 6-6"/>',chev2:'<path d="M9 18l6-6-6-6"/>',pin:'<path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'};
+var P={phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',wa:'<path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.3-1.2-1.8-1-.8.6a3 3 0 0 1-1.6-1.6l.6-.8-1-1.8z"/>',cam:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',gear:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',power:'<path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/>',store:'<path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',inn:'<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',check:'<path d="M20 6 9 17l-5-5"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',trash:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',coffee:'<path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v3M10 2v3M14 2v3"/>',case:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',chev:'<path d="M15 18l-6-6 6-6"/>',chev2:'<path d="M9 18l6-6-6-6"/>',cal:'<rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M7.5 14h3M7.5 17.5h6"/>',pin:'<path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'};
 function I(n,z){z=z||20;return'<svg width="'+z+'" height="'+z+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+P[n]+'</svg>'}
 var S={users:{a0:{id:"a0",n:"Admin",u:"admin",pin:"1234",r:"a"},m1:{id:"m1",n:"Sales Manager 1",u:"user1",pin:"1111",r:"o"},m2:{id:"m2",n:"Sales Manager 2",u:"user2",pin:"2222",r:"o"}},cl:{},days:{},cfg:{}},U="",V="",HM=new Date(),SEL="",RF={a:"",b:"",o:""};
 try{var z=JSON.parse(localStorage.getItem("wm3"));if(z)S=z;U=localStorage.getItem("wm_u")||""}catch(e){}
-if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};
+if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};if(!S.br)S.br={};if(!S.rp)S.rp={};
 function $(i){return document.getElementById(i)}
 function p(n){return String(n).padStart(2,"0")}
 function ds(d){return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())}
@@ -289,59 +315,63 @@ addEventListener("online",function(){qflush();if(!ES)live()});
 function sv(path,val){try{localStorage.setItem("wm3",JSON.stringify(S))}catch(e){}if(!CLOUD)return;val=val===undefined?null:val;if(path.indexOf("/")>0){Q[path]=val;qs();qflush()}else cf(path,{method:"PUT",body:JSON.stringify(val)}).catch(function(){})}
 function offs(){return Object.keys(S.users).map(function(k){return S.users[k]}).filter(function(u){return u.r!="a"})}
 function ev(ic,a,b,t,g){return'<div class="ev"><i>'+I(ic,18)+'</i><div><b>'+a+'</b><small>'+esc(b)+(g||"")+'</small></div><span>'+fmt(t)+'</span></div>'}
-function hd(t,s){return'<div class="hd"><div class="hr"><div style="display:flex;gap:12px;align-items:center"><span class="mk"></span><div><h1>'+t+'</h1><p>'+s+'</p></div></div><div class="hb"><div class="avt">'+ini(me().n)+'</div><button class="ib" aria-label="Log out" onclick="logout()">'+I("out",18)+'</button></div></div></div>'}
+function hd(t,s){return'<div class="hd"><div class="hr"><div style="display:flex;gap:12px;align-items:center"><span class="mk"></span><div><h1>'+t+'</h1><p>'+s+'</p></div></div><div class="hb"><button class="avt" aria-label="My account" onclick="accSheet()">'+ini(me().n)+'</button><button class="ib" aria-label="Log out" onclick="logout()">'+I("out",18)+'</button></div></div></div>'}
 function go(v){V=v;render();scrollTo(0,0)}
-function st(u,a,b){var d=0,v=0,n=0,x=0;for(var k in S.days){var r=S.days[k],L=r.v||[];if(u&&r.u!=u)continue;if(a&&r.d<a)continue;if(b&&r.d>b)continue;if(!L.length)continue;d++;L.forEach(function(q){v++;q.k=="New"?n++:x++})}return{d:d,v:v,n:n,o:x}}
-function sg(s){return'<div class="sg"><div><b>'+s.d+'</b><span>Active days</span></div><div><b>'+s.v+'</b><span>Visits</span></div><div><b style="color:var(--bl)">'+s.n+'</b><span>New</span></div><div><b style="color:var(--ac)">'+s.o+'</b><span>Old</span></div></div>'}
 function tgk(k){var n=k=="New"?"New":"Old";return'<span class="tag '+n+'">'+n+'</span>'}
-function evs(r){var L=(r&&r.v)||[];if(!L.length)return'<div class="mu">No visits</div>';return L.map(function(v){return ev("store",esc(v.c)+tgk(v.k),vd(v),v.t,gv(v,r))}).join("")}
-function render(){var m=me();if(!m){$("main").innerHTML=lgv();$("nv").innerHTML="";return}
+function render(){wtR();var m=me();if(!m){$("main").innerHTML=lgv();$("nv").innerHTML="";return}
  var A=m.r=="a";if(!V||(A&&(V=="home"||V=="hist"||V=="pl"))||(!A&&(V=="ov"||V=="tm")))V=A?"ov":"home";
- var it=A?[["ov","chart","Dashboard"],["cl","store","Clients"],["rep","file","Reports"],["tm","users","Team"]]:[["home","home","Home"],["hist","clock","History"],["pu"],["cl","store","Clients"],["rep","chart","Reports"]];
+ var it=A?[["ov","chart","Dashboard"],["cl","store","Clients"],["rep","file","Reports"],["tm","users","Team"]]:[["home","home","Home"],["pl","cal","Plan"],["pu"],["hist","clock","History"],["cl","store","Clients"]];
  $("nv").style.gridTemplateColumns="repeat("+it.length+",1fr)";
- $("nv").innerHTML=it.map(function(x){return x[0]=="pu"?'<button class="pu" onclick="visit()"><i>'+I("plus",28)+'</i>Add visit</button>':'<button class="'+(x[0]==V?"on":"")+'" onclick="go(\''+x[0]+'\')">'+I(x[1],22)+x[2]+'</button>'}).join("");
+ $("nv").innerHTML=it.map(function(x){return x[0]=="pu"?'<button class="pu" onclick="visit()"><i>'+I("plus",28)+'</i>Add work</button>':'<button class="'+(x[0]==V?"on":"")+'" onclick="go(\''+x[0]+'\')">'+I(x[1],22)+x[2]+'</button>'}).join("");
  $("nv").insertAdjacentHTML("beforeend",'<div class="nf"><div class="av">'+ini(m.n)+'</div><div><b>'+esc(m.n)+'</b><small>'+(A?"Administrator":"Sales manager")+'</small></div><button onclick="logout()" aria-label="Log out">'+I("out",18)+'</button></div>');
  $("main").innerHTML=VW[V]()}
-function lgv(){return'<div class="lg"><div class="lp"><div class="fl"></div></div><h1>Windmill Cafe</h1><p>Marketing team · sign in to continue</p><div class="cd"><label>Username</label><input id="lu" autocapitalize="none" autocomplete="username"><label>PIN / Password</label><input id="lp" type="password" autocomplete="current-password"><button class="btn" onclick="doLogin()">Sign in</button></div>'+'</div>'}
-function doLogin(){var u=$("lu").value.toLowerCase().replace(/\s/g,""),q=$("lp").value,f=null;for(var k in S.users){if(S.users[k].u.toLowerCase().replace(/\s/g,"")==u&&S.users[k].pin==q)f=k}
- if(!f){toast("Incorrect username or PIN");return}U=f;V="";try{localStorage.setItem("wm_u",U)}catch(e){}render()}
+function lgv(){return'<div class="lg"><div class="lp"><div class="fl"></div></div><h1>Windmill Cafe</h1><p>Marketing team · sign in to continue</p><div class="cd"><label>Username</label><input id="lu" autocapitalize="none" autocomplete="username"><label>Password</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==\'Enter\')doLogin()"><button class="btn" id="lgb" onclick="doLogin()">Sign in</button></div>'+'</div>'}
+function doLogin(){var u=lkey($("lu").value),q=$("lp").value,b=$("lgb");if(!u||!q){toast("Enter your username and password");return}
+ function legacy(){var f=null;for(var k in S.users){var x=S.users[k];if(x&&x.pin&&lkey(x.u)==u&&x.pin==q)f=k}if(!f){toast("Incorrect username or password");return}U=f;V="";try{localStorage.setItem("wm_u",U)}catch(e){}render();live()}
+ if(!CLOUD||!KEY){legacy();return}
+ b.disabled=true;b.textContent="Signing in…";
+ var LKS=0;fetch(CLOUD+"/lk/"+encodeURIComponent(u)+".json").then(function(r){LKS=r.status;return r.ok?r.json():null},function(){return undefined}).then(function(em){
+  if(typeof em=="string")return fbIn(em,q);
+  if(em===undefined&&secOn()){toast("No internet connection. Connect and try again");return}
+  if(em===null&&LKS==200)return fetch(CLOUD+"/users.json?shallow=true").then(function(r){if(r.status==401||r.status==403){try{localStorage.setItem("wm_sec","1")}catch(e){}toast("Incorrect username or password");return}legacy()},function(){legacy()});
+  legacy()}).then(function(){var b2=$("lgb");if(b2){b2.disabled=false;b2.textContent="Sign in"}})}
 var CB=null;function cfm(m,fn){CB=fn;sheet('<h3>'+m+'</h3><div class="two"><button class="btn s" onclick="cs()">Cancel</button><button class="btn" onclick="cs();CB()">Confirm</button></div>')}
-function logout(f){if(f){doOut();return}cfm("Log out?",doOut)}
-function doOut(){U="";V="";try{localStorage.removeItem("wm_u")}catch(e){}render()}
+function logout(f){if(f){doOut();return}cfm(Object.keys(Q).length?"Some work has not uploaded yet (no internet). It uploads the next time you sign in on this phone. Log out anyway?":"Log out?",doOut)}
+function doOut(){U="";V="";try{localStorage.removeItem("wm_u")}catch(e){}if(secOn()){tclr();if(ES){try{ES.close()}catch(e){}ES=null}}render()}
 var VW={
-home:function(){var D=new Date(),T=ds(D),r=rec(U,T)||{},L=r.v||[],h=D.getHours(),g=h<12?"Good morning":h<17?"Good afternoon":"Good evening",nw=0,ov="",DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
- L.forEach(function(v){if(v.k=="New")nw++});
- for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var q=rec(U,ds(d)),c=q&&q.v?q.v.length:0;ov+='<div class="'+(i?"":"tdy")+'">'+DN[d.getDay()]+'<b>'+d.getDate()+'</b><span class="'+(c?"ok":"no")+'">'+(c||"–")+'</span></div>'}
- return hd(g+", "+esc(String(me().n).split(" ")[0]),"Windmill Cafe · Marketing")+'<div class="bd"><div class="hero"><div class="hl">Today · '+esc(dl(T))+'</div><div class="lv">'+L.length+'</div><div class="hs">'+(L.length==1?"client visit":"client visits")+' · '+nw+' new · '+(L.length-nw)+' old</div><button class="btn" onclick="visit()">'+I("plus",18)+'Add client visit</button></div>'
+home:function(){var D=new Date(),T=ds(D),r=rec(U,T)||{},A=acts(r),nv=(r.v||[]).length,nw=wl(r).length,h=D.getHours(),g=h<12?"Good morning":h<17?"Good afternoon":"Good evening",ov="",DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+ for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var q=rec(U,ds(d)),c=q?(q.v||[]).length+wl(q).length:0;ov+='<div class="'+(i?"":"tdy")+'">'+DN[d.getDay()]+'<b>'+d.getDate()+'</b><span class="'+(c?"ok":"no")+'">'+(c||"–")+'</span></div>'}
+ return hd(g+", "+esc(String(me().n).split(" ")[0]),"Windmill Cafe · Marketing")+'<div class="bd"><div class="hero"><div class="hl">Today · '+esc(dl(T))+'</div><div class="lv">'+A.length+'</div><div class="hs">'+(A.length==1?"work entry":"work entries")+' · '+nv+(nv==1?" client visit":" client visits")+' · '+nw+' other</div><button class="btn" onclick="visit()">'+I("plus",18)+'Add work</button></div>'
  +plCard()
- +'<div class="cd"><h3>Today\'s visits <a href="#" onclick="go(\'hist\');return false">History</a></h3>'+(L.length?evs(r):'<div class="mu">No visits yet today. Tap “Add client visit” when you reach a shop.</div>')+'</div>'
+ +'<div class="cd"><h3>Today\'s work <a href="#" onclick="go(\'hist\');return false">History</a></h3>'+(A.length?evs(r):'<div class="mu">Nothing added yet today. Tap “Add work” for every client visit, branch visit or other job you do.</div>')+'</div>'
  +'<div class="cd"><h3>Last 7 days <a href="#" onclick="go(\'hist\');return false">Calendar</a></h3><div class="ov">'+ov+'</div></div>'
- +'<div class="cd"><h3>This month</h3>'+sg(st(U,T.slice(0,8)+"01",T.slice(0,8)+"31"))+'</div></div>'},
+ +'<div class="cd"><h3>This month</h3>'+sg(st(U,T.slice(0,8)+"01",T.slice(0,8)+"31"))+tgBars(U)+'</div></div>'},
 hist:function(){var y=HM.getFullYear(),mo=HM.getMonth(),f=new Date(y,mo,1).getDay(),n=new Date(y,mo+1,0).getDate(),sel=SEL||ds(new Date()),c="";
  ["S","M","T","W","T","F","S"].forEach(function(x){c+="<span>"+x+"</span>"});for(var i=0;i<f;i++)c+="<span></span>";
- for(var d=1;d<=n;d++){var k=y+"-"+p(mo+1)+"-"+p(d),q=rec(U,k);c+='<button class="'+(q&&(q.v||[]).length?"dot ":"")+(k==sel?"on":"")+'" onclick="SEL=\''+k+'\';render()">'+d+'</button>'}
- var r=rec(U,sel),nv=r&&r.v?r.v.length:0;
- return hd("Visit history","Your visits by day")+'<div class="bd"><div class="cd"><div class="mn"><button aria-label="Previous month" onclick="HM=new Date(HM.getFullYear(),HM.getMonth()-1,1);render()">'+I("chev")+'</button>'+HM.toLocaleString("en",{month:"long",year:"numeric"})+'<button aria-label="Next month" onclick="HM=new Date(HM.getFullYear(),HM.getMonth()+1,1);render()">'+I("chev2")+'</button></div><div class="cal">'+c+'</div></div><div class="cd">'+sg(st(U,y+"-"+p(mo+1)+"-01",y+"-"+p(mo+1)+"-31"))+'</div><div class="cd"><h3>'+esc(dl(sel))+'<span class="hm">'+nv+(nv==1?" visit":" visits")+'</span></h3>'+evs(r)+'</div></div>'},
+ for(var d=1;d<=n;d++){var k=y+"-"+p(mo+1)+"-"+p(d),q=rec(U,k);c+='<button class="'+(acts(q).length?"dot ":"")+(k==sel?"on":"")+'" onclick="SEL=\''+k+'\';render()">'+d+'</button>'}
+ var r=rec(U,sel),nv=acts(r).length;
+ return hd("Work history","Your work by day")+'<div class="bd"><div class="cd"><div class="mn"><button aria-label="Previous month" onclick="HM=new Date(HM.getFullYear(),HM.getMonth()-1,1);render()">'+I("chev")+'</button>'+HM.toLocaleString("en",{month:"long",year:"numeric"})+'<button aria-label="Next month" onclick="HM=new Date(HM.getFullYear(),HM.getMonth()+1,1);render()">'+I("chev2")+'</button></div><div class="cal">'+c+'</div></div><div class="cd">'+sg(st(U,y+"-"+p(mo+1)+"-01",y+"-"+p(mo+1)+"-31"))+'</div><div class="cd"><h3>'+esc(dl(sel))+'<span class="hm">'+nv+(nv==1?" entry":" entries")+'</span></h3>'+evs(r)+'</div><button class="btn s" style="margin-top:0" onclick="go(\'rep\')">'+I("file",16)+'Reports &amp; CSV download</button></div>'},
 cl:function(){var ks=Object.keys(S.cl),nw=0,tv=0,k;for(k in S.days)tv+=(S.days[k].v||[]).length;ks.forEach(function(i){if(S.cl[i].k=="New")nw++});
  return hd("Clients","Windmill Cafe clients")+'<div class="bd"><div class="cd"><h3>Client Summary</h3><div class="sg"><div><b>'+ks.length+'</b><span>Total</span></div><div><b style="color:var(--bl)">'+nw+'</b><span>New</span></div><div><b style="color:var(--g)">'+(ks.length-nw)+'</b><span>Old</span></div><div><b style="color:var(--or)">'+tv+'</b><span>Visits</span></div></div></div><div class="cd" style="padding:10px"><div class="srch">'+I("search",18)+'<input id="cq" type="search" autocomplete="off" placeholder="Search by name or phone" value="'+esc(CQ)+'" oninput="CQ=this.value;clList()"></div></div><div id="cll">'+clRows()+'</div></div>'},
-rep:function(){var T=ds(new Date()),A=isA();if(!RF.a)RF.a=T.slice(0,8)+"01";if(!RF.b)RF.b=T;var L=lst().filter(function(q){return(q.v||[]).length}),s=st(A?RF.o:U,RF.a,RF.b);
- return hd("Reports",A?"All sales managers":"Your visit summary")+'<div class="bd"><div class="cd noprint"><div class="two"><div><label>From</label><input type="date" value="'+esc(RF.a)+'" onchange="RF.a=this.value;render()"></div><div><label>To</label><input type="date" value="'+esc(RF.b)+'" onchange="RF.b=this.value;render()"></div></div>'
+rep:function(){var T=ds(new Date()),A=isA();if(!RF.a)RF.a=T.slice(0,8)+"01";if(!RF.b)RF.b=T;var L=lst().filter(function(q){return acts(q).length}),s=st(A?RF.o:U,RF.a,RF.b);
+ return hd("Reports",A?"All sales managers":"Your work summary")+'<div class="bd"><div class="cd noprint"><div class="two"><div><label>From</label><input type="date" value="'+esc(RF.a)+'" onchange="RF.a=this.value;render()"></div><div><label>To</label><input type="date" value="'+esc(RF.b)+'" onchange="RF.b=this.value;render()"></div></div>'
  +(A?'<label>Sales manager</label><select onchange="RF.o=this.value;render()"><option value="">All sales managers</option>'+offs().map(function(o){return'<option value="'+esc(o.id)+'"'+(o.id==RF.o?" selected":"")+'>'+esc(o.n)+'</option>'}).join("")+'</select>':"")
- +'<div class="two"><button class="btn" onclick="cp()">Copy text</button><button class="btn s" onclick="print()">Print</button></div><button class="btn s" style="margin-top:8px" onclick="csvDl()">Download CSV (Excel)</button>'
+ +'<div class="two"><button class="btn" onclick="cp()">Copy text</button><button class="btn s" onclick="print()">Print</button></div><div class="two" style="margin-top:8px"><button class="btn s" onclick="csvDl()">Work log CSV</button><button class="btn s" onclick="csvPl()">Work plan CSV</button></div>'
  +(A?'<div class="two" style="margin-top:8px"><button class="btn s dg" onclick="delRange()">Delete this range</button><button class="btn s dg" onclick="delAll()">Delete all data</button></div>':"")+'</div><div class="cd">'+sg(s)+'</div>'
- +(L.map(function(q){var u=S.users[q.u],V2=q.v||[];return'<div class="cd"><h3><span>'+(A?esc(u?u.n:"?")+" · ":"")+esc(dl(q.d))+'</span><span class="hm">'+V2.length+(V2.length==1?" visit":" visits")
-  +(A?'<button class="sm noprint" aria-label="Route map" onclick="route(\''+jq(q.u)+'\',\''+jq(q.d)+'\')">'+I("pin",16)+'</button><button class="sm dg noprint" aria-label="Delete day" onclick="delDay(\''+jq(q.u+'_'+q.d)+'\')">'+I("trash",16)+'</button>':"")+'</span></h3>'
-  +V2.map(function(v,vi){return ev("store",esc(v.c)+tgk(v.k),vd(v),v.t,gv(v,q)+(A?' <button class="sm dg noprint" aria-label="Delete visit" onclick="delVis(\''+jq(q.u+'_'+q.d)+'\','+vi+')">'+I("trash",14)+'</button>':""))}).join("")+'</div>'}).join("")||'<div class="mu">No visits in this range</div>')+'</div>'},
+ +(L.map(function(q){var u=S.users[q.u],X=acts(q),k=q.u+'_'+q.d;return'<div class="cd"><h3><span>'+(A?esc(u?u.n:"?")+" · ":"")+esc(dl(q.d))+'</span><span class="hm">'+X.length+(X.length==1?" entry":" entries")
+  +(A?'<button class="sm noprint" aria-label="Route map" onclick="route(\''+jq(q.u)+'\',\''+jq(q.d)+'\')">'+I("pin",16)+'</button><button class="sm dg noprint" aria-label="Delete day" onclick="delDay(\''+jq(k)+'\')">'+I("trash",16)+'</button>':"")+'</span></h3>'
+  +X.map(function(x){if(x.v)return ev("store",esc(x.v.c)+tgk(x.v.k),vd(x.v),x.v.t,gv(x.v,q)+(A?' <button class="sm dg noprint" aria-label="Delete visit" onclick="delVis(\''+jq(k)+'\','+x.i+')">'+I("trash",14)+'</button>':""));
+   return wrow(x.w,q,A?' <button class="sm dg noprint" aria-label="Delete entry" onclick="delWk(\''+jq(k)+'\','+x.i+')">'+I("trash",14)+'</button>':"")}).join("")+'</div>'}).join("")||'<div class="mu">Nothing in this range</div>')+'</div>'},
 ov:function(){return adv()},
 tm:function(){var T=ds(new Date()),M=T.slice(0,8),A0=M+"01",A1=M+"31",us=offs(),a=me(),act=0,all=st("",A0,A1);
-us.forEach(function(u){var y=rec(u.id,T);if(y&&(y.v||[]).length)act++});
-var cards=us.map(function(u){var y=rec(u.id,T)||{},L=y.v||[],m=st(u.id,A0,A1),s=L.length?1:0,lt=L.map(function(v){return v.t}).filter(Boolean).sort().pop(),td=L.length?L.length+(L.length==1?" visit":" visits")+" today"+(lt?" · last at "+fmt(lt):""):"No visits today";
-return'<div class="tc"><div class="tt"><div class="av big">'+ini(u.n)+'<i class="dt s'+s+'"></i></div><div class="ti"><b>'+esc(u.n)+'</b><small>@'+esc(u.u)+'</small><small>'+td+'</small></div><span class="chip c'+s+'">'+(s?"Active":"No visits")+'</span></div><div class="tg"><div><b>'+m.d+'</b><span>Days</span></div><div><b>'+m.v+'</b><span>Visits</span></div><div><b>'+m.n+'</b><span>New</span></div><div><b>'+m.o+'</b><span>Old</span></div></div><div class="ta"><button class="btn s" onclick="ofSheet(\''+jq(u.id)+'\')">'+I("edit",16)+'Edit</button><button class="btn s dg" onclick="delOf(\''+jq(u.id)+'\')">'+I("trash",16)+'Remove</button></div></div>'}).join("");
-var empty='<div class="cd em"><div class="mu" style="padding:0 0 12px">No sales managers yet.<br>Add your first team member so they can log visits.</div><button class="btn pl" style="margin:auto!important" onclick="ofSheet()">'+I("plus",16)+'Add sales manager</button></div>';
+us.forEach(function(u){if(acts(rec(u.id,T)).length)act++});
+var cards=us.map(function(u){var y=rec(u.id,T),X=acts(y),m=st(u.id,A0,A1),s=X.length?1:0,lt=X.length?(X[X.length-1].v||X[X.length-1].w).t:"",td=X.length?X.length+(X.length==1?" entry":" entries")+" today"+(lt?" · last at "+fmt(lt):""):"Nothing added today";
+return'<div class="tc"><div class="tt"><div class="av big">'+ini(u.n)+'<i class="dt s'+s+'"></i></div><div class="ti"><b>'+esc(u.n)+'</b><small>@'+esc(u.u)+'</small><small>'+td+'</small></div><span class="chip c'+s+'">'+(s?"Active":"No work yet")+'</span></div><div class="tg"><div><b>'+m.d+'</b><span>Days</span></div><div><b>'+m.v+'</b><span>Visits</span></div><div><b>'+m.n+'</b><span>New</span></div><div><b>'+m.w+'</b><span>Other</span></div></div>'+tgBars(u.id)+'<div class="ta"><button class="btn s" onclick="ofSheet(\''+jq(u.id)+'\')">'+I("edit",16)+'Edit</button><button class="btn s dg" onclick="delOf(\''+jq(u.id)+'\')">'+I("trash",16)+'Remove</button></div></div>'}).join("");
+var empty='<div class="cd em"><div class="mu" style="padding:0 0 12px">No sales managers yet.<br>Add your first team member so they can add their work.</div><button class="btn pl" style="margin:auto!important" onclick="ofSheet()">'+I("plus",16)+'Add sales manager</button></div>';
 var sync=CLOUD?'<i class="dt s1"></i>Cloud sync is on. All devices share the same data.':'<i class="dt"></i>Cloud sync is off. Data is stored on this device only.';
-return hd("Team","Your sales team")+'<div class="bd"><div class="cd"><h3>Team overview <span class="hm">'+new Date().toLocaleString("en",{month:"long",year:"numeric"})+'</span></h3><div class="sg"><div><b>'+us.length+'</b><span>Managers</span></div><div><b style="color:var(--ok)">'+act+'</b><span>Active today</span></div><div><b>'+all.v+'</b><span>Visits</span></div><div><b style="color:var(--bl)">'+all.n+'</b><span>New clients</span></div></div></div>'
-+'<div class="cd adm"><div class="av big">'+ini(a.n)+'</div><div class="ti"><b>'+esc(a.n)+'</b><small>Administrator · @'+esc(a.u)+'</small></div><div class="ab"><button class="btn s" onclick="pinSheet()">'+I("key",16)+'Change login</button><button class="btn s" onclick="rulesSheet()">'+I("gear",16)+'Visit rules</button></div><div class="sy">'+sync+'</div><div class="sy"><i class="dt s1"></i>'+rsum()+'</div></div>'
-+'<div class="sh2"><div class="sec">Sales managers <small>'+us.length+'</small></div><button class="btn pl" onclick="ofSheet()">'+I("plus",16)+'Add manager</button></div>'+(us.length?'<div class="tgrid">'+cards+'</div>':empty)+'</div>'}
+return hd("Team","Your sales team")+'<div class="bd">'+secCard()+'<div class="cd"><h3>Team overview <span class="hm">'+new Date().toLocaleString("en",{month:"long",year:"numeric"})+'</span></h3><div class="sg"><div><b>'+us.length+'</b><span>Managers</span></div><div><b style="color:var(--ok)">'+act+'</b><span>Active today</span></div><div><b>'+all.v+'</b><span>Client visits</span></div><div><b style="color:var(--ac)">'+all.w+'</b><span>Other work</span></div></div></div>'
++'<div class="cd adm"><div class="av big">'+ini(a.n)+'</div><div class="ti"><b>'+esc(a.n)+'</b><small>Administrator · @'+esc(a.u)+'</small></div><div class="ab"><button class="btn s" onclick="accSheet()">'+I("key",16)+'My login</button><button class="btn s" onclick="rulesSheet()">'+I("gear",16)+'Visit rules</button><button class="btn s" onclick="wtSheet()">'+I("case",16)+'Work types</button></div><div class="sy">'+sync+'</div>'+secLine()+'<div class="sy"><i class="dt s1"></i>'+rsum()+'</div></div>'
++brCard()+'<div class="sh2"><div class="sec">Sales managers <small>'+us.length+'</small></div><button class="btn pl" onclick="ofSheet()">'+I("plus",16)+'Add manager</button></div>'+(us.length?'<div class="tgrid">'+cards+'</div>':empty)+'</div>'}
 };
 /* ===== v9 additions: rules, client edit/search, duplicates, call/WhatsApp, photos ===== */
 var CQ="",PHT={},ALA=0,AK=[],CC="94",DBH=null;
@@ -364,7 +394,7 @@ function clEdit(id){var c=S.cl[id];if(!c)return;sheet('<h3>Edit client</h3><labe
 function saveCl(id){var c=S.cl[id];if(!c)return;var n=$("ce_n").value.trim().replace(/\s+/g," "),p=$("ce_p").value.trim();if(!n){toast("Enter the client name");return}
  var d=dupC(n,p,id);if(d){toast(d.w=="phone"?"This phone number already belongs to "+d.c.n:"Another client already has this name");return}
  var o=c.n,k;c.n=n;c.p=p;c.k=$("ce_k").value;c.pa=$("ce_a").value;c.cm=$("ce_m").value.trim();if($("ce_g")&&$("ce_g").value=="r")delete c.g;
- if(o!=n)for(k in S.days){var r=S.days[k],ch=0;(r.v||[]).forEach(function(v){if(nn(v.c)==nn(o)){v.c=n;ch=1}});if(ch)sv("days/"+k,r)}
+ if(o!=n)for(k in S.days){var r=S.days[k],ch=0;if(!isA()&&r.u!=U)continue;(r.v||[]).forEach(function(v){if(nn(v.c)==nn(o)){v.c=n;ch=1}});if(ch)sv("days/"+k,r)}
  sv("cl/"+id,c);cs();toast("Client updated");render()}
 function vopts(q){q=nn(q);var qd=q.replace(/\D/g,""),a=Object.keys(S.cl).map(function(i){return S.cl[i]}).sort(function(x,y){return x.n.localeCompare(y.n)}).filter(function(c){return!q||nn(c.n).indexOf(q)>=0||(qd&&String(c.p||"").replace(/\D/g,"").indexOf(qd)>=0)});
  return a.map(function(c){return'<option value="'+esc(c.n)+'">'+esc(c.n)+(c.p?" · "+esc(c.p):"")+'</option>'}).join("")||'<option value="">No client matches</option>'}
@@ -378,12 +408,13 @@ function phUp(o){if(!CLOUD)return Promise.resolve();return cf("zph/"+o.id,{metho
 function phSync(){idbAll().then(function(a){a.forEach(function(o){if(!o.up)phUp(o)})})}
 function phGet(id){return idbGet(id).then(function(o){if(o&&o.d)return o.d;if(!CLOUD)return null;return cf("zph/"+id).then(function(r){return r.json()}).then(function(d){if(typeof d=="string"&&d.indexOf("data:image/")==0){idbPut({id:id,d:d,up:1});return d}return null})}).catch(function(){return null})}
 function phDrop(id){if(CLOUD)cf("zph/"+id,{method:"DELETE"}).catch(function(){});idb().then(function(d){if(d)try{d.transaction("p","readwrite").objectStore("p").delete(id)}catch(e){}})}
-function cmp(f,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var m=1000,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.65))};im.onerror=function(){cb(null)};im.src=r.result};r.onerror=function(){cb(null)};r.readAsDataURL(f)}
-function phUI(){var e=$("vph");if(!e)return;var h='<label>Photos'+($("vk")&&$("vk").value=="New"&&S.cfg.ph!==0?' · shop photo required':' (optional)')+'</label><div class="two">';[["s","Shop photo"],["i","Invoice photo"]].forEach(function(x){var t=x[0];h+=PHT[t]?'<div class="pt"><img src="'+PHT[t]+'" alt=""><button type="button" class="px" aria-label="Remove photo" onclick="phDel(\''+t+'\')">'+I("x",14)+'</button><span>'+x[1]+'</span></div>':'<div><button type="button" class="btn s pa" onclick="$(\'pf_'+t+'\').click()">'+I("cam",22)+x[1]+'</button><input id="pf_'+t+'" type="file" accept="image/*" hidden onchange="phPick(this,\''+t+'\')"></div>'});e.innerHTML=h+'</div>'}
-function phPick(inp,t){var f=inp.files&&inp.files[0];inp.value="";if(!f)return;toast("Processing photo…");cmp(f,function(d){if(!d){toast("Could not read this photo");return}PHT[t]=d;phUI()})}
+function cmp(f,cb,stx){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var m=900,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));var cx=c.getContext("2d");cx.drawImage(im,0,0,c.width,c.height);if(stx){var bh=Math.max(22,Math.round(c.width*.045));cx.fillStyle="rgba(0,0,0,.55)";cx.fillRect(0,c.height-bh,c.width,bh);cx.fillStyle="#fff";cx.font="600 "+Math.round(bh*.48)+"px system-ui,-apple-system,sans-serif";cx.textBaseline="middle";cx.fillText(stx,Math.round(bh*.35),c.height-bh/2,c.width-bh*.7)}cb(c.toDataURL("image/jpeg",.6))};im.onerror=function(){cb(null)};im.src=r.result};r.onerror=function(){cb(null)};r.readAsDataURL(f)}
+function phPick(inp,t){var f=inp.files&&inp.files[0];inp.value="";if(!f)return;if(f.lastModified&&Date.now()-f.lastModified>15*60000){toast("Please take a new photo with the camera");return}toast("Processing photo…");
+ var g=VG,stx=new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})+" "+fmt(tm())+(okg(g)?" · "+(+g.la).toFixed(5)+", "+(+g.ln).toFixed(5):" · GPS pending")+(me()?" · "+me().n:"");
+ cmp(f,function(d){if(!d){toast("Could not read this photo");return}PHT[t]=d;phUI()},stx)}
 function phDel(t){delete PHT[t];phUI()}
 function savePh(){var ps={},n=0;for(var t in PHT){var id="p"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),o={id:id,d:PHT[t],up:0};ps[t]=id;n++;(function(o){idbPut(o).then(function(){return phUp(o)})})(o)}PHT={};return n?ps:null}
-function pl(v){if(!v||!v.ps)return"";var h="";[["s","Shop"],["i","Invoice"]].forEach(function(x){if(v.ps[x[0]])h+=' <a class="gp" href="#" onclick="showPh(\''+jq(v.ps[x[0]])+'\');return false">'+I("cam",13)+x[1]+'</a>'});return h}
+function pl(v){if(v&&v.pd&&!v.ps)return' <span class="ng">Photo removed</span>';if(!v||!v.ps)return"";var h="";[["s","Shop"],["i","Invoice"]].forEach(function(x){if(v.ps[x[0]])h+=' <a class="gp" href="#" onclick="showPh(\''+jq(v.ps[x[0]])+'\');return false">'+I("cam",13)+x[1]+'</a>'});return h}
 function showPh(id){sheet('<h3>Visit photo</h3><div id="pim" class="mu">Loading…</div><button class="btn s" onclick="cs()">Close</button>');phGet(id).then(function(d){var e=$("pim");if(!e)return;if(d){e.className="";e.innerHTML='<img src="'+d+'" alt="Visit photo" style="width:100%;border-radius:14px;display:block">'}else e.textContent="Photo not available yet. It may still be uploading from the phone."})}
 addEventListener("online",phSync);setTimeout(phSync,4000);
 var AD="",AP="d";
@@ -395,81 +426,86 @@ function setAD(n){AD=n===0?ds(new Date()):ad(AD||ds(new Date()),n);render()}
 function tally(a){var o={};a.forEach(function(k){o[k]=(o[k]||0)+1});return Object.keys(o).map(function(k){return[k,o[k]]}).sort(function(x,y){return y[1]-x[1]})}
 function bars(a){var mx=a.length?a[0][1]:1;return a.map(function(x){return'<div class="br"><span>'+esc(x[0])+'</span><div class="tr"><i style="width:'+Math.round(x[1]/mx*100)+'%"></i></div><b>'+x[1]+'</b></div>'}).join("")||'<div class="mu">No data for this period</div>'}
 function kc(ic,col,bg,v,l){return'<div class="k"><i style="background:'+bg+';color:'+col+'">'+I(ic,20)+'</i><div><b>'+v+'</b><span>'+l+'</span></div></div>'}
-function adv(){var T=ds(new Date()),D=AD||T,r=rg(),a=r[0],b=r[1],us=offs(),all=st("",a,b),act=0,pay=[],rs=[],k,q,u;
- for(k in S.days){q=S.days[k];if(q.d>=a&&q.d<=b)(q.v||[]).forEach(function(v){if(v.pa)pay.push(v.pa);if(v.rs)rs.push(v.rs)})}
- us.forEach(function(x){var y=rec(x.id,D);if(y&&(y.v||[]).length)act++});
+function adv(){var T=ds(new Date()),D=AD||T,r=rg(),a=r[0],b=r[1],us=offs(),all=st("",a,b),act=0,pay=[],rs=[],tw=[],k,q,u;
+ for(k in S.days){q=S.days[k];if(q.d>=a&&q.d<=b){(q.v||[]).forEach(function(v){if(v.pa)pay.push(v.pa);if(v.rs)rs.push(v.rs)});wl(q).forEach(function(w){tw.push(wtg(w.ty,w.tn)[0])})}}
+ us.forEach(function(x){if(acts(rec(x.id,D)).length)act++});
  var al=[],dm=S.cfg.dm||{},W=ad(T,-7);
  function pa(key,t,c){if(!dm[key])al.push({k:key,t:t,c:c})}
- if(D==T&&new Date().getHours()>=12)us.forEach(function(x){var y=rec(x.id,T);if(!y||!(y.v||[]).length)pa("nv_"+x.id+"_"+T,esc(x.n)+" has no visits yet today","var(--warn)")});
- for(k in S.days){q=S.days[k];if(q.d<W||!(q.v||[]).length)continue;u=S.users[q.u];var nm0=esc(u?u.n:"?"),FL=dfl(q),fc=[0,0,0,0];
+ if(D==T&&new Date().getHours()>=10)us.forEach(function(x){if(!pitems(T,x.id).length)pa("np_"+x.id+"_"+T,esc(x.n)+" has no work plan for today","var(--warn)")});
+ if(D==T&&new Date().getHours()>=12)us.forEach(function(x){if(!acts(rec(x.id,T)).length)pa("nv_"+x.id+"_"+T,esc(x.n)+" has not added any work yet today","var(--warn)")});
+ for(k in S.days){q=S.days[k];if(q.d<W||!acts(q).length)continue;u=S.users[q.u];var nm0=esc(u?u.n:"?"),FL=dfl(q),fc=[0,0,0,0],fb=[];
   FL.forEach(function(f){if(f.far)fc[0]++;if(f.same)fc[1]++;if(f.fast)fc[2]++;if(f.nog)fc[3]++});
+  wl(q).forEach(function(w){if(bdx(w)>DR())fb.push(w.c)});
   var rl=' · <a href="#" onclick="route(\''+jq(q.u)+'\',\''+jq(q.d)+'\');return false">View route</a>';
   if(fc[0])pa("gf_"+k,nm0+" · "+fc[0]+(fc[0]>1?" visits were":" visit was")+" far from the shop on "+sl(q.d)+rl,"var(--rd)");
   if(fc[1])pa("gs_"+k,nm0+" · "+fc[1]+" visits to different clients from the same spot on "+sl(q.d)+rl,"var(--rd)");
   if(fc[2])pa("gt_"+k,nm0+" · moved too fast between visits on "+sl(q.d)+rl,"var(--rd)");
-  if(fc[3])pa("ng_"+k,nm0+" · "+fc[3]+(fc[3]>1?" visits":" visit")+" without GPS on "+sl(q.d),"var(--warn)")}
+  if(fc[3])pa("ng_"+k,nm0+" · "+fc[3]+(fc[3]>1?" visits":" visit")+" without GPS on "+sl(q.d),"var(--warn)");
+  if(fb.length)pa("wb_"+k,nm0+" · was far from "+esc(fb.join(", "))+" on "+sl(q.d)+rl,"var(--rd)")}
+ for(k in S.plans||{}){var pp=S.plans[k];if(!pp||pp.d<W||pp.d>T)continue;var uu=S.users[pp.u],nm1=esc(uu?uu.n:"?"),mc=0,lb=[];
+  pitems(pp.d,pp.u).forEach(function(it){if(pp.d<T&&!pdone(pp.d,it,pp.u))mc++;if(bdist(it)>DR())lb.push(it.c)});
+  if(mc)pa("pm_"+k,nm1+" · "+mc+(mc>1?" planned items were":" planned item was")+" not done on "+sl(pp.d),"var(--rd)");
+  if(lb.length)pa("pb_"+k,nm1+" · checked in far from "+esc(lb.join(", "))+" on "+sl(pp.d),"var(--rd)")}
+ if(!PCL){PCL=1;setTimeout(phClean,1500)}
  AK=al.map(function(x){return x.k});
  var alh=al.length?'<div class="cd al"><h3><span>Alerts · '+al.length+'</span>'+(al.length>1?'<a href="#" onclick="dmAll();return false">Dismiss all</a>':"")+'</h3>'+al.slice(0,ALA?al.length:5).map(function(x){return'<div class="ev"><i style="color:'+x.c+'">'+I("bell",16)+'</i><div>'+x.t+'</div><button class="sm" aria-label="Dismiss" onclick="dmA(\''+jq(x.k)+'\')">'+I("x",16)+'</button></div>'}).join("")+(al.length>5?'<div class="mu" style="padding:8px 0 0"><a href="#" onclick="ALA=!ALA;render();return false">'+(ALA?"Show fewer":"Show all "+al.length)+'</a></div>':"")+'</div>':"";
- var ch=[],mx=1,i,x;for(i=6;i>=0;i--){x=ad(D,-i);var n=0,o=0;for(k in S.days){q=S.days[k];if(q.d==x)(q.v||[]).forEach(function(v){v.k=="New"?n++:o++})}ch.push([x,n,o]);mx=Math.max(mx,n+o)}
- var col=ch.map(function(c){return'<div><small>'+((c[1]+c[2])||"")+'</small><i style="height:'+Math.round(c[1]/mx*84)+'px;background:var(--bl)"></i><i style="height:'+Math.round(c[2]/mx*84)+'px;background:var(--ac)"></i><small>'+pd(c[0]).getDate()+'</small></div>'}).join("");
- var tmx=us.map(function(x){return{u:x,s:st(x.id,a,b)}}).sort(function(x,y){return y.s.v-x.s.v}),mv=tmx.length?Math.max(1,tmx[0].s.v):1;
- var tr=tmx.map(function(x){var s=x.s;return'<div class="cl"><div class="av">'+ini(x.u.n)+'</div><div><b>'+esc(x.u.n)+'</b><br><small style="color:var(--mu)">'+s.d+(s.d==1?" active day":" active days")+(s.d?' · avg '+(s.v/s.d).toFixed(1)+' visits/day':"")+'</small><div class="pbar"><i style="width:'+Math.round(s.v/mv*100)+'%"></i></div></div><div style="text-align:right"><b style="font-size:20px">'+s.v+'</b><br><small style="color:var(--mu)">'+s.n+' new · '+s.o+' old</small></div></div>'}).join("")||'<div class="mu">Add sales managers in the Team tab</div>';
- var rows=us.map(function(x){var y=rec(x.id,D)||{},L=y.v||[],t=L.map(function(v){return v.t}).filter(Boolean).sort(),
-  vs=L.map(function(v){return'<div class="ev"><i>'+I("store",16)+'</i><div><b>'+esc(v.c)+tgk(v.k)+'</b><small>'+esc(vd(v))+gv(v,y)+'</small></div><span>'+fmt(v.t)+'</span></div>'}).join("");
-  return'<div class="cd"><div class="tt"><div class="av">'+ini(x.n)+'</div><div class="ti"><b>'+esc(x.n)+'</b><small>'+L.length+(L.length==1?" visit":" visits")+(t.length?' · '+fmt(t[0])+(t.length>1?' – '+fmt(t[t.length-1]):""):"")+'</small></div>'+(L.length?'<button class="sm" aria-label="Route map" onclick="route(\''+jq(x.id)+'\',\''+jq(D)+'\')">'+I("pin",16)+'</button>':"")+'<span class="chip c'+(L.length?1:0)+'">'+(L.length?"Active":"No visits")+'</span></div>'+(vs?'<div style="margin-top:8px">'+vs+'</div>':"")+'</div>'}).join("");
- var fe=[];for(k in S.days){q=S.days[k];u=S.users[q.u];var nm=u?u.n:"?";(q.v||[]).forEach(function(v){fe.push({d:q.d,t:v.t||"",a:esc(nm)+" visited "+esc(v.c)+tgk(v.k),b:vd(v),g:v.g,p:pl(v)})})}
+ var ch=[],mx=1,i,x;for(i=6;i>=0;i--){x=ad(D,-i);var n=0,o=0,w=0;for(k in S.days){q=S.days[k];if(q.d==x){(q.v||[]).forEach(function(v){v.k=="New"?n++:o++});w+=wl(q).length}}ch.push([x,n,o,w]);mx=Math.max(mx,n+o+w)}
+ var col=ch.map(function(c){return'<div><small>'+((c[1]+c[2]+c[3])||"")+'</small><i style="height:'+Math.round(c[3]/mx*84)+'px;background:var(--wn)"></i><i style="height:'+Math.round(c[1]/mx*84)+'px;background:var(--bl)"></i><i style="height:'+Math.round(c[2]/mx*84)+'px;background:var(--ac)"></i><small>'+pd(c[0]).getDate()+'</small></div>'}).join("");
+ var tmx=us.map(function(x){var s=st(x.id,a,b);s.t=s.v+s.w;return{u:x,s:s}}).sort(function(x,y){return y.s.t-x.s.t}),mv=tmx.length?Math.max(1,tmx[0].s.t):1;
+ var tr=tmx.map(function(x){var s=x.s;return'<div class="cl"><div class="av">'+ini(x.u.n)+'</div><div><b>'+esc(x.u.n)+'</b><br><small style="color:var(--mu)">'+s.d+(s.d==1?" active day":" active days")+(s.d?' · avg '+(s.t/s.d).toFixed(1)+' entries/day':"")+'</small><div class="pbar"><i style="width:'+Math.round(s.t/mv*100)+'%"></i></div>'+tgLine(x.u.id)+'</div><div style="text-align:right"><b style="font-size:20px">'+s.t+'</b><br><small style="color:var(--mu)">'+s.v+' visits · '+s.w+' other</small></div></div>'}).join("")||'<div class="mu">Add sales managers in the Team tab</div>';
+ var rows=us.map(function(x){var y=rec(x.id,D),X=acts(y),P=pitems(D,x.id),pdn=0,t=X.map(function(e){return(e.v||e.w).t}).filter(Boolean);
+  P.forEach(function(i2){if(pdone(D,i2,x.id))pdn++});
+  var vs=X.map(function(e){return e.v?'<div class="ev"><i>'+I("store",16)+'</i><div><b>'+esc(e.v.c)+tgk(e.v.k)+'</b><small>'+esc(vd(e.v))+gv(e.v,y)+'</small></div><span>'+fmt(e.v.t)+'</span></div>':wrow(e.w,y)}).join("");
+  return'<div class="cd"><div class="tt"><div class="av">'+ini(x.n)+'</div><div class="ti"><b>'+esc(x.n)+'</b><small>'+X.length+(X.length==1?" entry":" entries")+' · plan '+pdn+'/'+P.length+(t.length?' · '+fmt(t[0])+(t.length>1?' – '+fmt(t[t.length-1]):""):"")+'</small></div>'+(X.length?'<button class="sm" aria-label="Route map" onclick="route(\''+jq(x.id)+'\',\''+jq(D)+'\')">'+I("pin",16)+'</button>':"")+'<span class="chip c'+(X.length?1:0)+'">'+(X.length?"Active":"No work yet")+'</span></div>'
+   +'<div class="sub">Work done</div>'+(vs||'<div class="mu" style="text-align:left;padding:4px 0">Nothing added</div>')
+   +(P.length?'<div class="sub">Work plan</div>'+P.map(function(i2){return prow(D,i2,{u:x.id})}).join(""):"")+'</div>'}).join("");
+ var fe=[];for(k in S.days){q=S.days[k];u=S.users[q.u];var nm=esc(u?u.n:"?");(q.v||[]).forEach(function(v){fe.push({d:q.d,t:v.t||"",ic:"store",a:nm+" visited "+esc(v.c)+tgk(v.k),b:vd(v),g:gl(v.g)+pl(v)})});wl(q).forEach(function(w){var tt=wtg(w.ty,w.tn)[0];fe.push({d:q.d,t:w.t||"",ic:wtg(w.ty,w.tn)[1],a:nm+" · "+esc(tt)+(nn(w.c)!=nn(tt)?" · "+esc(w.c):""),b:w.n||"",g:gl(w.g)+wpl(w)})})}
  fe.sort(function(x,y){return x.d+x.t<y.d+y.t?1:-1});
- var feed=fe.slice(0,10).map(function(e){return ev("store",e.a,sl(e.d)+(e.b?" · "+e.b:""),e.t,gl(e.g)+(e.p||""))}).join("")||'<div class="mu">No activity yet</div>';
+ var feed=fe.slice(0,10).map(function(e){return ev(e.ic,e.a,sl(e.d)+(e.b?" · "+e.b:""),e.t,e.g)}).join("")||'<div class="mu">No activity yet</div>';
  var nc=Object.keys(S.cl).sort().reverse().slice(0,5).map(function(c){c=S.cl[c];return'<div class="ev"><i>'+I("store",16)+'</i><div><b>'+esc(c.n)+tgk(c.k)+'</b><small>'+esc((c.p||"")+(c.pa?" · "+c.pa:""))+'</small></div></div>'}).join("")||'<div class="mu">No clients yet</div>';
- var vs=vstat(a,b),G="var(--g)",rng=a==b?sl(a):sl(a)+' – '+sl(b);
+ var ps=pst(a,b),vs2=vstat(a,b),G="var(--g)",rng=a==b?sl(a):sl(a)+' – '+sl(b);
  return hd("Admin dashboard",new Date().toDateString())+'<div class="bd"><div class="cd"><div class="mn"><button aria-label="Previous day" onclick="setAD(-1)">'+I("chev")+'</button><b>'+(D==T?"Today · ":"")+sl(D)+'</b><button aria-label="Next day" onclick="setAD(1)">'+I("chev2")+'</button></div><div class="seg">'+[["d","Day"],["w","7 days"],["m","Month"]].map(function(x){return'<button class="'+(AP==x[0]?"on":"")+'" onclick="AP=\''+x[0]+'\';render()">'+x[1]+'</button>'}).join("")+'</div><div class="mu" style="padding:10px 0 0">Showing '+rng+(D!=T?' · <a href="#" onclick="setAD(0);return false">Back to today</a>':"")+'</div></div>'
- +'<div class="kp">'+kc("users",G,"",AP=="d"?act+"/"+us.length:all.d,AP=="d"?(D==T?"Active today":"Active that day"):"Active days")+kc("case",G,"",all.v,"Visits")+kc("plus",G,"",all.n,"New clients")+kc("check",G,"",all.o,"Old client visits")+kc("pin",G,"",vs.ok+"/"+all.v,"Visits at the shop")+kc("bell",G,"",vs.bad,"Flagged visits").replace('class="k"','class="k'+(vs.bad?" bad":"")+'"')+'</div>'
+ +'<div class="kp">'+kc("users",G,"",AP=="d"?act+"/"+us.length:all.d,AP=="d"?(D==T?"Active today":"Active that day"):"Active days")+kc("case",G,"",all.v+all.w,"Work entries")+kc("store",G,"",all.v,"Client visits")+kc("plus",G,"",all.n,"New clients")+kc("coffee",G,"",all.w,"Other work")+kc("cal",G,"",ps.d+"/"+ps.t,"Plan items done")+kc("pin",G,"",vs2.ok+"/"+all.v,"Visits at the shop")+kc("bell",G,"",vs2.bad,"Flagged visits").replace('class="k"','class="k'+(vs2.bad?" bad":"")+'"')+'</div>'
  +alh
  +'<div class="sec">Team performance <small>'+rng+'</small></div>'+tr
- +'<div class="cd"><h3>Visits – last 7 days</h3><div class="col">'+col+'</div><div class="lgd"><span><i style="background:var(--bl)"></i>New</span><span><i style="background:var(--ac)"></i>Old</span></div></div>'
- +'<div class="cd"><h3>Visit reasons</h3>'+bars(tally(rs))+'</div><div class="cd"><h3>1st payment agreements (new clients)</h3>'+bars(tally(pay))+'</div>'
+ +'<div class="cd"><h3>Work – last 7 days</h3><div class="col">'+col+'</div><div class="lgd"><span><i style="background:var(--bl)"></i>New client</span><span><i style="background:var(--ac)"></i>Old client</span><span><i style="background:var(--wn)"></i>Other work</span></div></div>'
+ +'<div class="cd"><h3>Other work by type</h3>'+bars(tally(tw))+'</div><div class="cd"><h3>Visit reasons</h3>'+bars(tally(rs))+'</div><div class="cd"><h3>1st payment agreements (new clients)</h3>'+bars(tally(pay))+'</div>'
  +'<div class="sec">Team status <small>'+sl(D)+'</small></div>'+rows
- +'<div class="cd"><h3>Latest clients <a href="#" onclick="go(\'cl\');return false">View all</a></h3>'+nc+'</div><div class="cd"><h3>Recent visits <a href="#" onclick="go(\'rep\');return false">Reports</a></h3>'+feed+'</div></div>'}
+ +'<div class="cd"><h3>Latest clients <a href="#" onclick="go(\'cl\');return false">View all</a></h3>'+nc+'</div><div class="cd"><h3>Recent activity <a href="#" onclick="go(\'rep\');return false">Reports</a></h3>'+feed+'</div></div>'}
 function lst(){var L=[],o=isA()?RF.o:U;for(var k in S.days){var r=S.days[k];if(o&&r.u!=o)continue;if(r.d<RF.a||r.d>RF.b)continue;L.push(r)}return L.sort(function(a,b){return a.d<b.d?1:-1})}
-function cp(){var t="WINDMILL CAFE – VISIT REPORT\n"+RF.a+" to "+RF.b+"\n";lst().forEach(function(x){if(!(x.v||[]).length)return;var u=S.users[x.u];t+="\n"+x.d+" | "+(u?u.n:"?")+" | "+x.v.length+(x.v.length==1?" visit":" visits")+"\n";x.v.forEach(function(v){t+="  - "+v.c+" ("+v.k+") "+(v.t||"")+": "+vd(v)+"\n"})});
- try{navigator.clipboard.writeText(t).then(function(){toast("Copied")},function(){prompt("Copy:",t)})}catch(e){prompt("Copy:",t)}}
-function delDay(k){cfm("Delete this record?",function(){var r0=S.days[k];if(r0)(r0.v||[]).forEach(function(v){if(v.ps)for(var t in v.ps)phDrop(v.ps[t])});delete S.days[k];sv("days/"+k,null);render()})}
+function delDay(k){cfm("Delete this record?",function(){var r0=S.days[k];if(r0)(r0.v||[]).concat(wl(r0)).forEach(function(v){if(v.ps)for(var t in v.ps)phDrop(v.ps[t])});delete S.days[k];sv("days/"+k,null);render()})}
 function sheet(h){$("sh").innerHTML='<div class="bk" onclick="cs()"></div><div class="pn"><div class="hdl"></div>'+h+'</div>';$("sh").className="sh open"}
 var RS=["Payment collection","Order taking","Product demo","Complaint / issue","Follow-up","Relationship visit","Other"],PA=["Cash","Card","Bank transfer"];
 function opt(a){return a.map(function(x){return'<option>'+x+'</option>'}).join("")}
-function visit(){PHT={};
- sheet('<h3>Add client visit</h3><label>Client type</label><select id="vk" onchange="vform()"><option value="New">New client</option><option value="Old">Old client</option></select><div id="vf"></div><div id="vph"></div><div id="vgs" class="mu" style="text-align:left;padding:10px 0 0;display:flex;gap:6px;align-items:center"></div><button class="btn" onclick="saveV()">Save visit</button>');vform();phUI();vloc()}
-function vform(){var k=$("vk").value,h="",ks=Object.keys(S.cl);
- if(k=="New")h='<label>Client name</label><input id="vc" placeholder="Shop / client name"><label>Mobile number</label><input id="vp" type="tel" inputmode="tel" placeholder="07X XXX XXXX"><label>1st payment agreement</label><select id="vq">'+opt(PA)+'</select>';
- else h=(ks.length?'<label>Client</label><input id="vs" type="search" autocomplete="off" placeholder="Search by name or phone" oninput="vfl()" style="margin-bottom:8px"><select id="vc">'+vopts("")+'</select>':'<div class="mu">No clients yet. Choose "New client" for the first visit.</div>')+'<label>Reason for visit</label><select id="vr">'+opt(RS)+'</select>';
- $("vf").innerHTML=h+'<label>Comments</label><textarea id="vn" rows="3" placeholder="Any other notes..."></textarea>';phUI()}
-function saveV(){var k=$("vk").value,c=$("vc")?$("vc").value.trim().replace(/\s+/g," "):"";if(!c){toast(k=="New"?"Enter the client name":"Select a client");return}
- var v={c:c,k:k,n:$("vn").value.trim(),t:tm()},ph="";
- if(k=="New"){ph=$("vp").value.trim();if(!ph){toast("Enter the mobile number");return}
-  var d=dupC(c,ph);if(d){toast(d.w=="phone"?"This phone number already belongs to "+d.c.n+". Choose Old client":"This client already exists. Choose Old client");return}
-  v.ph=ph;v.pa=$("vq").value}
- else v.rs=$("vr").value;
- if(k=="New"&&S.cfg.ph!==0&&!PHT.s){toast("Take a shop photo to save a new client");return}
- var Td=ds(new Date()),r=rec(U,Td);if(GB)return;GB=1;
- (VG&&Date.now()-VGT<60000?function(f){f(VG)}:function(f){gps(f,1)})(function(g){GB=0;if(!g){toast("Location is required to save a visit. Turn on location and try again");return}
-  v.g=g;v.ts=Date.now();if(k=="New"){var id="c"+Date.now();S.cl[id]={id:id,n:c,p:ph,k:"New",pa:v.pa,cm:v.n,g:g};sv("cl/"+id,S.cl[id]);v.ci=id;v.pin=1}
-  else{var cc=clByName(c);if(cc){v.ci=cc.id;if(!okg(cc.g)){cc.g=g;sv("cl/"+cc.id,cc);v.pin=1}}}
-  var ps=savePh();if(ps)v.ps=ps;
-  if(!r)r=S.days[U+"_"+Td]=S.days[U+"_"+Td]||{u:U,d:Td,v:[]};r.v=r.v||[];r.v.push(v);sv("days/"+r.u+"_"+r.d,r);cs();toast(g?"Visit saved":"Visit saved · no GPS");render()})}
 function vd(v){var a=[];if(v.ph)a.push("Mobile: "+v.ph);if(v.pa)a.push("Payment: "+v.pa);if(v.rs)a.push("Reason: "+v.rs);if(v.n)a.push(v.n);return a.join(" · ")}
 function delCl(id){cfm("Delete this client?",function(){delete S.cl[id];sv("cl/"+id,null);render()})}
-function ofSheet(id){var u=id?S.users[id]:{n:"",u:"",pin:""};sheet('<h3>'+(id?"Edit sales manager":"Add sales manager")+'</h3><label>Full name</label><input id="on" value="'+esc(u.n)+'"><label>Username</label><input id="ou" autocapitalize="none" value="'+esc(u.u)+'"><label>PIN / Password</label><input id="op" value="'+esc(u.pin)+'"><button class="btn" onclick="saveOf(\''+jq(id||"")+'\')">Save</button>')}
-function saveOf(id){var n=$("on").value.trim(),u=$("ou").value.trim(),q=$("op").value.trim();if(!n||!u||!q){toast("Please fill in all fields");return}
- for(var k in S.users)if(k!=id&&S.users[k].u.toLowerCase()==u.toLowerCase()){toast("Username is already taken");return}
- id=id||"u"+Date.now();S.users[id]={id:id,n:n,u:u,pin:q,r:"o"};sv("users/"+id,S.users[id]);cs();render()}
-function delOf(id){cfm("Delete this sales manager? Their records will remain.",function(){delete S.users[id];sv("users/"+id,null);render()})}
+function ofSheet(id){var u=id?S.users[id]:{n:"",u:""},sec=!!S.cfg.sec,t=u.tg||{};
+ sheet('<h3>'+(id?"Edit sales manager":"Add sales manager")+'</h3><label>Full name</label><input id="on" value="'+esc(u.n)+'"><label>Username</label><input id="ou" autocapitalize="none" value="'+esc(u.u)+'">'
+ +'<label>'+(sec?(id?"New password (leave empty to keep the current one)":"Password (at least 6 characters)"):"PIN / Password")+'</label><input id="op" autocomplete="off" value="'+(sec?(id?"":rpw()):esc(u.pin||""))+'">'
+ +'<div class="two"><div><label>Monthly target · client visits</label><input id="otv" type="number" inputmode="numeric" min="0" placeholder="None" value="'+(+t.v||"")+'"></div><div><label>Monthly target · new clients</label><input id="otn" type="number" inputmode="numeric" min="0" placeholder="None" value="'+(+t.n||"")+'"></div></div>'
+ +'<button class="btn" id="osv" onclick="saveOf(\''+jq(id||"")+'\')">Save</button>')}
+function saveOf(id){var n=$("on").value.trim(),u=$("ou").value.trim(),q=$("op").value.trim(),sec=!!S.cfg.sec,tv=Math.max(0,parseInt($("otv").value,10)||0),tn=Math.max(0,parseInt($("otn").value,10)||0);
+ if(!n||!u){toast("Enter the name and username");return}
+ if(!sec&&!q){toast("Enter a PIN / password");return}
+ if(sec&&(q||!id)&&q.length<6){toast("Password needs at least 6 characters");return}
+ for(var k in S.users)if(k!=id&&S.users[k]&&lkey(S.users[k].u)==lkey(u)){toast("Username is already taken");return}
+ var old=id?S.users[id]:null;id=id||"u"+Date.now();var x={id:id,n:n,u:u,r:"o"};if(tv||tn)x.tg={v:tv,n:tn};
+ if(!sec){x.pin=q;S.users[id]=x;sv("users/"+id,x);cs();render();return}
+ if(old){if(old.uid)x.uid=old.uid;if(old.em)x.em=old.em}
+ var b=$("osv");b.disabled=true;b.textContent="Saving…";
+ var p=q?mkAcct(x,q,old):(old&&old.em&&lkey(old.u)!=lkey(u)?lkMove(old,x):Promise.resolve());
+ p.then(function(){return cfw("users/"+id,x)}).then(function(){S.users[id]=x;try{localStorage.setItem("wm3",JSON.stringify(S))}catch(e){}
+  if(q){var t2="Windmill Cafe app login\nUsername: "+u+"\nPassword: "+q+(appLink()?"\nLink: "+appLink():"");sheet('<h3>Login saved</h3><div class="stp">Share this with <b>'+esc(n)+'</b>:<br>Username <b>'+esc(u)+'</b> · Password <b>'+esc(q)+'</b></div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(t2)+'">'+I("wa",16)+'Share on WhatsApp</a><button class="btn s" onclick="cs()">Done</button>')}else{cs();toast("Saved")}render()})
+ .catch(function(e){b.disabled=false;b.textContent="Save";toast(e.message||"Could not save")})}
+function delOf(id){cfm("Remove this sales manager? Their login stops working. Their records stay.",function(){var u=S.users[id],p=Promise.resolve();
+ if(S.cfg.sec&&u){if(u.uid)p=p.then(function(){return cfw("acl/"+u.uid,null)});p=p.then(function(){return cfw("lk/"+lkey(u.u),null)})}
+ p.then(function(){delete S.users[id];sv("users/"+id,null);render()}).catch(function(e){toast(e.message||"Could not remove")})})}
 function pinSheet(){var a=me();sheet('<h3>Admin login</h3><label>Username</label><input id="au" autocapitalize="none" value="'+esc(a.u)+'"><label>New PIN / Password</label><input id="ap" value="'+esc(a.pin)+'"><button class="btn" onclick="savePin()">Save</button>')}
 function savePin(){var u=$("au").value.trim(),q=$("ap").value.trim();if(!u||!q){toast("Fill both");return}for(var k in S.users)if(k!=U&&S.users[k].u.toLowerCase()==u.toLowerCase()){toast("Username is already taken");return}
  me().u=u;me().pin=q;sv("users/"+U,me());cs();toast("Updated");render()}
-render();live();
 
 var SPT=Date.now(),SPI=setInterval(function(){var e=document.getElementById("spl"),t=Date.now()-SPT;if(!e){clearInterval(SPI);return}
-var cached=!!(U&&S.users[U]),ready=t>900&&(GOT||!CLOUD||(cached&&t>1400)||t>3500),b=document.getElementById("splb"),m=document.getElementById("spls"),
+var cached=!!(U&&S.users[U]),ready=t>900&&(GOT||!CLOUD||(!U&&secOn())||(cached&&t>1400)||t>3500),b=document.getElementById("splb"),m=document.getElementById("spls"),
 pr=ready?100:Math.min(92,Math.round(92*(1-Math.exp(-t/1300))));if(GOT&&!ready)pr=Math.max(pr,85);
 if(b)b.style.width=pr+"%";
 if(m)m.textContent=ready?"Ready":!navigator.onLine?"Offline · using saved data":t<700?"Starting up…":!GOT&&t<1800?"Connecting…":GOT?"Almost ready…":"Syncing your data…";
@@ -477,45 +513,45 @@ if(ready){e.className="out";clearInterval(SPI);setTimeout(function(){if(e.parent
 document.addEventListener("visibilitychange",function(){if(!document.hidden&&(!ES||ES.readyState===2))live()});
 if("serviceWorker" in navigator&&/^https?:/.test(location.protocol))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
 
-/* ===== Visit plan (managers plan this week / next week) ===== */
-var PW=1;
+/* ===== Daily work plan: managers plan their day, check in with GPS, admin checks it ===== */
+var PW=0;
+var WT={};
 function wk(o){var d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)+7*o);var a=[],i;for(i=0;i<7;i++){a.push(ds(d));d.setDate(d.getDate()+1)}return a}
 function dl(x){return new Date(x+"T12:00:00").toLocaleDateString("en",{weekday:"short",day:"numeric",month:"short"})}
-function pk(d){return U+"_"+d}
-function pitems(d){var x=S.plans&&S.plans[pk(d)];return x&&x.i?x.i:[]}
-function psave(d,L){var k=pk(d);if(!S.plans)S.plans={};if(L.length){S.plans[k]={u:U,d:d,i:L};sv("plans/"+k,S.plans[k])}else{delete S.plans[k];sv("plans/"+k,null)}}
-function pdone(d,it){var r=rec(U,d);return!!(r&&(r.v||[]).some(function(v){return nn(v.c)==nn(it.c)}))}
-function prow(d,it,del){var dn=pdone(d,it),T=ds(new Date()),ms=d<T&&!dn;
- return'<div class="ev"><i>'+I(dn?"check":"store",18)+'</i><div><b>'+esc(it.c)+'<span class="tag '+(it.k=="New"?"New":"Old")+'">'+(it.k=="New"?"New":"Old")+'</span></b><small>'+esc(it.r||"")+(it.n?" · "+esc(it.n):"")+'</small>'+(del?'<button onclick="pdel(\''+jq(d)+'\',\''+jq(it.id)+'\')" style="background:none;border:0;color:var(--rd);font:inherit;font-size:12px;padding:6px 0 0;cursor:pointer">Remove</button>':"")+'</div><span'+(dn?' style="color:var(--ok);font-weight:600"':ms?' style="color:var(--rd);font-weight:600"':"")+'>'+(dn?"Done":ms?"Missed":(it.t?fmt(it.t):""))+'</span></div>'}
-function plCard(){var T=ds(new Date()),L=pitems(T),n=0,x=0;L.forEach(function(i){if(pdone(T,i))n++});wk(1).forEach(function(d){x+=pitems(d).length});
- return'<div class="cd"><h3>Today\'s plan <span style="font-size:12px;color:var(--mu);font-weight:500">'+n+'/'+L.length+' done</span></h3>'+(L.length?L.map(function(i){return prow(T,i,0)}).join(""):'<div class="mu">No visits planned for today</div>')+'<div class="two" style="margin-top:10px"><button class="btn s" onclick="PW=0;go(\'pl\')">This week</button><button class="btn" onclick="PW=1;go(\'pl\')">Plan next week'+(x?' ('+x+')':'')+'</button></div></div>'}
+function pk(d,u){return(u||U)+"_"+d}
+function pitems(d,u){var x=S.plans&&S.plans[pk(d,u)];if(!x||!x.i)return[];return Array.isArray(x.i)?x.i.filter(Boolean):Object.keys(x.i).map(function(k){return x.i[k]})}
+function psave(d,L,u){u=u||U;var k=u+"_"+d;if(!S.plans)S.plans={};if(L.length){S.plans[k]={u:u,d:d,i:L};sv("plans/"+k,S.plans[k])}else{delete S.plans[k];sv("plans/"+k,null)}}
+function ity(it){return it.ty||"cv"}
+function pvis(d,it,u){var r=rec(u||U,d),i;if(!r)return null;i=(r.v||[]).findIndex(function(v){return nn(v.c)==nn(it.c)});return i<0?null:{r:r,i:i}}
+function brByName(n){n=nn(n);for(var i in S.br||{})if(S.br[i]&&nn(S.br[i].n)==n)return S.br[i];return null}
+function pst(a,b,u){var o={t:0,d:0};for(var k in S.plans||{}){var p=S.plans[k];if(!p||p.d<a||p.d>b||(u&&p.u!=u))continue;pitems(p.d,p.u).forEach(function(i){o.t++;if(pdone(p.d,i,p.u))o.d++})}return o}
+function plCard(){var T=ds(new Date()),L=pitems(T),n=0;L.forEach(function(i){if(pdone(T,i))n++});
+ return'<div class="cd"><h3>Today\'s work plan <span class="hm">'+n+'/'+L.length+' done</span></h3>'+(L.length?L.map(function(i){return prow(T,i,{act:1})}).join(""):'<div class="mu">Nothing planned yet. Add where you will go today, for example a branch visit or client visits.</div>')
+ +'<div class="two" style="margin-top:10px"><button class="btn s" onclick="padd(\''+T+'\')">'+I("plus",16)+'Add to today</button><button class="btn s" onclick="PW=0;go(\'pl\')">'+I("cal",16)+'Week plan</button></div></div>'}
 VW.pl=function(){var D=wk(PW),T=ds(new Date()),tot=0,dn=0;
  var days=D.map(function(d){var L=pitems(d);tot+=L.length;L.forEach(function(i){if(pdone(d,i))dn++});
-  return'<div class="cd"><h3>'+dl(d)+(d==T?' <span class="tag New">Today</span>':'')+' <span style="font-size:12px;color:var(--mu);font-weight:500">'+(L.length?L.length+" planned":"")+'</span></h3>'+(L.length?L.map(function(i){return prow(d,i,d>=T)}).join(""):'<div class="mu" style="padding:4px 0 10px">Nothing planned</div>')+(d>=T?'<button class="btn s" onclick="padd(\''+d+'\')">'+I("plus",16)+'Add visit</button>':"")+'</div>'}).join("");
- return hd("Visit Plan",dl(D[0])+" – "+dl(D[6]))+'<div class="bd"><div class="two" style="margin-bottom:12px"><button class="btn'+(PW?" s":"")+'" onclick="PW=0;render()">This week</button><button class="btn'+(PW?"":" s")+'" onclick="PW=1;render()">Next week</button></div><div class="mu" style="padding:0 0 10px">'+tot+' visits planned'+(dn?' · '+dn+' done':'')+'</div>'+days+'</div>'};
-function padd(d){var ks=Object.keys(S.cl).map(function(i){return S.cl[i]}).sort(function(a,b){return a.n.localeCompare(b.n)});
- sheet('<h3>Plan visit · '+dl(d)+'</h3><label>Client</label><select id="pc" onchange="pcs()"><option value="">New prospect (type the name)</option>'+ks.map(function(c){return'<option value="'+esc(c.n)+'">'+esc(c.n)+'</option>'}).join("")+'</select><div id="pn0"><input id="pnm" placeholder="Shop / prospect name" style="margin-top:8px"></div><label>Purpose</label><select id="pr">'+opt(RS)+'</select><label>Time (optional)</label><input id="pt" type="time"><label>Note</label><textarea id="pno" rows="2" placeholder="Anything to remember..."></textarea><button class="btn" onclick="padd2(\''+d+'\')">Add to plan</button>')}
-function pcs(){$("pn0").style.display=$("pc").value?"none":"block"}
-function padd2(d){var c=$("pc").value,nm=c||$("pnm").value.trim().replace(/\s+/g," ");if(!nm){toast("Enter the client name");return}
- var L=pitems(d).slice();if(L.some(function(i){return nn(i.c)==nn(nm)})){toast("Already in this day's plan");return}
- L.push({id:"p"+Date.now(),c:nm,k:c?"Old":"New",r:$("pr").value,t:$("pt").value,n:$("pno").value.trim()});
- L.sort(function(a,b){return(a.t||"99:99")<(b.t||"99:99")?-1:(a.t||"99:99")>(b.t||"99:99")?1:0});
- psave(d,L);cs();toast("Added to plan");render()}
-function pdel(d,id){cfm("Remove this visit from the plan?",function(){psave(d,pitems(d).filter(function(i){return i.id!=id}));render()})}
-
+  return'<div class="cd"><h3><span>'+esc(dl(d))+(d==T?'<span class="tag New">Today</span>':'')+'</span><span class="hm">'+(L.length?L.length+" planned":"")+'</span></h3>'+(L.length?L.map(function(i){return prow(d,i,{act:1,del:d>=T})}).join(""):'<div class="mu" style="padding:4px 0 10px">Nothing planned</div>')+(d>=T?'<button class="btn s" onclick="padd(\''+d+'\')">'+I("plus",16)+'Add to plan</button>':"")+'</div>'}).join("");
+ return hd("Work plan",dl(D[0])+" – "+dl(D[6]))+'<div class="bd"><div class="cd" style="padding:10px"><div class="seg" style="grid-template-columns:1fr 1fr"><button class="'+(PW?"":"on")+'" onclick="PW=0;render()">This week</button><button class="'+(PW?"on":"")+'" onclick="PW=1;render()">Next week</button></div><div class="mu" style="padding:10px 0 2px">'+tot+' planned · '+dn+' done</div></div>'+days+'</div>'};
+function pdel(d,id){cfm("Remove this from the plan?",function(){psave(d,pitems(d).filter(function(i){return i.id!=id}));render()})}
+/* branches (admin) */
+function brCard(){var bs=Object.keys(S.br||{}).map(function(k){return S.br[k]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)});
+ return'<div class="cd"><h3>Branches <span class="hm">'+bs.length+'</span></h3>'+(bs.map(function(b){return'<div class="ev"><i>'+I("home",16)+'</i><div><b>'+esc(b.n)+'</b><small>'+(okg(b.g)?'Branch pin saved'+gl(b.g):'No pin yet · saved on the first check-in')+'</small></div>'+(okg(b.g)?'<button class="sm" aria-label="Reset branch pin" onclick="brReset(\''+jq(b.id)+'\')">'+I("pin",15)+'</button>':"")+'<button class="sm dg" aria-label="Delete branch" onclick="brDel(\''+jq(b.id)+'\')">'+I("trash",15)+'</button></div>'}).join("")||'<div class="mu">No branches yet. They appear here when a manager plans a branch visit.</div>')
+ +'<button class="btn s" onclick="brAdd()">'+I("plus",16)+'Add branch</button></div>'}
+function brAdd(){sheet('<h3>Add branch</h3><label>Branch name</label><input id="bn" placeholder="e.g. Jimi Branch"><div class="mu" style="text-align:left;padding:10px 0 0">The branch location is saved automatically the first time a manager checks in there.</div><button class="btn" onclick="brAdd2()">Save</button>')}
+function brAdd2(){var n=$("bn").value.trim().replace(/\s+/g," ");if(!n){toast("Enter the branch name");return}if(brByName(n)){toast("This branch already exists");return}var id="b"+Date.now();S.br[id]={id:id,n:n};sv("br/"+id,S.br[id]);cs();toast("Branch added");render()}
+function brReset(id){cfm("Reset this branch pin? It is saved again on the next check-in.",function(){var b=S.br[id];if(!b)return;delete b.g;sv("br/"+id,b);render()})}
+function brDel(id){cfm("Delete this branch? Past check-ins stay in the plans.",function(){delete S.br[id];sv("br/"+id,null);render()})}
+/* work plan CSV */
+function dlcsv(R,name){var t="﻿"+R.map(function(a){return a.map(cq).join(",")}).join("\r\n"),a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download=name+RF.a+"_to_"+RF.b+".csv";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);toast("Report downloaded")}
 /* ===== Reports: CSV download + admin delete tools ===== */
 function cq(x){x=String(x==null?"":x);if(/^[=@]|^[+\-][^0-9]/.test(x))x="'"+x;return'"'+x.replace(/"/g,'""')+'"'}
 function ckt(f){if(!f)return"";if(f.nog)return"No GPS";var a=[];if(f.far)a.push("Far from shop");else if(isFinite(f.d))a.push("At the shop");else if(f.pin)a.push("Shop pin saved");if(f.same)a.push("Same spot as another client");if(f.fast)a.push("Too fast");if(f.weak)a.push("Weak GPS");return a.join("; ")}
-function csvDl(){var A=isA(),R=[["Date","Sales manager","Client","Client type","Visit time","Mobile","Payment","Reason","Notes","Latitude","Longitude","GPS accuracy (m)"].concat(A?["Distance to shop (m)","GPS check"]:[])];
- lst().slice().reverse().forEach(function(r){var u=S.users[r.u],F=A?dfl(r):[];(r.v||[]).forEach(function(v,i){var f=F[i]||{},g=v.g||{},row=[r.d,u?u.n:"?",v.c,v.k,v.t||"",v.ph||"",v.pa||"",v.rs||"",v.n||"",g.la!=null?g.la:"",g.ln!=null?g.ln:"",g.ac!=null?g.ac:""];if(A)row.push(isFinite(f.d)?Math.round(f.d):"",ckt(f));R.push(row)})});
- if(R.length<2){toast("No visits in this range");return}
- var t="﻿"+R.map(function(a){return a.map(cq).join(",")}).join("\r\n"),a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download="windmill-visits_"+RF.a+"_to_"+RF.b+".csv";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);toast("Report downloaded")}
 function dropVP(v){if(v&&v.ps)for(var t in v.ps)phDrop(v.ps[t])}
 function delVis(k,i){if(!isA())return;cfm("Delete this visit?",function(){var r=S.days[k];if(!r||!r.v||!r.v[i])return;dropVP(r.v[i]);r.v.splice(i,1);sv("days/"+k,r);render()})}
 function delRange(){if(!isA())return;var L=lst();if(!L.length){toast("No records in this range");return}
- cfm("Delete "+L.length+" record"+(L.length>1?"s":"")+" ("+RF.a+" to "+RF.b+") for "+(RF.o&&S.users[RF.o]?S.users[RF.o].n:"all sales managers")+", with their visits, photos and plans?",function(){L.forEach(function(r){var k=r.u+"_"+r.d;(r.v||[]).forEach(dropVP);delete S.days[k];sv("days/"+k,null);if(S.plans&&S.plans[k]){delete S.plans[k];sv("plans/"+k,null)}});render();toast("Deleted")})}
-function delAll(){if(!isA())return;cfm("Delete ALL attendance records, visits, photos, clients and plans? Sales managers and settings stay.",function(){cfm("This cannot be undone. Delete everything?",function(){for(var k in S.days)(S.days[k].v||[]).forEach(dropVP);S.days={};S.cl={};S.plans={};sv("days",{});sv("cl",{});sv("plans",{});sv("zph",null);render();toast("All data deleted")})})}
+ cfm("Delete "+L.length+" record"+(L.length>1?"s":"")+" ("+RF.a+" to "+RF.b+") for "+(RF.o&&S.users[RF.o]?S.users[RF.o].n:"all sales managers")+", with their visits, photos and plans?",function(){L.forEach(function(r){var k=r.u+"_"+r.d;(r.v||[]).concat(wl(r)).forEach(dropVP);delete S.days[k];sv("days/"+k,null);if(S.plans&&S.plans[k]){delete S.plans[k];sv("plans/"+k,null)}if(S.rp&&S.rp[k]){delete S.rp[k];sv("rp/"+k,null)}});render();toast("Deleted")})}
+function delAll(){if(!isA())return;cfm("Delete ALL visits, photos, clients, work plans and daily reports? Sales managers and settings stay.",function(){cfm("This cannot be undone. Delete everything?",function(){for(var k in S.days)(S.days[k].v||[]).concat(wl(S.days[k])).forEach(dropVP);S.days={};S.cl={};S.plans={};S.rp={};sv("days",{});sv("cl",{});sv("rp",{});sv("plans",{});sv("zph",null);render();toast("All data deleted")})})}
 
 /* ===== v11: safer output helpers ===== */
 function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
@@ -559,29 +595,238 @@ function vstat(a,b){var o={ok:0,bad:0},k,q;for(k in S.days){q=S.days[k];if(q.d<a
 var LFP=null;
 function lfl(){if(window.L)return Promise.resolve(1);if(LFP)return LFP;LFP=new Promise(function(res){var c=document.createElement("link");c.rel="stylesheet";c.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";c.integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=";c.crossOrigin="";document.head.appendChild(c);
  var s=document.createElement("script");s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";s.crossOrigin="";s.onload=function(){res(1)};s.onerror=function(){LFP=null;res(0)};document.head.appendChild(s)});return LFP}
-function route(u,d){var r=rec(u,d),us=S.users[u];if(!r){toast("No record for this day");return}
- var V=r.v||[],F=dfl(r),pts=[],ord=V.map(function(v,i){return i}).sort(function(a,b){return String(V[a].t||"").localeCompare(String(V[b].t||""))});
- ord.forEach(function(i,n){if(okg(V[i].g))pts.push({g:V[i].g,l:String(n+1),t:V[i].t,c:V[i].c,f:F[i],v:V[i]})});
- var list=ord.map(function(i,n){var v=V[i];return'<div class="ev"><i style="font-weight:700;font-size:12px">'+(n+1)+'</i><div><b>'+esc(v.c)+'<span class="tag '+(v.k=="New"?"New":"Old")+'">'+(v.k=="New"?"New":"Old")+'</span></b>'+vch(F[i])+'</div><span>'+fmt(v.t)+'</span></div>'}).join("");
+/* ===== Work log: one "Add work" for client visits, branch visits and any other job ===== */
+function wtR(){WT={cv:["Client visit","store"],nc:["New client visit","plus"],oc:["Old client visit","store"],br:["Branch visit","home"],dw:["Daily work","case"],rh:["Roasting help","coffee"],ws:["Work support","users"],sp:["Special work","edit"],mt:["Meeting","users"],dv:["Delivery","case"],of:["Office work","file"],ot:["Other","edit"]};(S.cfg.wt||[]).forEach(function(x){if(x&&x.id)WT[x.id]=[x.n,"file"]})}
+function wtg(ty,tn){return WT[ty]||[tn||"Other work","edit"]}
+function otypes(){return["dw","rh","ws","sp"].concat((S.cfg.wt||[]).filter(function(x){return x&&x.id}).map(function(x){return x.id}))}
+function wl(r){return(r&&r.w)||[]}
+function acts(r){var a=[];((r&&r.v)||[]).forEach(function(v,i){a.push({v:v,i:i})});wl(r).forEach(function(w,i){a.push({w:w,i:i})});return a.sort(function(x,y){var p1=(x.v||x.w).t||"",p2=(y.v||y.w).t||"";return p1<p2?-1:p1>p2?1:0})}
+function st(u,a,b){var d=0,v=0,n=0,x=0,w=0;for(var k in S.days){var r=S.days[k],L=r.v||[],W2=wl(r);if(u&&r.u!=u)continue;if(a&&r.d<a)continue;if(b&&r.d>b)continue;if(!L.length&&!W2.length)continue;d++;w+=W2.length;L.forEach(function(q){v++;q.k=="New"?n++:x++})}return{d:d,v:v,n:n,o:x,w:w}}
+function sg(s){return'<div class="sg"><div><b>'+s.d+'</b><span>Active days</span></div><div><b>'+s.v+'</b><span>Client visits</span></div><div><b style="color:var(--bl)">'+s.n+'</b><span>New clients</span></div><div><b style="color:var(--ac)">'+s.w+'</b><span>Other work</span></div></div>'}
+function wpl(w){return w.pd&&!w.ps?' <span class="ng">Photo removed</span>':w.ps&&w.ps.s?' <a class="gp" href="#" onclick="showPh(\''+jq(w.ps.s)+'\');return false">'+I("cam",13)+'Photo</a>':""}
+function wrow(w,r,del){var t=wtg(w.ty,w.tn);return ev(t[1],esc(w.c)+(nn(w.c)!=nn(t[0])?'<span class="tag Wk">'+esc(t[0])+'</span>':''),w.n||"",w.t,gl(w.g)+wpl(w)+(isA()?chk(w):"")+(del||""))}
+function evs(r){var A=acts(r);if(!A.length)return'<div class="mu">Nothing added</div>';return A.map(function(x){return x.v?ev("store",esc(x.v.c)+tgk(x.v.k),vd(x.v),x.v.t,gv(x.v,r)):wrow(x.w,r)}).join("")}
+/* branch distance checks (work entries and old plan check-ins) */
+function bdx(o){if(!o||o.ty!="br"||o.pin||!okg(o.g))return NaN;var b=brByName(o.c);return b&&okg(b.g)?hv(o.g,b.g):NaN}
+function chk(o){if(!okg(o.g))return'<span class="vr"><span class="vc r">No GPS</span></span>';var h="",d=bdx(o);if(o.ty=="br"){if(o.pin)h='<span class="vc n">'+I("pin",11)+'Branch pin saved</span>';else if(isFinite(d))h=d>DR()?'<span class="vc r">'+I("pin",11)+'Far from branch · '+dm(d)+'</span>':'<span class="vc g">'+I("check",11)+'At the branch · '+dm(d)+'</span>'}if(+o.g.ac>100)h+='<span class="vc w">Weak GPS</span>';return h?'<span class="vr">'+h+'</span>':""}
+function ctx(o){if(!o)return"";if(!okg(o.g))return"No GPS";var d=bdx(o),a=[];if(o.ty=="br"){if(o.pin)a.push("Branch pin saved");else if(isFinite(d))a.push(d>DR()?"Far from branch":"At the branch")}if(+o.g.ac>100)a.push("Weak GPS");return a.join("; ")}
+function ldn(it){return it.dn?{ty:ity(it),c:it.c,g:it.dn.g,pin:it.dn.pin}:null}
+function bdist(it){return bdx(ldn(it))}
+function wch(it){var o=ldn(it);return o?chk(o):""}
+function wtxt(it){return ctx(ldn(it))}
+
+/* the one form: Add work */
+function visit(pre){PHT={};pre=pre||{};wtR();var bs=Object.keys(S.br||{}).length;
+ var op=[["nc","New client visit"],["oc","Old client visit"],["br","Branch visit"]].concat(otypes().map(function(k){return[k,WT[k][0]]}));
+ sheet('<h3>Add work</h3><label>Type of work</label><select id="vk" onchange="vform()">'+op.map(function(x){return'<option value="'+esc(x[0])+'">'+esc(x[1])+'</option>'}).join("")+'</select><div id="vf"></div><div id="vph"></div><div id="vgs" class="mu" style="text-align:left;padding:10px 0 0;display:flex;gap:6px;align-items:center"></div><button class="btn" onclick="saveV()">Save</button>');
+ if(pre.ty&&op.some(function(x){return x[0]==pre.ty}))$("vk").value=pre.ty;else if(pre.ty)$("vk").value="dw";
+ vform(pre);vloc()}
+function vform(pre){pre=pre||{};var k=$("vk").value,h="",cli=k=="nc"||k=="oc",tn=wtg(k)[0];
+ if(k=="nc")h='<label>Client name</label><input id="vc" placeholder="Shop / client name" value="'+esc(pre.c||"")+'"><label>Mobile number</label><input id="vp" type="tel" inputmode="tel" placeholder="07X XXX XXXX"><label>1st payment agreement</label><select id="vq">'+opt(PA)+'</select>';
+ else if(k=="oc")h=(Object.keys(S.cl).length?'<label>Client</label><input id="vs" type="search" autocomplete="off" placeholder="Search by name or phone" oninput="vfl()" style="margin-bottom:8px"><select id="vc">'+vopts("")+'</select>':'<div class="mu">No clients yet. Choose “New client visit” for the first visit.</div>')+'<label>Reason for visit</label><select id="vr">'+opt(RS)+'</select>';
+ else if(k=="br")h='<label>Branch</label><select id="vb" onchange="$(\'vb0\').style.display=this.value?\'none\':\'block\'"><option value="">New branch (type the name)</option>'+Object.keys(S.br||{}).map(function(i){return S.br[i]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)}).map(function(b){return'<option value="'+esc(b.n)+'">'+esc(b.n)+'</option>'}).join("")+'</select><div id="vb0"><input id="vbn" placeholder="e.g. Jimi Branch" style="margin-top:8px"></div>';
+ else h='<label>Title / place (optional)</label><input id="vt" placeholder="e.g. '+(k=="rh"?"Main roastery":k=="ws"?"Helping at Jimi Branch":"Head office")+'" value="'+esc(pre.c&&nn(pre.c)!=nn(tn)?pre.c:"")+'">';
+ $("vf").innerHTML=h+'<label>'+(cli?"Comments":"What did you do? *")+'</label><textarea id="vn" rows="3" placeholder="'+(cli?"Any other notes...":"Describe the work you did")+'"></textarea>';
+ if(k=="oc"&&pre.c&&$("vc"))$("vc").value=pre.c;
+ if(k=="br"&&pre.c){var b=brByName(pre.c);if(b){$("vb").value=b.n;$("vb0").style.display="none"}else $("vbn").value=pre.c}
+ phUI()}
+function phUI(){var e=$("vph");if(!e)return;var k=$("vk")?$("vk").value:"nc",cli=k=="nc"||k=="oc",sl2=cli?[["s","Shop photo"],["i","Invoice photo"]]:[["s","Photo"]],h;if(!cli)delete PHT.i;
+ h='<label>'+(cli?"Photos":"Photo")+(k=="nc"&&S.cfg.ph!==0?' · shop photo required':' (optional)')+'</label><div class="two">';
+ sl2.forEach(function(x){var t=x[0];h+=PHT[t]?'<div class="pt"><img src="'+PHT[t]+'" alt=""><button type="button" class="px" aria-label="Remove photo" onclick="phDel(\''+t+'\')">'+I("x",14)+'</button><span>'+x[1]+'</span></div>':'<div><button type="button" class="btn s pa" onclick="$(\'pf_'+t+'\').click()">'+I("cam",22)+x[1]+'</button><input id="pf_'+t+'" type="file" accept="image/*" capture="environment" hidden onchange="phPick(this,\''+t+'\')"></div>'});e.innerHTML=h+'</div>'}
+function saveV(){var k=$("vk").value,cli=k=="nc"||k=="oc",Td=ds(new Date()),note=$("vn").value.trim(),v,ph="";
+ if(cli){var c=$("vc")?$("vc").value.trim().replace(/\s+/g," "):"";if(!c){toast(k=="nc"?"Enter the client name":"Select a client");return}
+  v={c:c,k:k=="nc"?"New":"Old",n:note,t:tm()};
+  if(k=="nc"){ph=$("vp").value.trim();if(!ph){toast("Enter the mobile number");return}
+   var d=dupC(c,ph);if(d){toast(d.w=="phone"?"This phone number already belongs to "+d.c.n+". Choose Old client visit":"This client already exists. Choose Old client visit");return}
+   v.ph=ph;v.pa=$("vq").value;if(S.cfg.ph!==0&&!PHT.s){toast("Take a shop photo to save a new client");return}}
+  else v.rs=$("vr").value}
+ else{if(note.length<3){toast("Write what you did");return}var tn=wtg(k)[0],c2;
+  if(k=="br"){c2=($("vb").value||$("vbn").value).trim().replace(/\s+/g," ");if(!c2){toast("Select or type the branch");return}}else c2=$("vt").value.trim().replace(/\s+/g," ")||tn;
+  v={ty:k,tn:tn,c:c2,n:note,t:tm()}}
+ if(GB)return;GB=1;
+ (VG&&Date.now()-VGT<60000?function(f){f(VG)}:function(f){gps(f,1)})(function(g){GB=0;if(!g){toast("Location is required to save. Turn on location and try again");return}
+  v.g=g;v.ts=Date.now();
+  if(cli){if(k=="nc"){var id="c"+Date.now();S.cl[id]={id:id,n:v.c,p:ph,k:"New",pa:v.pa,cm:v.n,g:g};sv("cl/"+id,S.cl[id]);v.ci=id;v.pin=1}
+   else{var cc=clByName(v.c);if(cc){v.ci=cc.id;if(!okg(cc.g)){cc.g=g;sv("cl/"+cc.id,cc);v.pin=1}}}}
+  else if(k=="br"){var b=brByName(v.c);if(!b){var bid="b"+Date.now();b=S.br[bid]={id:bid,n:v.c}}if(!okg(b.g)){b.g=g;v.pin=1}sv("br/"+b.id,b)}
+  var ps=savePh();if(ps)v.ps=ps;
+  var dk=U+"_"+Td,r=S.days[dk]=S.days[dk]||{u:U,d:Td,v:[]};if(cli){r.v=r.v||[];r.v.push(v)}else{r.w=r.w||[];r.w.push(v)}
+  sv("days/"+dk,r);cs();toast(cli?"Visit saved":"Work saved");render()})}
+function delWk(k,i){if(!isA())return;cfm("Delete this work entry?",function(){var r=S.days[k];if(!r||!r.w||!r.w[i])return;dropVP(r.w[i]);r.w.splice(i,1);sv("days/"+k,r);render()})}
+
+/* plan, now using the same work types */
+function pwork(d,it,u){var r=rec(u||U,d),tn=nn(wtg(it.ty,it.tn)[0]);return wl(r).filter(function(e){return e.ty==it.ty&&(nn(e.c)==nn(it.c)||nn(it.c)==tn)})[0]||null}
+function pdone(d,it,u){return ity(it)=="cv"?!!pvis(d,it,u):!!(it.dn||pwork(d,it,u))}
+function prow(d,it,o){o=o||{};var u=o.u||U,ty=ity(it),w=wtg(ty,it.tn),dn=pdone(d,it,u),T=ds(new Date()),ms=d<T&&!dn,x="",st2,acts2="";
+ var title=esc(it.c)+(ty=="cv"?tgk(it.k):(nn(it.c)!=nn(w[0])?'<span class="tag Wk">'+esc(w[0])+'</span>':'')),sub=[ty=="cv"?it.r:"",it.n].filter(Boolean).map(esc).join(" · ");
+ if(dn){if(ty=="cv"){var pv=pvis(d,it,u),v=pv.r.v[pv.i];st2="Done"+(v.t?" · "+fmt(v.t):"");x=gl(v.g)+(isA()?vch(dfl(pv.r)[pv.i]):"")}
+  else{var e=pwork(d,it,u)||{t:it.dn.t,g:it.dn.g,n:it.dn.n,ty:ty,c:it.c,pin:it.dn.pin};st2="Done · "+fmt(e.t);x=gl(e.g)+(isA()?chk(e):"")+(e.n?'<span class="pn2">“'+esc(e.n)+'”</span>':"")}}
+ else st2=ms?"Missed":(it.t?fmt(it.t):"Planned");
+ if(o.act&&!dn&&d==T)acts2='<button class="mini" onclick="pgo(\''+jq(it.id)+'\')">'+I("plus",14)+(ty=="cv"?"Log visit":"Log this work")+'</button>';
+ if(o.del&&!dn)acts2+='<button class="mini dg" onclick="pdel(\''+jq(d)+'\',\''+jq(it.id)+'\')">'+I("trash",14)+'Remove</button>';
+ return'<div class="ev"><i class="'+(dn?"okc":ms?"msc":"")+'">'+I(dn?"check":w[1],17)+'</i><div><b>'+title+'</b>'+(sub?'<small>'+sub+'</small>':"")+(x?'<small>'+x+'</small>':"")+(acts2?'<div class="pa2">'+acts2+'</div>':"")+'</div><span class="'+(dn?"sd":ms?"sx":"")+'">'+st2+'</span></div>'}
+function padd(d){wtR();sheet('<h3>Add to plan · '+esc(dl(d))+'</h3><label>Type of work</label><select id="pty" onchange="pform()">'+["cv","br"].concat(otypes()).map(function(k){return'<option value="'+esc(k)+'">'+esc(WT[k][0])+'</option>'}).join("")+'</select><div id="pf"></div><label>Time (optional)</label><input id="pt" type="time"><label>Note</label><textarea id="pno" rows="2" placeholder="Anything to remember..."></textarea><button class="btn" onclick="padd2(\''+jq(d)+'\')">Add to plan</button>');pform()}
+function pform(){var t=$("pty").value,h="",srt=function(a,b){return String(a.n).localeCompare(b.n)},vals=function(o){return Object.keys(o||{}).map(function(k){return o[k]}).filter(Boolean).sort(srt)},op=function(x){return'<option value="'+esc(x.n)+'">'+esc(x.n)+'</option>'};
+ if(t=="cv")h='<label>Client</label><select id="pc" onchange="pcs()"><option value="">New prospect (type the name)</option>'+vals(S.cl).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="Shop / prospect name" style="margin-top:8px"></div><label>Purpose</label><select id="pr">'+opt(RS)+'</select>';
+ else if(t=="br")h='<label>Branch</label><select id="pc" onchange="pcs()"><option value="">New branch (type the name)</option>'+vals(S.br).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="e.g. Jimi Branch" style="margin-top:8px"></div>';
+ else h='<label>Title / place (optional)</label><input id="pnm" placeholder="e.g. '+(t=="rh"?"Main roastery":"Head office")+'">';
+ $("pf").innerHTML=h}
+function pcs(){$("pn0").style.display=$("pc").value?"none":"block"}
+function padd2(d){var ty=$("pty").value,c=$("pc")?$("pc").value:"",nm=(c||($("pnm")?$("pnm").value:"")).trim().replace(/\s+/g," ");
+ if(!nm){if(ty=="cv"){toast("Enter the client name");return}if(ty=="br"){toast("Enter the branch name");return}nm=WT[ty][0]}
+ var L=pitems(d).slice();if(L.some(function(i){return ity(i)==ty&&nn(i.c)==nn(nm)})){toast("Already in this day's plan");return}
+ var it={id:"p"+Date.now(),ty:ty,tn:WT[ty][0],c:nm,t:$("pt").value,n:$("pno").value.trim()};if(ty=="cv"){it.k=c?"Old":"New";it.r=$("pr").value}
+ if(ty=="br"&&!brByName(nm)){var bid="b"+Date.now();S.br[bid]={id:bid,n:nm};sv("br/"+bid,S.br[bid])}
+ L.push(it);L.sort(function(a,b){return(a.t||"99:99")<(b.t||"99:99")?-1:(a.t||"99:99")>(b.t||"99:99")?1:0});
+ psave(d,L);cs();toast("Added to plan");render()}
+function pgo(id){var T=ds(new Date()),it=pitems(T).filter(function(x){return x.id==id})[0];if(!it)return;var t=ity(it);if(t=="cv"){var c=clByName(it.c);visit({ty:c?"oc":"nc",c:c?c.n:it.c})}else visit({ty:t,c:it.c})}
+
+/* admin: work types */
+function wtSheet(){wtR();var L=(S.cfg.wt||[]).filter(function(x){return x&&x.id});
+ sheet('<h3>Work types</h3><div class="mu" style="text-align:left;padding:0 0 6px">Managers pick one of these when they add work. New client visit, Old client visit and Branch visit are always there.</div>'
+ +["dw","rh","ws","sp"].map(function(k){return'<div class="ev"><i>'+I(WT[k][1],16)+'</i><div><b>'+WT[k][0]+'</b><small>Built in</small></div></div>'}).join("")
+ +L.map(function(x){return'<div class="ev"><i>'+I("file",16)+'</i><div><b>'+esc(x.n)+'</b><small>Added by admin</small></div><button class="sm dg" aria-label="Remove work type" onclick="wtDel(\''+jq(x.id)+'\')">'+I("trash",15)+'</button></div>'}).join("")
+ +'<label>Add a work type</label><input id="wtn" placeholder="e.g. Stock count"><button class="btn" onclick="wtAdd()">'+I("plus",16)+'Add work type</button>')}
+function wtAdd(){var n=$("wtn").value.trim().replace(/\s+/g," ");if(!n){toast("Enter a name");return}wtR();for(var k in WT)if(nn(WT[k][0])==nn(n)){toast("This work type already exists");return}
+ var L=(S.cfg.wt||[]).filter(function(x){return x&&x.id});L.push({id:"w"+Date.now().toString(36),n:n});S.cfg.wt=L;sv("cfg/wt",L);toast("Work type added");wtSheet()}
+function wtDel(id){cfm("Remove this work type? Work already added keeps its name.",function(){var L=(S.cfg.wt||[]).filter(function(x){return x&&x.id&&x.id!=id});S.cfg.wt=L;sv("cfg/wt",L.length?L:null);wtSheet()})}
+
+/* route: client visits + all other work */
+function route(u,d){var r=rec(u,d)||{v:[]},us=S.users[u],V=r.v||[],F=dfl(r),P=pitems(d,u),pts=[],nw=0,nog=0;
+ V.forEach(function(v,i){if(okg(v.g))pts.push({g:v.g,t:v.t||"",c:v.c,f:F[i],v:v});else nog++});
+ wl(r).forEach(function(w){nw++;if(okg(w.g))pts.push({g:w.g,t:w.t||"",c:w.c,o:w,tn:wtg(w.ty,w.tn)[0]})});
+ P.forEach(function(it){var o=ldn(it);if(o&&!pwork(d,it,u)){nw++;if(okg(o.g))pts.push({g:o.g,t:it.dn.t||"",c:it.c,o:o,tn:wtg(o.ty,it.tn)[0]})}});
+ if(!V.length&&!nw){toast("Nothing added for this day");return}
+ pts.sort(function(a,b){return a.t.localeCompare(b.t)});pts.forEach(function(p,n){p.l=String(n+1)});
+ var list=pts.map(function(p){return'<div class="ev"><i style="font-weight:700;font-size:12px'+(p.o?';color:var(--bl)':'')+'">'+p.l+'</i><div><b>'+esc(p.c)+(p.o?(nn(p.c)!=nn(p.tn)?'<span class="tag Wk">'+esc(p.tn)+'</span>':''):tgk(p.v.k))+'</b>'+(p.o?chk(p.o):vch(p.f))+'</div><span>'+fmt(p.t)+'</span></div>'}).join("");
  var gu=pts.length>1?"https://www.google.com/maps/dir/"+pts.slice(0,10).map(function(p){return(+p.g.la)+","+(+p.g.ln)}).join("/"):"";
- sheet('<h3>Route · '+esc(us?us.n:"?")+'</h3><div class="mu" style="text-align:left;padding:0">'+esc(dl(d))+' · '+V.length+(V.length==1?" visit":" visits")+'</div><div id="rmap" class="rmap"><span class="mu">Loading map…</span></div>'+(gu?'<a class="btn s" style="margin-top:0" target="_blank" rel="noopener" href="'+gu+'">Open in Google Maps</a>':"")+'<div style="margin-top:8px">'+(list||'<div class="mu">No visits</div>')+'</div><button class="btn s" onclick="cs()">Close</button>');
+ sheet('<h3>Route · '+esc(us?us.n:"?")+'</h3><div class="mu" style="text-align:left;padding:0">'+esc(dl(d))+' · '+V.length+(V.length==1?" client visit":" client visits")+' · '+nw+' other work'+(nog?' · '+nog+' without GPS':'')+'</div><div id="rmap" class="rmap"><span class="mu">Loading map…</span></div>'+(gu?'<a class="btn s" style="margin-top:0" target="_blank" rel="noopener" href="'+gu+'">Open in Google Maps</a>':"")+'<div style="margin-top:8px">'+(list||'<div class="mu">No GPS points</div>')+'</div><div class="lgd"><span><i style="background:#7A5A2B"></i>Client visit</span><span><i style="background:#2E5B86"></i>Other work</span><span><i style="background:#BF3B32"></i>Flagged</span></div><button class="btn s" onclick="cs()">Close</button>');
  if(!pts.length){$("rmap").innerHTML='<span class="mu">No GPS points for this day</span>';return}
  lfl().then(function(ok){var e=$("rmap");if(!e)return;if(!ok){e.innerHTML='<span class="mu">The map could not load. Use “Open in Google Maps”.</span>';return}
   e.innerHTML="";var m=L.map(e,{scrollWheelZoom:false});L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(m);
   var ll=[],line=[];
-  pts.forEach(function(p){var la=[+p.g.la,+p.g.ln],bad=p.f&&(p.f.far||p.f.same||p.f.fast);ll.push(la);line.push(la);
-   if(p.v){var c=vcl(p.v);if(c&&okg(c.g)&&!p.v.pin){var cg=[+c.g.la,+c.g.ln];ll.push(cg);L.circleMarker(cg,{radius:7,color:"#1D7A4C",weight:2,fillOpacity:.15}).addTo(m).bindPopup("Saved shop pin · "+esc(c.n));if(p.f.far)L.polyline([la,cg],{color:"#BF3B32",weight:2,dashArray:"4 6"}).addTo(m)}}
-   L.marker(la,{icon:L.divIcon({className:"",html:'<span class="rm'+(bad?" bad":"")+'">'+p.l+'</span>',iconSize:[26,26],iconAnchor:[13,13]})}).addTo(m)
-    .bindPopup('<b>'+esc(p.c)+'</b><br>'+fmt(p.t)+(p.f&&isFinite(p.f.d)?'<br>'+dm(p.f.d)+' from the saved shop pin':'')+(p.g.ac?'<br>GPS accuracy ±'+(+p.g.ac)+' m':''))});
+  pts.forEach(function(p){var la=[+p.g.la,+p.g.ln],dd=p.f?p.f.d:bdx(p.o),bad=p.f?(p.f.far||p.f.same||p.f.fast):dd>DR(),pin=null,lbl="Saved shop pin · ";ll.push(la);line.push(la);
+   if(p.v){var c=vcl(p.v);if(c&&okg(c.g)&&!p.v.pin)pin={g:c.g,n:c.n}}else if(p.o.ty=="br"&&!p.o.pin){var b=brByName(p.c);if(b&&okg(b.g)){pin={g:b.g,n:b.n};lbl="Saved branch pin · "}}
+   if(pin){var cg=[+pin.g.la,+pin.g.ln];ll.push(cg);L.circleMarker(cg,{radius:7,color:"#1D7A4C",weight:2,fillOpacity:.15}).addTo(m).bindPopup(lbl+esc(pin.n));if(bad)L.polyline([la,cg],{color:"#BF3B32",weight:2,dashArray:"4 6"}).addTo(m)}
+   L.marker(la,{icon:L.divIcon({className:"",html:'<span class="rm'+(bad?" bad":p.o?" wk":"")+'">'+p.l+'</span>',iconSize:[26,26],iconAnchor:[13,13]})}).addTo(m)
+    .bindPopup('<b>'+esc(p.c)+'</b><br>'+(p.o?esc(p.tn)+' · ':'')+fmt(p.t)+(isFinite(dd)?'<br>'+dm(dd)+(p.o?' from the saved branch pin':' from the saved shop pin'):'')+(p.g.ac?'<br>GPS accuracy ±'+(+p.g.ac)+' m':'')+(p.o&&p.o.n?'<br>“'+esc(p.o.n)+'”':''))});
   L.polyline(line,{color:"#7A5A2B",weight:3,opacity:.65}).addTo(m);
   function fit(){if(ll.length==1)m.setView(ll[0],16);else m.fitBounds(ll,{padding:[48,48],maxZoom:17})}fit();setTimeout(function(){m.invalidateSize();fit()},350)})}
 
+/* copy text + CSVs */
+function cp(){var t="WINDMILL CAFE – WORK REPORT\n"+RF.a+" to "+RF.b+"\n";lst().forEach(function(x){var X=acts(x);if(!X.length)return;var u=S.users[x.u];t+="\n"+x.d+" | "+(u?u.n:"?")+" | "+X.length+(X.length==1?" entry":" entries")+"\n";
+ X.forEach(function(e){if(e.v)t+="  - "+e.v.c+" ("+e.v.k+" client) "+(e.v.t||"")+": "+vd(e.v)+"\n";else{var tn=wtg(e.w.ty,e.w.tn)[0];t+="  - "+tn+(nn(e.w.c)!=nn(tn)?" · "+e.w.c:"")+" "+(e.w.t||"")+": "+(e.w.n||"")+"\n"}})});
+ try{navigator.clipboard.writeText(t).then(function(){toast("Copied")},function(){prompt("Copy:",t)})}catch(e){prompt("Copy:",t)}}
+function csvDl(){var A=isA(),R=[["Date","Sales manager","Type of work","Client / place","Time","Mobile","Payment","Reason","What was done / notes","Latitude","Longitude","GPS accuracy (m)"].concat(A?["Distance (m)","GPS check"]:[])];
+ lst().slice().reverse().forEach(function(r){var u=S.users[r.u],F=A?dfl(r):[];acts(r).forEach(function(e){var x=e.v||e.w,g=x.g||{},row,dd,ck;
+  if(e.v){var f=F[e.i]||{};row=[r.d,u?u.n:"?",x.k=="New"?"New client visit":"Old client visit",x.c,x.t||"",x.ph||"",x.pa||"",x.rs||"",x.n||""];dd=f.d;ck=ckt(f)}
+  else{row=[r.d,u?u.n:"?",wtg(x.ty,x.tn)[0],x.c,x.t||"","","","",x.n||""];dd=bdx(x);ck=ctx(x)}
+  row=row.concat([g.la!=null?g.la:"",g.ln!=null?g.ln:"",g.ac!=null?g.ac:""]);if(A)row.push(isFinite(dd)?Math.round(dd):"",ck);R.push(row)})});
+ if(R.length<2){toast("Nothing in this range");return}dlcsv(R,"windmill-work-log_")}
+function csvPl(){var A=isA(),o=A?RF.o:U,T=ds(new Date()),R=[["Date","Sales manager","Type","Place / client","Planned time","Status","Done at","Latitude","Longitude"].concat(A?["GPS check"]:[]).concat(["Plan note","Work note"])];
+ Object.keys(S.plans||{}).map(function(k){return S.plans[k]}).filter(function(p){return p&&(!o||p.u==o)&&p.d>=RF.a&&p.d<=RF.b}).sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0}).forEach(function(p){var u=S.users[p.u];
+  pitems(p.d,p.u).forEach(function(it){var ty=ity(it),dn=pdone(p.d,it,p.u),g=null,at="",ck="",wn="";
+   if(dn){if(ty=="cv"){var pv=pvis(p.d,it,p.u),v=pv.r.v[pv.i];g=v.g;at=v.t||"";ck=ckt(dfl(pv.r)[pv.i]);wn=v.n||""}else{var e=pwork(p.d,it,p.u)||{t:it.dn.t,g:it.dn.g,n:it.dn.n,ty:ty,c:it.c,pin:it.dn.pin};g=e.g;at=e.t||"";ck=ctx(e);wn=e.n||""}}
+   R.push([p.d,u?u.n:"?",wtg(ty,it.tn)[0],it.c,it.t||"",dn?"Done":p.d<T?"Missed":"Planned",at,g&&g.la!=null?g.la:"",g&&g.ln!=null?g.ln:""].concat(A?[ck]:[]).concat([it.n||"",wn]))})});
+ if(R.length<2){toast("No work plans in this range");return}dlcsv(R,"windmill-work-plan_")}
+
+/* ===== Secure logins (Firebase Authentication + database rules) ===== */
+var IDT="https://identitytoolkit.googleapis.com/v1/",EMD="@windmill-cafe.app";
+function secOn(){try{if(localStorage.getItem("wm_sec")=="1")return true}catch(e){}return!!(S.cfg&&S.cfg.sec)}
+function lkey(u){return String(u||"").toLowerCase().replace(/\s/g,"").replace(/[.#$\[\]\/]/g,"_")}
+function appLink(){return/^https?:/.test(location.protocol)?location.href.split("#")[0]:""}
+function rpw(){var a=new Uint32Array(1);try{crypto.getRandomValues(a)}catch(e){a[0]=Math.floor(Math.random()*1e9)}return String(100000+a[0]%900000)}
+function tset(d){TK=d.idToken;TX=Date.now()+((+d.expiresIn||3600)-120)*1000;TF=0;try{localStorage.setItem("wm_rt",d.refreshToken)}catch(e){}}
+function tclr(){TK="";TX=0;try{localStorage.removeItem("wm_rt")}catch(e){}}
+function idt(op,body){return fetch(IDT+op+"?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json()})}
+function fbAuth(em,pw){return idt("accounts:signInWithPassword",{email:em,password:pw,returnSecureToken:true}).then(function(d){return d.idToken?d:null},function(){return null})}
+function fbIn(em,pw){return idt("accounts:signInWithPassword",{email:em,password:pw,returnSecureToken:true}).then(function(d){
+ if(!d.idToken){var m=(d.error&&d.error.message)||"";toast(/TOO_MANY/.test(m)?"Too many attempts. Wait a few minutes and try again":"Incorrect username or password");return}
+ tset(d);return fetch(CLOUD+"/acl/"+d.localId+".json?auth="+d.idToken).then(function(r){return r.ok?r.json():null}).then(function(a){
+  if(!a||!a.id){tclr();toast("This login has no access. Ask the admin");return}
+  try{localStorage.setItem("wm_sec","1");localStorage.setItem("wm_u",a.id)}catch(e){}U=a.id;V="";
+  if(!S.users[U])S.users[U]={id:U,n:"…",u:"",r:a.r,em:em};render();live()})},function(){toast("Could not sign in. Check the internet connection")})}
+function cfw(path,val){return cf(path,{method:val===null?"DELETE":"PUT",body:val===null?undefined:JSON.stringify(val)}).then(function(r){if(!r.ok)throw Error(r.status==401||r.status==403?"Permission denied. Sign in again as admin":"Could not save ("+r.status+")")})}
+function mkAcct(x,pw,old){var base=lkey(x.u)||("user"+Date.now());
+ function tryE(em,n){return idt("accounts:signUp",{email:em,password:pw,returnSecureToken:true}).then(function(d){if(d.localId)return{uid:d.localId,em:em};var m=(d.error&&d.error.message)||"";
+  if(/EMAIL_EXISTS/.test(m)&&n<3)return tryE(base+"."+Date.now().toString(36)+EMD,n+1);
+  if(/OPERATION_NOT_ALLOWED|CONFIGURATION_NOT_FOUND|ADMIN_ONLY/.test(m))throw Error("Turn on Email/Password sign-in in Firebase Authentication first (step 1)");
+  if(/WEAK_PASSWORD/.test(m))throw Error("Password is too weak. Use at least 6 characters");
+  throw Error("Could not create the login for "+x.n+(m?" ("+m+")":""))})}
+ return tryE(base+EMD,0).then(function(a){x.uid=a.uid;x.em=a.em;var ps=[cfw("acl/"+a.uid,{id:x.id,r:x.r||"o"}),cfw("lk/"+lkey(x.u),a.em)];
+  if(old&&old.uid&&old.uid!=a.uid)ps.push(cfw("acl/"+old.uid,null));if(old&&old.u&&lkey(old.u)!=lkey(x.u))ps.push(cfw("lk/"+lkey(old.u),null));return Promise.all(ps)})}
+function lkMove(old,nw){return cfw("lk/"+lkey(nw.u),nw.em).then(function(){return lkey(old.u)!=lkey(nw.u)?cfw("lk/"+lkey(old.u),null):0})}
+var AD_="auth != null && root.child('acl').child(auth.uid).child('r').val() === 'a'",US_="auth != null && root.child('acl').child(auth.uid).exists()",OWN_="$k.beginsWith(root.child('acl').child(auth.uid).child('id').val() + '_')";
+var RULES=JSON.stringify({rules:{".read":US_,lk:{".read":true,".write":AD_},acl:{".write":AD_},users:{".write":AD_},cfg:{".write":AD_},rp:{".write":AD_},
+ cl:{".write":AD_,"$id":{".write":US_+" && newData.exists()"}},br:{".write":AD_,"$id":{".write":US_+" && newData.exists()"}},
+ days:{".write":AD_,"$k":{".write":US_+" && newData.exists() && "+OWN_}},plans:{".write":AD_,"$k":{".write":US_+" && "+OWN_}},
+ zph:{".write":AD_,"$p":{".write":US_+" && newData.exists() && (!data.exists() || data.val() === newData.val())"}}}},null,2);
+function secCard(){if(!CLOUD||!KEY||S.cfg.sec)return"";return'<div class="cd secw"><h3>'+I("key",16)+' Secure logins are off</h3><div class="mu" style="text-align:left;padding:0 0 4px">Right now anyone who opens the app link can read and change the data. Set up secure logins to give everyone a password and lock the database.</div><button class="btn" onclick="secSheet()">'+I("key",16)+'Set up secure logins</button></div>'}
+function secLine(){if(!CLOUD||!KEY||!S.cfg.sec)return"";setTimeout(rck,60);return'<div class="sy"><i class="dt s1"></i><span>Secure logins on · <span id="rst">checking the database…</span> · <a href="#" onclick="rulesShow();return false">Database rules</a></span></div>'}
+var RCK=null;
+function rck(){var e=$("rst");if(!e)return;if(RCK){e.className=RCK[0];e.textContent=RCK[1];return}
+ var NO=["bad","database NOT locked yet. Publish the rules"];
+ fetch(CLOUD+"/users.json?shallow=true").then(function(r){if(r.ok)return NO;
+  return idt("accounts:signUp",{returnSecureToken:true}).then(function(d){if(!d.idToken)return["ok","database locked ✓"];
+   return fetch(CLOUD+"/users.json?shallow=true&auth="+d.idToken).then(function(r2){return r2.ok?NO:["ok","database locked ✓ · now turn off Anonymous sign-in"]})},function(){return["ok","database locked ✓"]})})
+ .then(function(x){RCK=x;var e2=$("rst");if(e2){e2.className=x[0];e2.textContent=x[1]}},function(){var e2=$("rst");if(e2)e2.textContent="offline"})}
+function secSheet(){var us=Object.keys(S.users).map(function(k){return S.users[k]}).filter(Boolean).sort(function(a,b){return(a.r=="a"?0:1)-(b.r=="a"?0:1)});
+ sheet('<h3>Set up secure logins</h3><div class="stp"><b>1 · Turn on Email/Password in Firebase</b><br>Open <a href="https://console.firebase.google.com/" target="_blank" rel="noopener">console.firebase.google.com</a> → your project → <b>Build → Authentication</b> → Get started → <b>Sign-in method</b> → <b>Email/Password</b> → Enable → Save.</div>'
+ +'<div class="stp"><b>2 · New password for each person</b><br>At least 6 characters. You can change them now; you will share them in the next step.</div>'
+ +us.map(function(x){return'<label>'+esc(x.n)+' · @'+esc(x.u)+(x.r=="a"?" · admin":"")+'</label><input id="sp_'+esc(x.id)+'" value="'+rpw()+'" autocomplete="off">'}).join("")
+ +'<button class="btn" id="sgo" onclick="secGo()">'+I("key",16)+'Create secure logins</button>')}
+function secGo(){var us=Object.keys(S.users).map(function(k){return S.users[k]}).filter(Boolean),pw={},bad="",seen={};
+ us.forEach(function(x){var v=(($("sp_"+x.id)||{}).value||"").trim(),key=lkey(x.u);if(v.length<6)bad="Each password needs at least 6 characters";if(!key)bad="Every person needs a username";if(seen[key])bad="Two people have the same username: "+x.u;seen[key]=1;pw[x.id]=v});
+ if(bad){toast(bad);return}var b=$("sgo");b.disabled=true;b.textContent="Creating logins…";var done=[],ch=Promise.resolve();
+ us.forEach(function(x){ch=ch.then(function(){var y={};for(var k in x)if(k!="pin")y[k]=x[k];return mkAcct(y,pw[x.id],x).then(function(){return cfw("users/"+x.id,y)}).then(function(){S.users[x.id]=y;done.push({x:y,pw:pw[x.id]})})})});
+ ch.then(function(){return cfw("cfg/sec",1)}).then(function(){S.cfg.sec=1;try{localStorage.setItem("wm3",JSON.stringify(S))}catch(e){}secDone(done)})
+ .catch(function(e){b.disabled=false;b.textContent="Try again";toast(e.message||"Something went wrong")})}
+function secDone(L){var lk=appLink();
+ sheet('<h3>Logins created ✓</h3><div class="stp"><b>3 · Share the new logins</b><br>Send each person their username and password.</div>'
+ +L.map(function(o){var t="Windmill Cafe app login\nUsername: "+o.x.u+"\nPassword: "+o.pw+(lk?"\nLink: "+lk:"");return'<div class="ev"><i>'+I("key",16)+'</i><div><b>'+esc(o.x.n)+'</b><small>@'+esc(o.x.u)+' · password <b>'+esc(o.pw)+'</b></small></div>'+(o.x.r=="a"?"":'<a class="sm" aria-label="Share on WhatsApp" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(t)+'">'+I("wa",15)+'</a>')+'</div>'}).join("")
+ +rulesHtml()+'<button class="btn" onclick="cs();doOut()">Done · sign in with my new password</button>')}
+function rulesHtml(){return'<div class="stp"><b>4 · Lock the database</b><br>Firebase console → <b>Build → Realtime Database</b> → <b>Rules</b> tab → delete everything there → paste the rules below → <b>Publish</b>.<br><b>5 · Then</b> Authentication → Sign-in method → <b>Anonymous</b> → Disable (the app no longer needs it).</div><textarea id="rtxt" rows="8" readonly style="font:12px ui-monospace,Menlo,monospace">'+esc(RULES)+'</textarea><button class="btn s" onclick="cpRules()">'+I("file",16)+'Copy rules</button>'}
+function cpRules(){var t=$("rtxt");function fb(){t.select();try{document.execCommand("copy")}catch(e){}toast("Rules copied")}try{navigator.clipboard.writeText(RULES).then(function(){toast("Rules copied")},fb)}catch(e){fb()}}
+function rulesShow(){sheet('<h3>Database rules</h3>'+rulesHtml()+'<button class="btn s" onclick="cs()">Close</button>')}
+/* my account: change own password (and admin username) */
+function accSheet(){var a=me(),sec=!!S.cfg.sec;if(!a)return;
+ if(!sec){if(isA()){pinSheet();return}sheet('<h3>My account</h3><div class="mu" style="text-align:left;padding:0">'+esc(a.n)+' · @'+esc(a.u)+'<br>Ask the admin to change your PIN.</div><button class="btn s" onclick="cs();logout()">'+I("out",16)+'Log out</button>');return}
+ sheet('<h3>My account</h3><div class="mu" style="text-align:left;padding:0 0 4px">'+esc(a.n)+' · @'+esc(a.u)+(isA()?" · Administrator":" · Sales manager")+'</div>'+(isA()?'<label>Username</label><input id="au" autocapitalize="none" value="'+esc(a.u)+'">':'')
+ +'<label>Current password</label><input id="ap0" type="password" autocomplete="current-password"><label>New password (at least 6 characters)</label><input id="ap1" type="password" autocomplete="new-password"><button class="btn" id="asv" onclick="chPw()">Save</button><button class="btn s" onclick="cs();logout()">'+I("out",16)+'Log out</button>')}
+function chPw(){var a=me(),p0=$("ap0").value,p1=$("ap1").value,nu=$("au")?$("au").value.trim():a.u;
+ if(!p0){toast("Enter your current password");return}if(p1&&p1.length<6){toast("New password needs at least 6 characters");return}if(!nu){toast("Enter a username");return}
+ if(lkey(nu)!=lkey(a.u))for(var k in S.users)if(k!=U&&S.users[k]&&lkey(S.users[k].u)==lkey(nu)){toast("Username is already taken");return}
+ if(!p1&&nu==a.u){toast("Nothing to change");return}
+ var b=$("asv");b.disabled=true;b.textContent="Saving…";
+ fbAuth(a.em,p0).then(function(d){if(!d)throw Error("Current password is wrong");tset(d);var p=Promise.resolve();
+  if(p1)p=p.then(function(){return idt("accounts:update",{idToken:d.idToken,password:p1,returnSecureToken:true}).then(function(x){if(!x.idToken)throw Error("Could not change the password");tset(x)})});
+  if(nu!=a.u)p=p.then(function(){var n2={};for(var k in a)n2[k]=a[k];n2.u=nu;return lkMove(a,n2).then(function(){return cfw("users/"+U,n2)}).then(function(){S.users[U]=n2})});
+  return p}).then(function(){cs();toast("Saved");render()}).catch(function(e){b.disabled=false;b.textContent="Save";toast(e.message||"Could not save")})}
+
+/* ===== Monthly targets ===== */
+function tgOf(u){var x=S.users[u],t=x&&x.tg;return t&&(+t.v||+t.n)?t:null}
+function tgBars(u){var t=tgOf(u);if(!t)return"";var T=ds(new Date()),m=st(u,T.slice(0,8)+"01",T.slice(0,8)+"31"),dn=new Date(+T.slice(0,4),+T.slice(5,7),0).getDate(),pace=(+T.slice(8))/dn;
+ function bar(lbl,v,g){if(!g)return"";var pc=Math.min(100,Math.round(v/g*100)),ok=v>=Math.floor(g*pace);return'<div class="tgb"><div class="tgh"><span>'+lbl+'</span><b>'+v+' / '+g+'</b></div><div class="pbar"><i style="width:'+pc+'%'+(ok||v>=g?'':';background:var(--wn)')+'"></i></div><small>'+(v>=g?'<span class="ok">Target reached</span>':(g-v)+' to go · '+(ok?'<span class="ok">on track</span>':'<span style="color:var(--wn)">behind</span>'))+'</small></div>'}
+ return'<div class="sub">Monthly targets</div>'+bar("Client visits",m.v,+t.v)+bar("New clients",m.n,+t.n)}
+function tgLine(u){var t=tgOf(u);if(!t)return"";var T=ds(new Date()),m=st(u,T.slice(0,8)+"01",T.slice(0,8)+"31"),a=[];if(+t.v)a.push(m.v+"/"+t.v+" visits");if(+t.n)a.push(m.n+"/"+t.n+" new");return'<small style="color:var(--mu);display:block;margin-top:5px">Month target · '+a.join(" · ")+'</small>'}
+
+/* ===== Photo retention (admin choice; default keeps photos forever) ===== */
+var PCL=0;
+function phClean(){var n=+S.cfg.pk;if(!n||!isA())return;var cut=ad(ds(new Date()),-n),c=0;
+ for(var k in S.days){var r=S.days[k],ch=0;if(!r||r.d>=cut)continue;(r.v||[]).concat(wl(r)).forEach(function(v){if(v.ps){for(var t in v.ps)phDrop(v.ps[t]);delete v.ps;v.pd=1;ch=1;c++}});if(ch)sv("days/"+k,r)}
+ if(c){toast(c+(c>1?" old visit photos were":" old visit photo was")+" removed");render()}}
+
 /* ===== visit rules ===== */
-function rsum(){return"Shop radius "+dm(DR())+" · Shop photo for new clients "+(S.cfg.ph===0?"optional":"required")+" · Visits always need GPS"}
+var PKO=[[0,"Keep forever"],[90,"Delete after 3 months"],[180,"Delete after 6 months"],[365,"Delete after 1 year"]];
+function rsum(){var pk=+S.cfg.pk;return"Shop radius "+dm(DR())+" · Shop photo for new clients "+(S.cfg.ph===0?"optional":"required")+" · Photos "+(pk?"kept "+(pk>=365?"1 year":pk/30+" months"):"kept forever")+" · Visits always need GPS"}
 function rulesSheet(){var c=S.cfg;sheet('<h3>Visit rules</h3><label>Shop radius (a visit further than this is flagged)</label><select id="rd">'+[100,200,300,500,1000].map(function(x){return'<option value="'+x+'"'+(x==DR()?" selected":"")+'>'+dm(x)+'</option>'}).join("")+'</select>'
  +'<label>Shop photo for new clients</label><select id="rp"><option value="1"'+(c.ph===0?"":" selected")+'>Required</option><option value="0"'+(c.ph===0?" selected":"")+'>Optional</option></select>'
- +'<div class="mu" style="text-align:left;padding:10px 0 0">Visits always need GPS. The shop pin is saved automatically on the first visit to each client.</div><button class="btn" onclick="saveRules()">Save</button>')}
-function saveRules(){var c=S.cfg;c.dr=+$("rd").value;c.ph=+$("rp").value;sv("cfg/dr",c.dr);sv("cfg/ph",c.ph);cs();toast("Rules saved");render()}
+ +'<label>Visit photos</label><select id="rk">'+PKO.map(function(x){return'<option value="'+x[0]+'"'+(x[0]==(+c.pk||0)?" selected":"")+'>'+x[1]+'</option>'}).join("")+'</select>'
+ +'<div class="mu" style="text-align:left;padding:10px 0 0">Visits always need GPS. The shop pin is saved automatically on the first visit to each client. Deleting old photos frees database space; the visit, its GPS check and the report stay.</div><button class="btn" onclick="saveRules()">Save</button>')}
+function saveRules(){var c=S.cfg,pk=+$("rk").value,dr=+$("rd").value,ph=+$("rp").value;
+ function go2(){c.dr=dr;c.ph=ph;c.pk=pk;sv("cfg/dr",dr);sv("cfg/ph",ph);sv("cfg/pk",pk);cs();toast("Rules saved");PCL=0;render()}
+ if(pk&&pk!=(+c.pk||0))cfm("Visit photos older than "+(pk>=365?"1 year":pk/30+" months")+" will be deleted permanently. Continue?",go2);else go2()}
+render();live();
 </script>
 </body>
 </html>
