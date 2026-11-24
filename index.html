@@ -231,6 +231,7 @@ button.avt{border:0;cursor:pointer;padding:0}
 .cd.secw{border-color:color-mix(in srgb,var(--wn) 55%,transparent)}.cd.secw h3{color:var(--wn);justify-content:flex-start}
 #rst.ok{color:var(--ok);font-weight:600}#rst.bad{color:var(--rd);font-weight:700}
 .tgb{margin-top:10px}.tgh{display:flex;justify-content:space-between;font-size:12.5px}.tgb small{color:var(--mu);font-size:11.5px;display:block;margin-top:4px}
+.lerr{color:var(--rd);font-size:13px;font-weight:600;text-align:center;margin-top:12px;min-height:18px}
 @media (hover:hover){.cl:hover,.k:hover{border-color:var(--ln2)}.btn:hover{filter:brightness(1.06)}.nav button:hover{color:var(--ac)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @keyframes pop{from{opacity:0;transform:scale(.97)}}
@@ -272,12 +273,12 @@ var rt="";try{rt=localStorage.getItem("wm_rt")||""}catch(e){}
 if(!rt&&secOn()){TF=Date.now();return Promise.resolve("")}
 var q=rt?fetch("https://securetoken.googleapis.com/v1/token?key="+KEY,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(rt)}):fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:'{"returnSecureToken":true}'});
 return q.then(function(r){return r.json()}).then(function(d){var t=d.idToken||d.id_token,r2=d.refreshToken||d.refresh_token,e=+(d.expiresIn||d.expires_in||3600);if(!t){try{localStorage.removeItem("wm_rt")}catch(x){}TF=Date.now();return ""}try{localStorage.setItem("wm_rt",r2)}catch(x){}TK=t;TX=Date.now()+(e-120)*1000;return t}).catch(function(){TF=Date.now();return ""})}
-var ES=null,RT=0,GOT=0,LQ=1;
+var ES=null,RT=0,GOT=0,LQ=1,CNL=0;
 function live(){if(!CLOUD||!window.EventSource)return;if(secOn()&&!U)return;if(ES){try{ES.close()}catch(e){}ES=null}
 tk().then(function(t){var e=new EventSource(CLOUD+"/.json?"+(LQ?"orderBy=%22%24key%22&endAt=%22users%22&":"")+(t?"auth="+t:""));ES=e;
 e.addEventListener("put",function(x){ev2(x,0)});e.addEventListener("patch",function(x){ev2(x,1)});
 e.addEventListener("auth_revoked",function(){TK="";TX=0;live()});
-e.addEventListener("cancel",function(){try{e.close()}catch(x){}ES=null;try{localStorage.setItem("wm_sec","1")}catch(x){}if(U){tclr();toast("Please sign in again");doOut()}});
+e.addEventListener("cancel",function(){try{e.close()}catch(x){}ES=null;CNL=1;if(U&&secOn()){tclr();toast("Please sign in again");doOut()}});
 e.onerror=function(){if(e.readyState===2){ES=null;setTimeout(live,6000)}}})}
 function ev2(x,m){var j;try{j=JSON.parse(x.data)}catch(e){return}if(!j)return;GOT=1;
 var ks=(j.path||"/").split("/").filter(Boolean),d=j.data,o,k,i;if(ks[0]=="zph")return;
@@ -325,17 +326,27 @@ function render(){wtR();var m=me();if(!m){$("main").innerHTML=lgv();$("nv").inne
  $("nv").innerHTML=it.map(function(x){return x[0]=="pu"?'<button class="pu" onclick="visit()"><i>'+I("plus",28)+'</i>Add work</button>':'<button class="'+(x[0]==V?"on":"")+'" onclick="go(\''+x[0]+'\')">'+I(x[1],22)+x[2]+'</button>'}).join("");
  $("nv").insertAdjacentHTML("beforeend",'<div class="nf"><div class="av">'+ini(m.n)+'</div><div><b>'+esc(m.n)+'</b><small>'+(A?"Administrator":"Sales manager")+'</small></div><button onclick="logout()" aria-label="Log out">'+I("out",18)+'</button></div>');
  $("main").innerHTML=VW[V]()}
-function lgv(){return'<div class="lg"><div class="lp"><div class="fl"></div></div><h1>Windmill Cafe</h1><p>Marketing team · sign in to continue</p><div class="cd"><label>Username</label><input id="lu" autocapitalize="none" autocomplete="username"><label>Password</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==\'Enter\')doLogin()"><button class="btn" id="lgb" onclick="doLogin()">Sign in</button></div>'+'</div>'}
-function doLogin(){var u=lkey($("lu").value),q=$("lp").value,b=$("lgb");if(!u||!q){toast("Enter your username and password");return}
- function legacy(){var f=null,fu=null;q=String(q).trim();for(var k in S.users){var x=S.users[k];if(!x||lkey(x.u)!=u)continue;fu=x;if(x.pin!=null&&String(x.pin).trim()==q)f=k}
-  if(!f){toast(!fu?"Username “"+u+"” not found":fu.pin==null?"This account uses the new password. Ask the admin":"Wrong password for “"+u+"”");return}U=f;V="";try{localStorage.setItem("wm_u",U)}catch(e){}render();live()}
+function lgv(){return'<div class="lg"><div class="lp"><div class="fl"></div></div><h1>Windmill Cafe</h1><p>Marketing team · sign in to continue</p><div class="cd"><label>Username</label><input id="lu" autocapitalize="none" autocomplete="username"><label>Password</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==\'Enter\')doLogin()"><button class="btn" id="lgb" onclick="doLogin()">Sign in</button><div id="lerr" class="lerr" role="alert">'+esc(LMSG)+'</div></div>'+'</div>'}
+var LMSG="";function lmsg(t){LMSG=t||"";if(t)toast(t);var e=$("lerr");if(e)e.textContent=LMSG}
+function doLogin(){try{
+ var u=lkey($("lu").value),q=String($("lp").value).trim(),b=$("lgb");if(!u||!q){lmsg("Enter your username and password");return}
+ function match(){var f=null,fu=null;for(var k in S.users){var x=S.users[k];if(!x||lkey(x.u)!=u)continue;fu=x;if(x.pin!=null&&String(x.pin).trim()==q)f=k}return{f:f,fu:fu}}
+ function ok(f){U=f;V="";try{localStorage.setItem("wm_u",U);localStorage.removeItem("wm_sec")}catch(e){}lmsg("");render();live()}
+ function legacy(){var m=match();if(m.f){ok(m.f);return}
+  if(!CLOUD){lmsg(!m.fu?"Username “"+u+"” not found":"Wrong password for “"+u+"”");return}
+  /* saved data on this device may be old: load the users list fresh and try again */
+  return tk().then(function(t){return fetch(CLOUD+"/users.json"+(t?"?auth="+t:""))}).then(function(r){return r.ok?r.json():null}).then(function(us){
+   if(us&&typeof us=="object"){S.users=us;try{localStorage.setItem("wm3",JSON.stringify(S))}catch(e){}}
+   var m2=match();if(m2.f){ok(m2.f);return}
+   lmsg(!m2.fu?"Username “"+u+"” not found":m2.fu.pin==null?"This account uses the new password. Ask the admin":"Wrong password for “"+u+"”")},function(){lmsg(!m.fu?"Username “"+u+"” not found":"Wrong password for “"+u+"”")})}
  if(!CLOUD||!KEY){legacy();return}
- b.disabled=true;b.textContent="Signing in…";
+ b.disabled=true;b.textContent="Signing in…";lmsg("");
  var LKS=0;fetch(CLOUD+"/lk/"+encodeURIComponent(u)+".json").then(function(r){LKS=r.status;return r.ok?r.json():null},function(){return undefined}).then(function(em){
   if(typeof em=="string")return fbIn(em,q);
-  if(em===undefined&&secOn()){toast("No internet connection. Connect and try again");return}
-  if(em===null&&LKS==200)return fetch(CLOUD+"/users.json?shallow=true").then(function(r){if(r.status==401||r.status==403){try{localStorage.setItem("wm_sec","1")}catch(e){}toast("Incorrect username or password");return}legacy()},function(){legacy()});
-  legacy()}).then(function(){var b2=$("lgb");if(b2){b2.disabled=false;b2.textContent="Sign in"}})}
+  if(em===null&&LKS==200)return fetch(CLOUD+"/users.json?shallow=true").then(function(r){if(r.status==401||r.status==403){try{localStorage.setItem("wm_sec","1")}catch(e){}lmsg("Incorrect username or password");return}return legacy()},function(){return legacy()});
+  if(em===undefined&&secOn()&&!match().f){lmsg("No internet connection. Connect and try again");return}
+  return legacy()}).catch(function(e){lmsg("Sign-in error: "+(e&&e.message||e))}).then(function(){var b2=$("lgb");if(b2){b2.disabled=false;b2.textContent="Sign in"}})
+ }catch(e){lmsg("Sign-in error: "+e.message);var b3=$("lgb");if(b3){b3.disabled=false;b3.textContent="Sign in"}}}
 var CB=null;function cfm(m,fn){CB=fn;sheet('<h3>'+m+'</h3><div class="two"><button class="btn s" onclick="cs()">Cancel</button><button class="btn" onclick="cs();CB()">Confirm</button></div>')}
 function logout(f){if(f){doOut();return}cfm(Object.keys(Q).length?"Some work has not uploaded yet (no internet). It uploads the next time you sign in on this phone. Log out anyway?":"Log out?",doOut)}
 function doOut(){U="";V="";try{localStorage.removeItem("wm_u")}catch(e){}if(secOn()){tclr();if(ES){try{ES.close()}catch(e){}ES=null}}render()}
@@ -506,7 +517,7 @@ function savePin(){var u=$("au").value.trim(),q=$("ap").value.trim();if(!u||!q){
  me().u=u;me().pin=q;sv("users/"+U,me());cs();toast("Updated");render()}
 
 var SPT=Date.now(),SPI=setInterval(function(){var e=document.getElementById("spl"),t=Date.now()-SPT;if(!e){clearInterval(SPI);return}
-var cached=!!(U&&S.users[U]),ready=t>900&&(GOT||!CLOUD||(!U&&secOn())||(cached&&t>1400)||t>3500),b=document.getElementById("splb"),m=document.getElementById("spls"),
+var cached=!!(U&&S.users[U]),ready=t>900&&(GOT||CNL||!CLOUD||(!U&&secOn())||(cached&&t>1400)||t>3500),b=document.getElementById("splb"),m=document.getElementById("spls"),
 pr=ready?100:Math.min(92,Math.round(92*(1-Math.exp(-t/1300))));if(GOT&&!ready)pr=Math.max(pr,85);
 if(b)b.style.width=pr+"%";
 if(m)m.textContent=ready?"Ready":!navigator.onLine?"Offline · using saved data":t<700?"Starting up…":!GOT&&t<1800?"Connecting…":GOT?"Almost ready…":"Syncing your data…";
@@ -742,11 +753,11 @@ function tclr(){TK="";TX=0;try{localStorage.removeItem("wm_rt")}catch(e){}}
 function idt(op,body){return fetch(IDT+op+"?key="+KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json()})}
 function fbAuth(em,pw){return idt("accounts:signInWithPassword",{email:em,password:pw,returnSecureToken:true}).then(function(d){return d.idToken?d:null},function(){return null})}
 function fbIn(em,pw){return idt("accounts:signInWithPassword",{email:em,password:pw,returnSecureToken:true}).then(function(d){
- if(!d.idToken){var m=(d.error&&d.error.message)||"";toast(/TOO_MANY/.test(m)?"Too many attempts. Wait a few minutes and try again":"Incorrect username or password");return}
+ if(!d.idToken){var m=(d.error&&d.error.message)||"";lmsg(/TOO_MANY/.test(m)?"Too many attempts. Wait a few minutes and try again":"Incorrect username or password");return}
  tset(d);return fetch(CLOUD+"/acl/"+d.localId+".json?auth="+d.idToken).then(function(r){return r.ok?r.json():null}).then(function(a){
-  if(!a||!a.id){tclr();toast("This login has no access. Ask the admin");return}
+  if(!a||!a.id){tclr();lmsg("This login has no access. Ask the admin");return}
   try{localStorage.setItem("wm_sec","1");localStorage.setItem("wm_u",a.id)}catch(e){}U=a.id;V="";
-  if(!S.users[U])S.users[U]={id:U,n:"…",u:"",r:a.r,em:em};render();live()})},function(){toast("Could not sign in. Check the internet connection")})}
+  if(!S.users[U])S.users[U]={id:U,n:"…",u:"",r:a.r,em:em};render();live()})},function(){lmsg("Could not sign in. Check the internet connection")})}
 function cfw(path,val){return cf(path,{method:val===null?"DELETE":"PUT",body:val===null?undefined:JSON.stringify(val)}).then(function(r){if(!r.ok)throw Error(r.status==401||r.status==403?"Permission denied. Sign in again as admin":"Could not save ("+r.status+")")})}
 function mkAcct(x,pw,old){var base=lkey(x.u)||("user"+Date.now());
  function tryE(em,n){return idt("accounts:signUp",{email:em,password:pw,returnSecureToken:true}).then(function(d){if(d.localId)return{uid:d.localId,em:em};var m=(d.error&&d.error.message)||"";
