@@ -267,6 +267,11 @@ button,a,.nav button{touch-action:manipulation}
 .sec{margin-top:24px}
 @media (min-width:900px){.hd{padding:18px 26px}.hd h1{font-size:24px}.toast{bottom:32px}.kp{grid-template-columns:repeat(4,1fr)}}
 @media (prefers-reduced-motion:reduce){#main.pg>*{animation:none}.toast{transition:none}}
+
+.srow{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--sep);cursor:pointer;font-weight:600;font-size:14.5px}
+.srow span{flex:1;min-width:0}.srow small{display:block;font-weight:500;color:var(--mu);font-size:12px;margin-top:2px;line-height:1.4}
+.srow>svg:first-child{color:var(--ac)}.srow>svg:last-child{color:var(--mu)}.srow:active{opacity:.7}
+.acc{text-align:center;padding:2px 0 4px}.acc .av{margin:0 auto 10px}.acc b{display:block;font-size:17px;font-weight:700}.acc small{color:var(--mu);font-size:12.5px}
 @media (hover:hover){.cl:hover,.k:hover{border-color:var(--ln2)}.btn:hover{filter:brightness(1.06)}.nav button:hover{color:var(--ac)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @keyframes pop{from{opacity:0;transform:scale(.97)}}
@@ -356,7 +361,7 @@ function go(v){if(v!=V){try{history.pushState({v:v},"")}catch(e){}hp()}V=v;rende
 function tgk(k){var n=k=="New"?"New":"Old";return'<span class="tag '+n+'">'+n+'</span>'}
 function render(){wtR();LRH=snap();var mn=$("main");if(V!=LVW){LVW=V;mn.classList.remove("pg");void mn.offsetWidth;mn.classList.add("pg")}var m=me();if(!m){$("main").innerHTML=lgv();$("nv").innerHTML="";return}
  var A=m.r=="a";if(!V||(A&&(V=="home"||V=="hist"||V=="pl"))||(!A&&(V=="ov"||V=="tm")))V=A?"ov":"home";
- var it=A?[["ov","chart","Dashboard"],["cl","store","Clients"],["rep","file","Reports"],["tm","users","Team"]]:[["home","home","Home"],["pl","cal","Plan"],["pu"],["hist","clock","History"],["cl","store","Clients"]];
+ var it=A?[["ov","chart","Dashboard"],["cl","store","Clients"],["rep","file","Reports"],["tm","users","Team"],["st","gear","Settings"]]:[["home","home","Home"],["pl","cal","Plan"],["pu"],["hist","clock","History"],["cl","store","Clients"]];
  $("nv").style.gridTemplateColumns="repeat("+it.length+",1fr)";
  $("nv").innerHTML=it.map(function(x){return x[0]=="pu"?'<button class="pu" onclick="visit()"><i>'+I("plus",28)+'</i>Add work</button>':'<button class="'+(x[0]==V?"on":"")+'" onclick="go(\''+x[0]+'\')">'+I(x[1],22)+x[2]+'</button>'}).join("");
  $("nv").insertAdjacentHTML("beforeend",'<div class="nf"><div class="av">'+ini(m.n)+'</div><div><b>'+esc(m.n)+'</b><small>'+(A?"Administrator":"Sales manager")+'</small></div><button onclick="logout()" aria-label="Log out">'+I("out",18)+'</button></div>');
@@ -416,9 +421,8 @@ var cards=us.map(function(u){var y=rec(u.id,T),X=acts(y),m=st(u.id,A0,A1),s=X.le
 return'<div class="tc"><div class="tt"><div class="av big">'+ini(u.n)+'<i class="dt s'+s+'"></i></div><div class="ti"><b>'+esc(u.n)+'</b><small>@'+esc(u.u)+'</small><small>'+td+'</small></div><span class="chip c'+s+'">'+(s?"Active":"No work yet")+'</span></div><div class="tg"><div><b>'+m.d+'</b><span>Days</span></div><div><b>'+m.v+'</b><span>Visits</span></div><div><b>'+m.n+'</b><span>New</span></div><div><b>'+m.w+'</b><span>Other</span></div></div>'+tgBars(u.id)+'<div class="ta"><button class="btn s" onclick="ofSheet(\''+jq(u.id)+'\')">'+I("edit",16)+'Edit</button><button class="btn s dg" onclick="delOf(\''+jq(u.id)+'\')">'+I("trash",16)+'Remove</button></div></div>'}).join("");
 var empty='<div class="cd em"><div class="mu" style="padding:0 0 12px">No sales managers yet.<br>Add your first team member so they can add their work.</div><button class="btn pl" style="margin:auto!important" onclick="ofSheet()">'+I("plus",16)+'Add sales manager</button></div>';
 var sync=CLOUD?'<i class="dt s1"></i>Cloud sync is on. All devices share the same data.':'<i class="dt"></i>Cloud sync is off. Data is stored on this device only.';
-return hd("Team","Your sales team")+'<div class="bd">'+secCard()+'<div class="cd"><h3>Team overview <span class="hm">'+new Date().toLocaleString("en",{month:"long",year:"numeric"})+'</span></h3><div class="sg"><div><b>'+us.length+'</b><span>Managers</span></div><div><b style="color:var(--ok)">'+act+'</b><span>Active today</span></div><div><b>'+all.v+'</b><span>Client visits</span></div><div><b style="color:var(--ac)">'+all.w+'</b><span>Other work</span></div></div></div>'
-+'<div class="cd adm"><div class="av big">'+ini(a.n)+'</div><div class="ti"><b>'+esc(a.n)+'</b><small>Administrator · @'+esc(a.u)+'</small></div><div class="ab"><button class="btn s" onclick="accSheet()">'+I("key",16)+'My login</button><button class="btn s" onclick="rulesSheet()">'+I("gear",16)+'Visit rules</button><button class="btn s" onclick="wtSheet()">'+I("case",16)+'Work types</button></div><div class="sy">'+sync+'</div>'+secLine()+'<div class="sy"><i class="dt s1"></i>'+rsum()+'</div></div>'
-+brCard()+'<div class="sh2"><div class="sec">Sales managers <small>'+us.length+'</small></div><button class="btn pl" onclick="ofSheet()">'+I("plus",16)+'Add manager</button></div>'+(us.length?'<div class="tgrid">'+cards+'</div>':empty)+'</div>'}
+return hd("Team","Your sales team")+'<div class="bd"><div class="cd"><h3>Team overview <span class="hm">'+new Date().toLocaleString("en",{month:"long",year:"numeric"})+'</span></h3><div class="sg"><div><b>'+us.length+'</b><span>Managers</span></div><div><b style="color:var(--ok)">'+act+'</b><span>Active today</span></div><div><b>'+all.v+'</b><span>Client visits</span></div><div><b style="color:var(--ac)">'+all.w+'</b><span>Other work</span></div></div></div>'
++'<div class="sh2"><div class="sec">Sales managers <small>'+us.length+'</small></div><button class="btn pl" onclick="ofSheet()">'+I("plus",16)+'Add manager</button></div>'+(us.length?'<div class="tgrid">'+cards+'</div>':empty)+'</div>'}
 };
 /* ===== v9 additions: rules, client edit/search, duplicates, call/WhatsApp, photos ===== */
 var CQ="",PHT={},ALA=0,AK=[],CC="94",DBH=null;
@@ -437,7 +441,7 @@ function clRows(){var cnt={},k;for(k in S.days)(S.days[k].v||[]).forEach(functio
  +'<div class="ca">'+(c.p?'<a href="tel:'+esc(c.p)+'">'+I("phone",15)+'Call</a>':"")+(w?'<a class="wa" target="_blank" rel="noopener" href="https://wa.me/'+w+'">'+I("wa",15)+'WhatsApp</a>':"")+'<button onclick="clEdit(\''+jq(c.id)+'\')">'+I("edit",15)+'Edit</button>'+(isA()?'<button class="dl" onclick="delCl(\''+jq(c.id)+'\')">'+I("trash",15)+'Delete</button>':"")+'</div></div><span class="tag '+tg+'">'+tg+'</span></div>'}).join("");
  return(q?'<div class="mu" style="padding:2px 0 10px">'+L.length+' of '+all.length+' clients</div>':"")+(h||'<div class="mu">'+(all.length?"No client matches your search":"No clients yet. New clients appear here when a visit is added")+'</div>')}
 function clList(){var e=$("cll");if(e)e.innerHTML=clRows()}
-function clEdit(id){var c=S.cl[id];if(!c)return;sheet('<h3>Edit client</h3><label>Client name</label><input id="ce_n" value="'+esc(c.n)+'"><label>Mobile number</label><input id="ce_p" type="tel" inputmode="tel" value="'+esc(c.p||"")+'"><label>Client type</label><select id="ce_k"><option value="New"'+(c.k=="New"?" selected":"")+'>New client</option><option value="Old"'+(c.k=="New"?"":" selected")+'>Old client</option></select><label>1st payment agreement</label><select id="ce_a"><option value="">Not set</option>'+PA.map(function(x){return'<option'+(x==c.pa?" selected":"")+'>'+x+'</option>'}).join("")+'</select>'+(isA()&&okg(c.g)?'<label>Shop location</label><select id="ce_g"><option value="k">Keep the saved shop pin</option><option value="r">Reset (save again on the next visit)</option></select>':"")+'<label>Comments</label><textarea id="ce_m" rows="3">'+esc(c.cm||"")+'</textarea><button class="btn" onclick="saveCl(\''+jq(id)+'\')">Save changes</button>')}
+function clEdit(id){var c=S.cl[id];if(!c)return;sheet('<h3>Edit client</h3><label>Client name</label><input id="ce_n" value="'+esc(c.n)+'"><label>Mobile number</label><input id="ce_p" type="tel" inputmode="tel" value="'+esc(c.p||"")+'"><label>Client type</label><select id="ce_k"><option value="New"'+(c.k=="New"?" selected":"")+'>New client</option><option value="Old"'+(c.k=="New"?"":" selected")+'>Old client</option></select><label>1st payment agreement</label><select id="ce_a"><option value="">Not set</option>'+pal().map(function(x){return'<option'+(x==c.pa?" selected":"")+'>'+esc(x)+'</option>'}).join("")+'</select>'+(isA()&&okg(c.g)?'<label>Shop location</label><select id="ce_g"><option value="k">Keep the saved shop pin</option><option value="r">Reset (save again on the next visit)</option></select>':"")+'<label>Comments</label><textarea id="ce_m" rows="3">'+esc(c.cm||"")+'</textarea><button class="btn" onclick="saveCl(\''+jq(id)+'\')">Save changes</button>')}
 function saveCl(id){var c=S.cl[id];if(!c)return;var n=$("ce_n").value.trim().replace(/\s+/g," "),p=$("ce_p").value.trim();if(!n){toast("Enter the client name");return}
  var d=dupC(n,p,id);if(d){toast(d.w=="phone"?"This phone number already belongs to "+d.c.n:"Another client already has this name");return}
  var o=c.n,k;c.n=n;c.p=p;c.k=$("ce_k").value;c.pa=$("ce_a").value;c.cm=$("ce_m").value.trim();if($("ce_g")&&$("ce_g").value=="r")delete c.g;
@@ -523,7 +527,7 @@ function lst(){var L=[],o=isA()?RF.o:U;for(var k in S.days){var r=S.days[k];if(o
 function delDay(k){cfm("Delete this record?",function(){var r0=S.days[k];if(r0)(r0.v||[]).concat(wl(r0)).forEach(function(v){if(v.ps)for(var t in v.ps)phDrop(v.ps[t])});delete S.days[k];sv("days/"+k,null);render()})}
 function sheet(h){$("sh").innerHTML='<div class="bk" onclick="cs()"></div><div class="pn" role="dialog" aria-modal="true"><div class="hdl"></div>'+h+'</div>';$("sh").className="sh open";if(!SHO){SHO=1;try{history.pushState({v:V,sh:1},"")}catch(e){}}swp($("sh").querySelector(".pn"))}
 var RS=["Payment collection","Order taking","Product demo","Complaint / issue","Follow-up","Relationship visit","Other"],PA=["Cash","Card","Bank transfer"];
-function opt(a){return a.map(function(x){return'<option>'+x+'</option>'}).join("")}
+function opt(a){return a.map(function(x){return'<option>'+esc(x)+'</option>'}).join("")}
 function vd(v){var a=[];if(v.ph)a.push("Mobile: "+v.ph);if(v.pa)a.push("Payment: "+v.pa);if(v.rs)a.push("Reason: "+v.rs);if(v.n)a.push(v.n);return a.join(" · ")}
 function delCl(id){cfm("Delete this client?",function(){delete S.cl[id];sv("cl/"+id,null);render()})}
 function ofSheet(id){var u=id?S.users[id]:{n:"",u:""},sec=!!S.cfg.sec,t=u.tg||{};
@@ -582,7 +586,7 @@ VW.pl=function(){var D=wk(PW),T=ds(new Date()),tot=0,dn=0;
 function pdel(d,id){cfm("Remove this from the plan?",function(){psave(d,pitems(d).filter(function(i){return i.id!=id}));render()})}
 /* branches (admin) */
 function brCard(){var bs=Object.keys(S.br||{}).map(function(k){return S.br[k]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)});
- return'<div class="cd"><h3>Branches <span class="hm">'+bs.length+'</span></h3>'+(bs.map(function(b){return'<div class="ev"><i>'+I("home",16)+'</i><div><b>'+esc(b.n)+'</b><small>'+(okg(b.g)?'Branch pin saved'+gl(b.g):'No pin yet · saved on the first check-in')+'</small></div>'+(okg(b.g)?'<button class="sm" aria-label="Reset branch pin" onclick="brReset(\''+jq(b.id)+'\')">'+I("pin",15)+'</button>':"")+'<button class="sm dg" aria-label="Delete branch" onclick="brDel(\''+jq(b.id)+'\')">'+I("trash",15)+'</button></div>'}).join("")||'<div class="mu">No branches yet. They appear here when a manager plans a branch visit.</div>')
+ return'<div class="cd"><h3>Branches <span class="hm">'+bs.length+'</span></h3>'+(bs.map(function(b){return'<div class="ev"><i>'+I("home",16)+'</i><div><b>'+esc(b.n)+'</b><small>'+(okg(b.g)?'Branch pin saved'+gl(b.g):'No pin yet · saved on the first check-in')+'</small></div><button class="sm" aria-label="Rename branch" onclick="brEdit(\''+jq(b.id)+'\')">'+I("edit",15)+'</button>'+(okg(b.g)?'<button class="sm" aria-label="Reset branch pin" onclick="brReset(\''+jq(b.id)+'\')">'+I("pin",15)+'</button>':"")+'<button class="sm dg" aria-label="Delete branch" onclick="brDel(\''+jq(b.id)+'\')">'+I("trash",15)+'</button></div>'}).join("")||'<div class="mu">No branches yet. They appear here when a manager plans a branch visit.</div>')
  +'<button class="btn s" onclick="brAdd()">'+I("plus",16)+'Add branch</button></div>'}
 function brAdd(){sheet('<h3>Add branch</h3><label>Branch name</label><input id="bn" placeholder="e.g. Jimi Branch"><div class="mu" style="text-align:left;padding:10px 0 0">The branch location is saved automatically the first time a manager checks in there.</div><button class="btn" onclick="brAdd2()">Save</button>')}
 function brAdd2(){var n=$("bn").value.trim().replace(/\s+/g," ");if(!n){toast("Enter the branch name");return}if(brByName(n)){toast("This branch already exists");return}var id="b"+Date.now();S.br[id]={id:id,n:n};sv("br/"+id,S.br[id]);cs();toast("Branch added");render()}
@@ -643,9 +647,7 @@ var LFP=null;
 function lfl(){if(window.L)return Promise.resolve(1);if(LFP)return LFP;LFP=new Promise(function(res){var c=document.createElement("link");c.rel="stylesheet";c.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";c.integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=";c.crossOrigin="";document.head.appendChild(c);
  var s=document.createElement("script");s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";s.crossOrigin="";s.onload=function(){res(1)};s.onerror=function(){LFP=null;res(0)};document.head.appendChild(s)});return LFP}
 /* ===== Work log: one "Add work" for client visits, branch visits and any other job ===== */
-function wtR(){WT={cv:["Client visit","store"],nc:["New client visit","plus"],oc:["Old client visit","store"],br:["Branch visit","home"],dw:["Daily work","case"],rh:["Roasting help","coffee"],ws:["Work support","users"],sp:["Special work","edit"],mt:["Meeting","users"],dv:["Delivery","case"],of:["Office work","file"],ot:["Other","edit"]};(S.cfg.wt||[]).forEach(function(x){if(x&&x.id)WT[x.id]=[x.n,"file"]})}
 function wtg(ty,tn){return WT[ty]||[tn||"Other work","edit"]}
-function otypes(){return["dw","rh","ws","sp"].concat((S.cfg.wt||[]).filter(function(x){return x&&x.id}).map(function(x){return x.id}))}
 function wl(r){return(r&&r.w)||[]}
 function acts(r){var a=[];((r&&r.v)||[]).forEach(function(v,i){a.push({v:v,i:i})});wl(r).forEach(function(w,i){a.push({w:w,i:i})});return a.sort(function(x,y){var p1=(x.v||x.w).t||"",p2=(y.v||y.w).t||"";return p1<p2?-1:p1>p2?1:0})}
 function st(u,a,b){var d=0,v=0,n=0,x=0,w=0;for(var k in S.days){var r=S.days[k],L=r.v||[],W2=wl(r);if(u&&r.u!=u)continue;if(a&&r.d<a)continue;if(b&&r.d>b)continue;if(!L.length&&!W2.length)continue;d++;w+=W2.length;L.forEach(function(q){v++;q.k=="New"?n++:x++})}return{d:d,v:v,n:n,o:x,w:w}}
@@ -669,8 +671,8 @@ function visit(pre){PHT={};pre=pre||{};wtR();var bs=Object.keys(S.br||{}).length
  if(pre.ty&&op.some(function(x){return x[0]==pre.ty}))$("vk").value=pre.ty;else if(pre.ty)$("vk").value="dw";
  vform(pre);vloc()}
 function vform(pre){pre=pre||{};var k=$("vk").value,h="",cli=k=="nc"||k=="oc",tn=wtg(k)[0];
- if(k=="nc")h='<label>Client name</label><input id="vc" placeholder="Shop / client name" value="'+esc(pre.c||"")+'"><label>Mobile number</label><input id="vp" type="tel" inputmode="tel" placeholder="07X XXX XXXX"><label>1st payment agreement</label><select id="vq">'+opt(PA)+'</select>';
- else if(k=="oc")h=(Object.keys(S.cl).length?'<label>Client</label><input id="vs" type="search" autocomplete="off" placeholder="Search by name or phone" oninput="vfl()" style="margin-bottom:8px"><select id="vc">'+vopts("")+'</select>':'<div class="mu">No clients yet. Choose “New client visit” for the first visit.</div>')+'<label>Reason for visit</label><select id="vr">'+opt(RS)+'</select>';
+ if(k=="nc")h='<label>Client name</label><input id="vc" placeholder="Shop / client name" value="'+esc(pre.c||"")+'"><label>Mobile number</label><input id="vp" type="tel" inputmode="tel" placeholder="07X XXX XXXX"><label>1st payment agreement</label><select id="vq">'+opt(pal())+'</select>';
+ else if(k=="oc")h=(Object.keys(S.cl).length?'<label>Client</label><input id="vs" type="search" autocomplete="off" placeholder="Search by name or phone" oninput="vfl()" style="margin-bottom:8px"><select id="vc">'+vopts("")+'</select>':'<div class="mu">No clients yet. Choose “New client visit” for the first visit.</div>')+'<label>Reason for visit</label><select id="vr">'+opt(rsl())+'</select>';
  else if(k=="br")h='<label>Branch</label><select id="vb" onchange="$(\'vb0\').style.display=this.value?\'none\':\'block\'"><option value="">New branch (type the name)</option>'+Object.keys(S.br||{}).map(function(i){return S.br[i]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)}).map(function(b){return'<option value="'+esc(b.n)+'">'+esc(b.n)+'</option>'}).join("")+'</select><div id="vb0"><input id="vbn" placeholder="e.g. Jimi Branch" style="margin-top:8px"></div>';
  else h='<label>Title / place (optional)</label><input id="vt" placeholder="e.g. '+(k=="rh"?"Main roastery":k=="ws"?"Helping at Jimi Branch":"Head office")+'" value="'+esc(pre.c&&nn(pre.c)!=nn(tn)?pre.c:"")+'">';
  $("vf").innerHTML=h+'<label>'+(cli?"Comments":"What did you do? *")+'</label><textarea id="vn" rows="3" placeholder="'+(cli?"Any other notes...":"Describe the work you did")+'"></textarea>';
@@ -714,7 +716,7 @@ function prow(d,it,o){o=o||{};var u=o.u||U,ty=ity(it),w=wtg(ty,it.tn),dn=pdone(d
  return'<div class="ev"><i class="'+(dn?"okc":ms?"msc":"")+'">'+I(dn?"check":w[1],17)+'</i><div><b>'+title+'</b>'+(sub?'<small>'+sub+'</small>':"")+(x?'<small>'+x+'</small>':"")+(acts2?'<div class="pa2">'+acts2+'</div>':"")+'</div><span class="'+(dn?"sd":ms?"sx":"")+'">'+st2+'</span></div>'}
 function padd(d){wtR();sheet('<h3>Add to plan · '+esc(dl(d))+'</h3><label>Type of work</label><select id="pty" onchange="pform()">'+["cv","br"].concat(otypes()).map(function(k){return'<option value="'+esc(k)+'">'+esc(WT[k][0])+'</option>'}).join("")+'</select><div id="pf"></div><label>Time (optional)</label><input id="pt" type="time"><label>Note</label><textarea id="pno" rows="2" placeholder="Anything to remember..."></textarea><button class="btn" onclick="padd2(\''+jq(d)+'\')">Add to plan</button>');pform()}
 function pform(){var t=$("pty").value,h="",srt=function(a,b){return String(a.n).localeCompare(b.n)},vals=function(o){return Object.keys(o||{}).map(function(k){return o[k]}).filter(Boolean).sort(srt)},op=function(x){return'<option value="'+esc(x.n)+'">'+esc(x.n)+'</option>'};
- if(t=="cv")h='<label>Client</label><select id="pc" onchange="pcs()"><option value="">New prospect (type the name)</option>'+vals(S.cl).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="Shop / prospect name" style="margin-top:8px"></div><label>Purpose</label><select id="pr">'+opt(RS)+'</select>';
+ if(t=="cv")h='<label>Client</label><select id="pc" onchange="pcs()"><option value="">New prospect (type the name)</option>'+vals(S.cl).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="Shop / prospect name" style="margin-top:8px"></div><label>Purpose</label><select id="pr">'+opt(rsl())+'</select>';
  else if(t=="br")h='<label>Branch</label><select id="pc" onchange="pcs()"><option value="">New branch (type the name)</option>'+vals(S.br).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="e.g. Jimi Branch" style="margin-top:8px"></div>';
  else h='<label>Title / place (optional)</label><input id="pnm" placeholder="e.g. '+(t=="rh"?"Main roastery":"Head office")+'">';
  $("pf").innerHTML=h}
@@ -727,16 +729,6 @@ function padd2(d){var ty=$("pty").value,c=$("pc")?$("pc").value:"",nm=(c||($("pn
  L.push(it);L.sort(function(a,b){return(a.t||"99:99")<(b.t||"99:99")?-1:(a.t||"99:99")>(b.t||"99:99")?1:0});
  psave(d,L);cs();toast("Added to plan");render()}
 function pgo(id){var T=ds(new Date()),it=pitems(T).filter(function(x){return x.id==id})[0];if(!it)return;var t=ity(it);if(t=="cv"){var c=clByName(it.c);visit({ty:c?"oc":"nc",c:c?c.n:it.c})}else visit({ty:t,c:it.c})}
-
-/* admin: work types */
-function wtSheet(){wtR();var L=(S.cfg.wt||[]).filter(function(x){return x&&x.id});
- sheet('<h3>Work types</h3><div class="mu" style="text-align:left;padding:0 0 6px">Managers pick one of these when they add work. New client visit, Old client visit and Branch visit are always there.</div>'
- +["dw","rh","ws","sp"].map(function(k){return'<div class="ev"><i>'+I(WT[k][1],16)+'</i><div><b>'+WT[k][0]+'</b><small>Built in</small></div></div>'}).join("")
- +L.map(function(x){return'<div class="ev"><i>'+I("file",16)+'</i><div><b>'+esc(x.n)+'</b><small>Added by admin</small></div><button class="sm dg" aria-label="Remove work type" onclick="wtDel(\''+jq(x.id)+'\')">'+I("trash",15)+'</button></div>'}).join("")
- +'<label>Add a work type</label><input id="wtn" placeholder="e.g. Stock count"><button class="btn" onclick="wtAdd()">'+I("plus",16)+'Add work type</button>')}
-function wtAdd(){var n=$("wtn").value.trim().replace(/\s+/g," ");if(!n){toast("Enter a name");return}wtR();for(var k in WT)if(nn(WT[k][0])==nn(n)){toast("This work type already exists");return}
- var L=(S.cfg.wt||[]).filter(function(x){return x&&x.id});L.push({id:"w"+Date.now().toString(36),n:n});S.cfg.wt=L;sv("cfg/wt",L);toast("Work type added");wtSheet()}
-function wtDel(id){cfm("Remove this work type? Work already added keeps its name.",function(){var L=(S.cfg.wt||[]).filter(function(x){return x&&x.id&&x.id!=id});S.cfg.wt=L;sv("cfg/wt",L.length?L:null);wtSheet()})}
 
 /* route: client visits + all other work */
 function route(u,d){var r=rec(u,d)||{v:[]},us=S.users[u],V=r.v||[],F=dfl(r),P=pitems(d,u),pts=[],nw=0,nog=0;
@@ -836,10 +828,12 @@ function rulesHtml(){return'<div class="stp"><b>4 · Lock the database</b><br>Fi
 function cpRules(){var t=$("rtxt");function fb(){t.select();try{document.execCommand("copy")}catch(e){}toast("Rules copied")}try{navigator.clipboard.writeText(RULES).then(function(){toast("Rules copied")},fb)}catch(e){fb()}}
 function rulesShow(){sheet('<h3>Database rules</h3>'+rulesHtml()+'<button class="btn s" onclick="cs()">Close</button>')}
 /* my account: change own password (and admin username) */
-function accSheet(){var a=me(),sec=!!S.cfg.sec;if(!a)return;
- if(!sec){if(isA()){pinSheet();return}sheet('<h3>My account</h3><div class="mu" style="text-align:left;padding:0">'+esc(a.n)+' · @'+esc(a.u)+'<br>Ask the admin to change your PIN.</div><button class="btn s" onclick="cs();logout()">'+I("out",16)+'Log out</button>');return}
- sheet('<h3>My account</h3><div class="mu" style="text-align:left;padding:0 0 4px">'+esc(a.n)+' · @'+esc(a.u)+(isA()?" · Administrator":" · Sales manager")+'</div>'+(isA()?'<label>Username</label><input id="au" autocapitalize="none" value="'+esc(a.u)+'">':'')
- +'<label>Current password</label><input id="ap0" type="password" autocomplete="current-password"><label>New password (at least 6 characters)</label><input id="ap1" type="password" autocomplete="new-password"><button class="btn" id="asv" onclick="chPw()">Save</button><button class="btn s" onclick="cs();logout()">'+I("out",16)+'Log out</button>')}
+function accSheet(){var a=me();if(!a)return;
+ sheet('<div class="acc"><div class="av big">'+ini(a.n)+'</div><b>'+esc(a.n)+'</b><small>@'+esc(a.u)+' · '+(isA()?"Administrator":"Sales manager")+'</small></div><button class="btn s" onclick="cs();go(\'st\')">'+I("gear",16)+'Settings</button><button class="btn s dg" onclick="cs();logout()">'+I("out",16)+'Log out</button>')}
+function pwSheet(){var a=me(),sec=!!S.cfg.sec;if(!a)return;
+ if(!sec){if(isA()){pinSheet();return}sheet('<h3>Change password</h3><div class="mu" style="text-align:left;padding:0">Ask the admin to change your PIN.</div><button class="btn s" onclick="cs()">Close</button>');return}
+ sheet('<h3>'+(isA()?"Username & password":"Change password")+'</h3>'+(isA()?'<label>Username</label><input id="au" autocapitalize="none" value="'+esc(a.u)+'">':'')
+ +'<label>Current password</label><input id="ap0" type="password" autocomplete="current-password"><label>New password (at least 6 characters)</label><input id="ap1" type="password" autocomplete="new-password"><button class="btn" id="asv" onclick="chPw()">Save</button><button class="btn s" onclick="cs()">Cancel</button>')}
 function chPw(){var a=me(),p0=$("ap0").value,p1=$("ap1").value,nu=$("au")?$("au").value.trim():a.u;
  if(!p0){toast("Enter your current password");return}if(p1&&p1.length<6){toast("New password needs at least 6 characters");return}if(!nu){toast("Enter a username");return}
  if(lkey(nu)!=lkey(a.u))for(var k in S.users)if(k!=U&&S.users[k]&&lkey(S.users[k].u)==lkey(nu)){toast("Username is already taken");return}
@@ -877,6 +871,49 @@ function recheck(){TK="";TX=0;TF=0;var uid="";try{uid=localStorage.getItem("wm_u
    if(a&&a.id==U){clearTimeout(LRT);LRT=setTimeout(live,3000)}else if(a==null){tclr();toast("Your login was removed. Ask the admin");doOut()}else{clearTimeout(LRT);LRT=setTimeout(live,8000)}})})
  .catch(function(){clearTimeout(LRT);LRT=setTimeout(live,8000)})}
 try{history.replaceState({v:V},"")}catch(e){}
+
+/* ===== Settings page ===== */
+var DWT=[{id:"dw",n:"Daily work",ic:"case"},{id:"rh",n:"Roasting help",ic:"coffee"},{id:"ws",n:"Work support",ic:"users"},{id:"sp",n:"Special work",ic:"edit"}],LET={wk:"type of work",rs:"visit reason",pa:"payment agreement"};
+function arr(a){return Array.isArray(a)?a.filter(function(x){return x!=null&&x!==""}):a&&typeof a=="object"?Object.keys(a).map(function(k){return a[k]}).filter(function(x){return x!=null&&x!==""}):null}
+function wkList(){var a=arr(S.cfg.wk);if(a)return a.filter(function(x){return x&&x.id&&x.n});return DWT.concat((arr(S.cfg.wt)||[]).filter(function(x){return x&&x.id}).map(function(x){return{id:x.id,n:x.n,ic:"file"}}))}
+function rsl(){var a=arr(S.cfg.rs);return a&&a.length?a:RS}
+function pal(){var a=arr(S.cfg.pa);return a&&a.length?a:PA}
+function wtR(){WT={cv:["Client visit","store"],nc:["New client visit","plus"],oc:["Old client visit","store"],br:["Branch visit","home"],dw:["Daily work","case"],rh:["Roasting help","coffee"],ws:["Work support","users"],sp:["Special work","edit"],mt:["Meeting","users"],dv:["Delivery","case"],of:["Office work","file"],ot:["Other","edit"]};
+ (arr(S.cfg.wt)||[]).forEach(function(x){if(x&&x.id)WT[x.id]=[x.n,"file"]});wkList().forEach(function(x){WT[x.id]=[x.n,x.ic||"file"]})}
+function otypes(){return wkList().map(function(x){return x.id})}
+function lcard(k,t,d,L){return'<div class="cd"><h3>'+t+'<span class="hm">'+L.length+'</span></h3><div class="mu" style="text-align:left;padding:0 0 4px">'+d+'</div>'
+ +L.map(function(x){return'<div class="ev"><i>'+I(x.ic,16)+'</i><div><b>'+esc(x.n)+'</b></div><button class="sm" aria-label="Edit" onclick="leEdit(\''+k+'\',\''+jq(String(x.k))+'\')">'+I("edit",15)+'</button><button class="sm dg" aria-label="Delete" onclick="leDel(\''+k+'\',\''+jq(String(x.k))+'\')">'+I("trash",15)+'</button></div>'}).join("")
+ +'<button class="btn s" onclick="leEdit(\''+k+'\',\'\')">'+I("plus",16)+'Add '+LET[k]+'</button></div>'}
+function leGet(k){return k=="wk"?wkList().map(function(x){var y={id:x.id,n:x.n};if(x.ic)y.ic=x.ic;return y}):(k=="rs"?rsl():pal()).slice()}
+function lePut(k,L){S.cfg[k]=L;sv("cfg/"+k,L);wtR()}
+function leEdit(k,key){var L=leGet(k),cur=key===""?"":k=="wk"?((L.filter(function(x){return x.id==key})[0]||{}).n||""):(L[+key]||"");
+ sheet('<h3>'+(key===""?"Add ":"Edit ")+LET[k]+'</h3><label>Name</label><input id="len" autocomplete="off" value="'+esc(cur)+'" placeholder="'+(k=="wk"?"e.g. Stock count":k=="rs"?"e.g. New product launch":"e.g. Credit 30 days")+'" onkeydown="if(event.key==\'Enter\')leSave(\''+k+'\',\''+jq(key)+'\')"><button class="btn" onclick="leSave(\''+k+'\',\''+jq(key)+'\')">Save</button><button class="btn s" onclick="cs()">Cancel</button>');
+ setTimeout(function(){var e=$("len");if(e)e.focus()},300)}
+function leSave(k,key){var n=$("len").value.trim().replace(/\s+/g," ");if(!n){toast("Enter a name");return}var L=leGet(k);
+ var dup=L.some(function(x,i){return(k=="wk"?x.id:String(i))!==key&&nn(k=="wk"?x.n:x)==nn(n)})||(k=="wk"&&["new client visit","old client visit","branch visit","client visit"].indexOf(nn(n))>=0);
+ if(dup){toast("This name is already in the list");return}
+ if(key==="")L.push(k=="wk"?{id:"w"+Date.now().toString(36),n:n,ic:"file"}:n);else if(k=="wk")L.forEach(function(x){if(x.id==key)x.n=n});else L[+key]=n;
+ lePut(k,L);cs();toast("Saved");render()}
+function leDel(k,key){var L=leGet(k);if(L.length<=1){toast("Keep at least one item in the list");return}var nm=k=="wk"?((L.filter(function(x){return x.id==key})[0]||{}).n||""):L[+key];
+ cfm("Delete “"+esc(nm)+"”? Work already saved keeps this name.",function(){lePut(k,k=="wk"?L.filter(function(x){return x.id!=key}):L.filter(function(x,i){return String(i)!=key}));toast("Deleted");render()})}
+function brEdit(id){var b=S.br[id];if(!b)return;sheet('<h3>Rename branch</h3><label>Branch name</label><input id="bn" value="'+esc(b.n)+'"><button class="btn" onclick="brEdit2(\''+jq(id)+'\')">Save</button><button class="btn s" onclick="cs()">Cancel</button>')}
+function brEdit2(id){var b=S.br[id],n=$("bn").value.trim().replace(/\s+/g," ");if(!b)return;if(!n){toast("Enter the branch name");return}var o=brByName(n);if(o&&o.id!=id){toast("Another branch already has this name");return}
+ var old=b.n;b.n=n;sv("br/"+id,b);
+ if(nn(old)!=nn(n)){for(var k in S.days){var r=S.days[k],ch=0;wl(r).forEach(function(w){if(w.ty=="br"&&nn(w.c)==nn(old)){w.c=n;ch=1}});if(ch)sv("days/"+k,r)}
+  for(var k2 in S.plans||{}){var pp=S.plans[k2],c2=0;if(pp&&Array.isArray(pp.i))pp.i.forEach(function(it){if(it&&ity(it)=="br"&&nn(it.c)==nn(old)){it.c=n;c2=1}});if(c2)sv("plans/"+k2,pp)}}
+ cs();toast("Branch renamed");render()}
+VW.st=function(){var a=me(),A=isA(),sec=!!S.cfg.sec;wtR();
+ var h=hd("Settings",A?"Manage the app":"Your account")+'<div class="bd"><div class="cd"><div class="tt"><div class="av big">'+ini(a.n)+'</div><div class="ti"><b>'+esc(a.n)+'</b><small>@'+esc(a.u)+' · '+(A?"Administrator":"Sales manager")+'</small></div></div>'
+  +'<div class="srow" onclick="pwSheet()">'+I("key",18)+'<span>'+(A?"Username & password":"Change password")+'<small>'+(sec?"Update your login":A?"Change your username and PIN":"Ask the admin to change your PIN")+'</small></span>'+I("chev2",16)+'</div></div>';
+ if(A){var sync=CLOUD?'<i class="dt s1"></i>Cloud sync is on. All devices share the same data.':'<i class="dt"></i>Cloud sync is off. Data is stored on this device only.';
+  h+='<div class="sec">Add work options</div>'
+   +lcard("wk","Type of work","Shown in Add work and in the work plan. New client visit, Old client visit and Branch visit are always there.",wkList().map(function(x){return{k:x.id,n:x.n,ic:x.ic||"file"}}))
+   +lcard("rs","Visit reasons","Shown when adding an Old client visit and in the plan.",rsl().map(function(x,i){return{k:i,n:x,ic:"store"}}))
+   +lcard("pa","1st payment agreements","Shown when adding a New client visit.",pal().map(function(x,i){return{k:i,n:x,ic:"case"}}))
+   +'<div class="sec">Places</div>'+brCard()
+   +'<div class="sec">Rules</div><div class="cd"><div class="srow" style="margin:0;border:0;padding-top:0" onclick="rulesSheet()">'+I("gear",18)+'<span>Visit rules<small>'+rsum()+'</small></span>'+I("chev2",16)+'</div></div>'
+   +'<div class="sec">Security &amp; sync</div>'+secCard()+'<div class="cd"><div class="sy" style="border:0;padding-top:0">'+sync+'</div>'+secLine()+'</div>'}
+ return h+'<div class="mu" style="padding:18px 0 6px">Windmill Cafe · Marketing app</div></div>'};
 
 /* ===== Photo retention (admin choice; default keeps photos forever) ===== */
 var PCL=0;
