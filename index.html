@@ -327,7 +327,8 @@ function render(){wtR();var m=me();if(!m){$("main").innerHTML=lgv();$("nv").inne
  $("main").innerHTML=VW[V]()}
 function lgv(){return'<div class="lg"><div class="lp"><div class="fl"></div></div><h1>Windmill Cafe</h1><p>Marketing team · sign in to continue</p><div class="cd"><label>Username</label><input id="lu" autocapitalize="none" autocomplete="username"><label>Password</label><input id="lp" type="password" autocomplete="current-password" onkeydown="if(event.key==\'Enter\')doLogin()"><button class="btn" id="lgb" onclick="doLogin()">Sign in</button></div>'+'</div>'}
 function doLogin(){var u=lkey($("lu").value),q=$("lp").value,b=$("lgb");if(!u||!q){toast("Enter your username and password");return}
- function legacy(){var f=null;for(var k in S.users){var x=S.users[k];if(x&&x.pin&&lkey(x.u)==u&&x.pin==q)f=k}if(!f){toast("Incorrect username or password");return}U=f;V="";try{localStorage.setItem("wm_u",U)}catch(e){}render();live()}
+ function legacy(){var f=null,fu=null;q=String(q).trim();for(var k in S.users){var x=S.users[k];if(!x||lkey(x.u)!=u)continue;fu=x;if(x.pin!=null&&String(x.pin).trim()==q)f=k}
+  if(!f){toast(!fu?"Username “"+u+"” not found":fu.pin==null?"This account uses the new password. Ask the admin":"Wrong password for “"+u+"”");return}U=f;V="";try{localStorage.setItem("wm_u",U)}catch(e){}render();live()}
  if(!CLOUD||!KEY){legacy();return}
  b.disabled=true;b.textContent="Signing in…";
  var LKS=0;fetch(CLOUD+"/lk/"+encodeURIComponent(u)+".json").then(function(r){LKS=r.status;return r.ok?r.json():null},function(){return undefined}).then(function(em){
