@@ -1,11 +1,11 @@
 {
-  "name": "Windmill Cafe \u2013 Marketing",
-  "short_name": "Windmill",
+  "name": "WINDMILL – Marketing Team",
+  "short_name": "WINDMILL",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#ECE7DE",
-  "theme_color": "#ECE7DE",
+  "background_color": "#0F0D0B",
+  "theme_color": "#0F0D0B",
   "icons": [
     {
       "src": "icon-192.png",
@@ -19,5 +19,6 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "description": "WINDMILL Marketing Team – daily work, client visits and GPS check-ins"
 }
