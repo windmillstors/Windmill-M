@@ -433,6 +433,36 @@ input,select,textarea{font-size:16px!important}
 .btn.s.gl{border-color:var(--gold)!important;color:var(--ac)!important}
 .cd h3>span>svg{color:var(--ac);flex:none}.cd h3>span:first-child{display:inline-flex;align-items:center;gap:8px}.cd h3:has(>span>svg){display:flex;justify-content:space-between;align-items:center}
 .pa2{display:flex!important;gap:8px;flex-wrap:wrap}
+
+/* dashboard */
+.dnav{padding:10px 12px!important}.dnav .mn b{font-size:15px}
+.mgc{padding:16px!important;position:relative;overflow:hidden}.mgc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--mc)}
+.mgh{display:flex;align-items:center;gap:12px}.mav{width:46px!important;height:46px!important;font-size:16px!important;background:var(--mc)!important;color:#fff!important;flex:none}
+.mgn{flex:1;min-width:0}.mgn b{display:block;font:600 21px/1.15 var(--serif);text-transform:capitalize}.mgn small{display:block;color:var(--mu);font-size:12.5px;margin-top:2px}
+.chip.lvch{background:var(--wns)!important;color:var(--wn)!important}
+.mgs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
+.mgs>div{background:var(--gl2);border:1px solid var(--sep);border-radius:14px;padding:10px 8px;text-align:center}
+.mgs b{display:block;font:600 24px/1.05 var(--serif);color:var(--tx)}.mgs span{display:block;font-size:10.5px;color:var(--mu);margin-top:3px;text-transform:capitalize;letter-spacing:.01em}
+.mgp{margin-top:12px;padding:12px;border-radius:14px;background:var(--acs)}
+.mgpl{display:flex;justify-content:space-between;align-items:center;font-size:12.5px}.mgpl span{color:var(--mu);text-transform:capitalize}.mgpl b{font-weight:650}.mgpl em{font-style:normal;color:var(--rd)}
+.pbar{height:7px;border-radius:9px;background:rgba(127,110,80,.16);margin-top:7px;overflow:hidden}.pbar i{display:block;height:100%;border-radius:9px;background:var(--mc,var(--ac))}
+.tls{position:relative;margin-top:2px}
+.tl{display:grid;grid-template-columns:62px 26px 1fr;gap:0 8px;padding:7px 0;position:relative}
+.tl:not(:last-child)::after{content:"";position:absolute;left:74px;top:32px;bottom:-6px;width:2px;background:var(--sep)}
+.tlt{font-size:11.5px;color:var(--mu);font-weight:600;padding-top:5px;text-align:right;white-space:nowrap}
+.tld i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--tl);border:1px solid var(--tlb);color:var(--tic)}
+.tlb{min-width:0}.tlb b{font-size:14px;margin-right:6px}.tlb small{display:block;color:var(--mu);font-size:12px;margin-top:2px;line-height:1.35}
+.gch{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;margin-top:4px}.gch.g{background:var(--oks);color:var(--ok)}.gch.r{background:var(--rds);color:var(--rd)}.gch.n{background:var(--gl2);color:var(--mu)}
+.lgd2{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 10px;font-size:12.5px}.lgd2 span{display:inline-flex;align-items:center;gap:6px;text-transform:capitalize}.lgd2 i{width:10px;height:10px;border-radius:3px}
+.pfm{padding:9px 0;border-top:1px solid var(--sep)}.pfl{font-size:12px;font-weight:650;color:var(--mu);text-transform:capitalize;margin-bottom:5px}
+.pfr{display:flex;align-items:center;gap:10px;margin:3px 0}.pfb{flex:1;height:10px;border-radius:6px;background:rgba(127,110,80,.12);overflow:hidden}.pfb i{display:block;height:100%;border-radius:6px;transition:width .5s ease}
+.pfr b{min-width:38px;text-align:right;font:600 16px var(--serif)}.pfr b small{font:500 11px Inter,system-ui,sans-serif;color:var(--mu)}
+.trd{width:100%;height:auto;display:block}.trd .gl{stroke:var(--sep);stroke-width:1}.trd .ga{fill:var(--mu);font:600 9px Inter,system-ui,sans-serif}
+/* manager today card */
+.tdc{text-align:left!important;padding:18px!important}
+.tdh{display:flex;justify-content:space-between;align-items:flex-start}.tdk{display:block;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}.tdh b{display:block;font-size:15px;font-weight:650;margin-top:2px}
+.tdm{display:flex;align-items:center;gap:14px;margin:12px 0 4px}.tdm .lv{font-size:64px!important;margin:0!important}.tdl b{display:block;font-size:16px;font-weight:650;text-transform:capitalize}.tdl small{display:block;color:var(--mu);font-size:12.5px;margin-top:2px}
+.tds>div{display:flex;flex-direction:column;align-items:center;gap:2px}.tds i{color:var(--tic);display:grid;place-items:center;margin-bottom:2px}
 </style>
 </head>
 <body>
@@ -536,7 +566,7 @@ function doOut(){U="";V="";LVW="";try{localStorage.removeItem("wm_u");localStora
 var VW={
 home:function(){var D=new Date(),T=ds(D),r=rec(U,T)||{},A=acts(r),nv=(r.v||[]).length,nw=wl(r).filter(function(w){return w.ty!="so"}).length,nso=wl(r).length-nw,h=D.getHours(),g=h<12?"Good morning":h<17?"Good afternoon":"Good evening",ov="",DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var q=rec(U,ds(d)),c=q?(q.v||[]).length+wl(q).length:0;ov+='<div class="'+(i?"":"tdy")+'">'+DN[d.getDay()]+'<b>'+d.getDate()+'</b><span class="'+(c?"ok":"no")+'">'+(c||"–")+'</span></div>'}
- return hd(g+", "+esc(String(me().n).split(" ")[0]),"WINDMILL · Marketing Team")+'<div class="bd"><div class="hero"><div class="hl">Today · '+esc(dl(T))+'</div><div class="lv">'+A.length+'</div><div class="hs">'+(A.length==1?"work entry":"work entries")+' · '+nv+(nv==1?" client visit":" client visits")+' · '+nw+' other'+(nso?' · '+nso+(nso==1?' shop order':' shop orders'):'')+'</div></div>'
+ return hd(esc(String(me().n).split(" ")[0]),g+" · WINDMILL")+'<div class="bd">'+todayCard(r,T)
  +lvRow(U,ds(new Date()),0)+plCard()
  +'<div class="cd"><h3>Today\'s work <a href="#" onclick="go(\'hist\');return false">History</a></h3>'+(A.length?evs(r):'<div class="mu">Nothing added yet today. Tap “Add work” for every client visit, branch visit or other job you do.</div>')+'</div>'
  +'<div class="cd"><h3>Last 7 days <a href="#" onclick="go(\'hist\');return false">Calendar</a></h3><div class="ov">'+ov+'</div></div>'
@@ -617,6 +647,7 @@ function ad(x,n){var d=pd(x);d.setDate(d.getDate()+n);return ds(d)}
 function sl(x){return pd(x).toLocaleDateString("en",{month:"short",day:"numeric"})}
 function rg(){var T=AD||ds(new Date());if(AP=="d")return[T,T];if(AP=="w")return[ad(T,-6),T];return[T.slice(0,8)+"01",T.slice(0,8)+"31"]}
 function setAD(n){AD=n===0?ds(new Date()):ad(AD||ds(new Date()),n);render()}
+function setAP(x){AP=x;render()}
 function tally(a){var o={};a.forEach(function(k){o[k]=(o[k]||0)+1});return Object.keys(o).map(function(k){return[k,o[k]]}).sort(function(x,y){return y[1]-x[1]})}
 function bars(a){var mx=a.length?a[0][1]:1;return a.map(function(x){return'<div class="br"><span>'+esc(x[0])+'</span><div class="tr"><i style="width:'+Math.round(x[1]/mx*100)+'%"></i></div><b>'+x[1]+'</b></div>'}).join("")||'<div class="mu">No data for this period</div>'}
 function kc(ic,col,bg,v,l){return'<div class="k"><i style="background:'+bg+';color:'+col+'">'+I(ic,20)+'</i><div><b>'+v+'</b><span>'+l+'</span></div></div>'}
@@ -658,13 +689,15 @@ function adv(){var T=ds(new Date()),D=AD||T,r=rg(),a=r[0],b=r[1],us=offs(),all=s
  var feed=fe.slice(0,10).map(function(e){return ev(e.ic,e.a,sl(e.d)+(e.b?" · "+e.b:""),e.t,e.g)}).join("")||'<div class="mu">No activity yet</div>';
  var nc=Object.keys(S.cl).sort().reverse().slice(0,5).map(function(c){c=S.cl[c];return'<div class="ev"><i>'+I("store",16)+'</i><div><b>'+esc(c.n)+tgk(c.k)+'</b><small>'+esc((c.p||"")+(c.pa?" · "+c.pa:""))+'</small></div></div>'}).join("")||'<div class="mu">No clients yet</div>';
  var ps=pst(a,b),vs2=vstat(a,b),G="var(--g)",rng=a==b?sl(a):sl(a)+' – '+sl(b);
- return hd("Admin dashboard",new Date().toDateString())+'<div class="bd"><div class="cd"><div class="mn"><button aria-label="Previous day" onclick="setAD(-1)">'+I("chev")+'</button><b>'+(D==T?"Today · ":"")+sl(D)+'</b><button aria-label="Next day" onclick="setAD(1)">'+I("chev2")+'</button></div><div class="seg">'+[["d","Day"],["w","7 days"],["m","Month"]].map(function(x){return'<button class="'+(AP==x[0]?"on":"")+'" onclick="AP=\''+x[0]+'\';render()">'+x[1]+'</button>'}).join("")+'</div><div class="mu" style="padding:10px 0 0">Showing '+rng+(D!=T?' · <a href="#" onclick="setAD(0);return false">Back to today</a>':"")+'</div></div>'
- +lvBoard()+upPlans()+'<div class="kp">'+kc("users",G,"",AP=="d"?act+"/"+us.length:all.d,AP=="d"?(D==T?"Active today":"Active that day"):"Active days")+kc("case",G,"",all.v+all.w+all.so,"Work entries")+kc("store",G,"",all.v,"Client visits")+kc("plus",G,"",all.n,"New clients")+kc("coffee",G,"",all.w,"Other work")+kc("bag",G,"",all.so,"Shop orders")+kc("cal",G,"",lvCnt(a,b),a==b?"On leave":"Leave days")+kc("cal",G,"",ps.d+"/"+ps.t,"Plan items done")+kc("pin",G,"",vs2.ok+"/"+all.v,"Visits at the shop")+kc("bell",G,"",vs2.bad,"Flagged visits").replace('class="k"','class="k'+(vs2.bad?" bad":"")+'"')+'</div>'
+ return hd("Admin Dashboard",fdt(T))+'<div class="bd">'
+ +'<div class="cd dnav"><div class="mn"><button aria-label="Previous day" onclick="setAD(-1)">'+I("chev")+'</button><b>'+(D==T?"Today · ":"")+esc(fdt(D))+'</b><button aria-label="Next day" onclick="setAD(1)">'+I("chev2")+'</button></div>'+(D!=T?'<div class="mu" style="padding:8px 0 0"><a href="#" onclick="setAD(0);return false">Back to today</a></div>':'')+'</div>'
+ +'<div class="sec">Sales Team · '+(D==T?"Today":esc(fdt(D,0)))+'</div>'+(us.length?us.map(function(x,ix){return mgCard(x,ix,D)}).join(""):'<div class="cd em"><div class="mu">No sales managers yet. Add them in the Team tab.</div></div>')
+ +'<div class="sec">Team Performance</div>'+perfCard(us,a,b,rng)+trendCard(us,D)
+ +lvBoard()+upPlans()
+ +'<div class="sec">Team Totals · '+rng+'</div>'
+ +'<div class="kp">'+kc("users",G,"",AP=="d"?act+"/"+us.length:all.d,AP=="d"?(D==T?"Active today":"Active that day"):"Active days")+kc("case",G,"",all.v+all.w+all.so,"Work entries")+kc("store",G,"",all.v,"Client visits")+kc("plus",G,"",all.n,"New clients")+kc("coffee",G,"",all.w,"Other work")+kc("bag",G,"",all.so,"Shop orders")+kc("cal",G,"",lvCnt(a,b),a==b?"On leave":"Leave days")+kc("cal",G,"",ps.d+"/"+ps.t,"Plan items done")+kc("pin",G,"",vs2.ok+"/"+all.v,"Visits at the shop")+kc("bell",G,"",vs2.bad,"Flagged visits").replace('class="k"','class="k'+(vs2.bad?" bad":"")+'"')+'</div>'
  +alh
- +'<div class="sec">Team performance <small>'+rng+'</small></div>'+tr
- +'<div class="cd"><h3>Work – last 7 days</h3><div class="col">'+col+'</div><div class="lgd"><span><i style="background:var(--bl)"></i>New client</span><span><i style="background:var(--ac)"></i>Old client</span><span><i style="background:var(--wn)"></i>Other work</span></div></div>'
  +'<div class="cd"><h3>Other work by type</h3>'+bars(tally(tw))+'</div><div class="cd"><h3>Visit reasons</h3>'+bars(tally(rs))+'</div><div class="cd"><h3>1st payment agreements (new clients)</h3>'+bars(tally(pay))+'</div>'
- +'<div class="sec">Team status <small>'+sl(D)+'</small></div>'+rows
  +'<div class="cd"><h3>Latest clients <a href="#" onclick="go(\'cl\');return false">View all</a></h3>'+nc+'</div><div class="cd"><h3>Recent activity <a href="#" onclick="go(\'rep\');return false">Reports</a></h3>'+feed+'</div></div>'}
 function lst(){var L=[],o=isA()?RF.o:U;for(var k in S.days){var r=S.days[k];if(o&&r.u!=o)continue;if(r.d<RF.a||r.d>RF.b)continue;L.push(r)}return L.sort(function(a,b){return a.d<b.d?1:-1})}
 function delDay(k){cfm("Delete this record?",function(){var r0=S.days[k];if(r0)(r0.v||[]).concat(wl(r0)).forEach(function(v){if(v.ps)for(var t in v.ps)phDrop(v.ps[t])});delete S.days[k];sv("days/"+k,null);render()})}
@@ -721,7 +754,7 @@ function brByName(n){n=nn(n);for(var i in S.br||{})if(S.br[i]&&nn(S.br[i].n)==n)
 function pst(a,b,u){var o={t:0,d:0};for(var k in S.plans||{}){var p=S.plans[k];if(!p||p.d<a||p.d>b||(u&&p.u!=u))continue;pitems(p.d,p.u).forEach(function(i){o.t++;if(pdone(p.d,i,p.u))o.d++})}return o}
 function plCard(){var T=ds(new Date()),L=pitems(T),n=0;L.forEach(function(i){if(pdone(T,i))n++});
  return'<div class="cd"><h3>Today\'s work plan <span class="hm">'+n+'/'+L.length+' done</span></h3>'+(L.length?L.map(function(i){return prow(T,i,{act:1})}).join(""):'<div class="mu">Nothing planned yet. Add where you will go today, for example a branch visit or client visits.</div>')
- +'<div class="two" style="margin-top:10px"><button class="btn s" onclick="padd(\''+T+'\')">'+I("plus",16)+'Add to today</button><button class="btn s" onclick="PW=0;go(\'pl\')">'+I("cal",16)+'Week plan</button></div></div>'}
+ +'<button class="btn s" style="margin-top:10px" onclick="PW=0;go(\'pl\')">'+I("cal",16)+'Open Work Plan</button></div>'}
 VW.pl=function(){var A=isA(),u=PU(),D=wk(PW),T=ds(new Date()),tot=0,dn=0,us=offs();
  if(A&&!u)return hd("Work plan","Sales managers")+'<div class="bd"><div class="mu">Add sales managers in the Team tab first</div></div>';
  var days=D.map(function(d){var L=pitems(d,u);tot+=L.length;L.forEach(function(i){if(pdone(d,i,u))dn++});
@@ -1294,6 +1327,53 @@ VW.mg=function(){var u=S.users[MGU],T=ds(new Date()),D=MGD||T;if(!u)return"";var
  +'<div class="cd"><h3><span>'+I("clock",18)+' Next 7 Days</span></h3>'+(up.length?up.map(function(x){return'<div class="upd">'+esc(fdt(x.d))+'</div>'+(x.l?lvRow(u.id,x.d,1):'')+x.L.map(function(it){var w=WT[ity(it)]||["Work","case"];return'<div class="upr"><i>'+I(w[1],16)+'</i><div><b>'+esc(w[0])+'</b><small>'+esc(it.c&&nn(it.c)!=nn(w[0])?it.c:"")+(it.t?' · '+fmt(it.t):'')+(it.n?' · '+esc(it.n):'')+'</small></div>'+(it.by=="a"?'<span class="tag Asg">From admin</span>':'')+'</div>'}).join("")}).join(""):'<div class="mu" style="text-align:left;padding:2px 0 4px">No plans or leave in the next 7 days.</div>')+'</div>'
  +'<div class="cd"><h3><span>'+I("chart",18)+' '+esc(new Date(D+"T12:00:00").toLocaleDateString("en",{month:"long",year:"numeric"}))+'</span></h3>'+sg(ms)
  +'<div class="two" style="margin-top:12px"><button class="btn s" style="margin:0" onclick="mrMake(\''+jq(u.id)+'\',\''+jq(M)+'\')">'+I("file",16)+'Monthly PDF</button><button class="btn s" style="margin:0" onclick="ofSheet(\''+jq(u.id)+'\')">'+I("edit",16)+'Edit Login</button></div></div></div>'};
+
+/* ===== Admin dashboard parts ===== */
+var MC=["#B8924A","#4F7CAC","#5E9E7A","#B25A5A","#8A6BB0","#C27C3A"];
+function mcol(i){return MC[i%MC.length]}
+function mstat(u,a,b){var o={e:0,v:0,n:0,br:0,so:0,ow:0,ok:0,bad:0,d:0};for(var k in S.days){var r=S.days[k];if(!r||r.u!=u||r.d<a||r.d>b)continue;var X=acts(r);if(X.length)o.d++;
+  (r.v||[]).forEach(function(v){o.v++;o.e++;if(v.k=="New")o.n++});wl(r).forEach(function(w){o.e++;if(w.ty=="br")o.br++;else if(w.ty=="so")o.so++;else o.ow++});
+  dfl(r).forEach(function(f){if(f.ok)o.ok++;if(f.nog||f.far||f.same||f.fast)o.bad++})}
+ var p=pst(a,b,u);o.pt=p.t;o.pd=p.d;return o}
+function gpsOf(e,r,F){if(e.v){var i=(r.v||[]).indexOf(e.v),f=F[i];if(!f)return"";if(f.nog)return'<span class="gch r">No GPS</span>';if(f.far||f.same||f.fast)return'<span class="gch r">'+I("bell",11)+(f.far?"Far "+dm(f.d):f.same?"Same spot":"Too fast")+'</span>';if(isFinite(f.d))return'<span class="gch g">'+I("check",11)+dm(f.d)+'</span>';return f.pin?'<span class="gch n">'+I("pin",11)+'New pin</span>':""}
+ var w=e.w;if(!okg(w.g))return'<span class="gch r">No GPS</span>';var d=bdx(w);if(isFinite(d))return d>DR()?'<span class="gch r">'+I("bell",11)+'Far '+dm(d)+'</span>':'<span class="gch g">'+I("check",11)+dm(d)+'</span>';return""}
+function tlRow(e,r,F){var o=e.v||e.w,t=o.t||"",ic,ti,tg;
+ if(e.v){ic=e.v.k=="New"?"plus":"store";ti=e.v.c;tg='<span class="tag '+(e.v.k=="New"?"New":"Old")+'">'+(e.v.k=="New"?"New Client":"Client Visit")+'</span>'}
+ else{var w=wtg(e.w.ty,e.w.tn);ic=w[1];ti=e.w.c&&nn(e.w.c)!=nn(w[0])?e.w.c:w[0];tg='<span class="tag Wk">'+esc(w[0])+'</span>'}
+ var sub=e.v?vd(e.v):wsub(e.w);
+ return'<div class="tl"><div class="tlt">'+(t?fmt(t):"")+'</div><div class="tld"><i>'+I(ic,14)+'</i></div><div class="tlb"><b>'+esc(ti)+'</b>'+tg+(sub?'<small>'+esc(sub)+'</small>':'')+gpsOf(e,r,F)+'</div></div>'}
+function mgCard(x,ix,D){var r=rec(x.id,D),X=acts(r).slice().sort(function(p1,p2){return((p1.v||p1.w).t||"")<((p2.v||p2.w).t||"")?-1:1}),F=r?dfl(r):[],m=mstat(x.id,D,D),lv=lvOf(x.id,D),onl=onLeave(x.id,D),
+  tt=X.map(function(e){return(e.v||e.w).t}).filter(Boolean),pc=m.pt?Math.round(m.pd/m.pt*100):0,c=mcol(ix),go2='mgo(\''+jq(x.id)+'\',\''+jq(D)+'\')',
+  st2=onl&&lv.st=="ok"?'<span class="chip lvch">On Leave</span>':X.length?'<span class="chip c1">Active</span>':'<span class="chip c0">No Work Yet</span>';
+ return'<div class="cd mgc" style="--mc:'+c+'"><div class="mgh tap" onclick="'+go2+'"><div class="av mav">'+ini(x.n)+'</div><div class="mgn"><b>'+esc(x.n)+'</b><small>'+(tt.length?'Working '+fmt(tt[0])+(tt.length>1?' – '+fmt(tt[tt.length-1]):''):'@'+esc(x.u))+'</small></div>'+st2+'</div>'
+  +(lv?lvRow(x.id,D,1):'')
+  +'<div class="mgs">'+[[m.e,"Entries"],[m.v,"Client Visits"],[m.n,"New Clients"],[m.br,"Branch Visits"],[m.so,"Shop Orders"],[m.ow,"Other Work"]].map(function(q){return'<div><b>'+q[0]+'</b><span>'+q[1]+'</span></div>'}).join("")+'</div>'
+  +'<div class="mgp"><div class="mgpl"><span>Work Plan</span><b>'+m.pd+' / '+m.pt+' done</b></div><div class="pbar"><i style="width:'+pc+'%"></i></div>'
+  +'<div class="mgpl" style="margin-top:8px"><span>GPS Check</span><b>'+m.ok+' at the shop'+(m.bad?' · <em>'+m.bad+' flagged</em>':'')+'</b></div></div>'
+  +'<div class="sub">Activity</div>'+(X.length?'<div class="tls">'+X.slice(0,6).map(function(e){return tlRow(e,r,F)}).join("")+'</div>'+(X.length>6?'<div class="mu" style="padding:6px 0 0">+'+(X.length-6)+' more</div>':''):'<div class="mu" style="text-align:left;padding:4px 0">'+(onl?'On leave.':'Nothing added yet.')+'</div>')
+  +tgBars(x.id)
+  +'<button class="btn s" style="margin-top:12px" onclick="'+go2+'">'+I("chart",16)+'Open Full Day</button></div>'}
+function perfCard(us,a,b,rng){if(!us.length)return"";var S2=us.map(function(u){return mstat(u.id,a,b)});
+ var M=[["Client Visits","v"],["New Clients","n"],["Branch Visits","br"],["Shop Orders","so"],["Other Work","ow"],["Plan Done","pd"],["At The Shop (GPS)","ok"],["Active Days","d"]];
+ var rows=M.map(function(m){var mx=Math.max.apply(null,S2.map(function(z){return z[m[1]]}))||1;
+  return'<div class="pfm"><div class="pfl">'+m[0]+'</div>'+S2.map(function(z,ix){var v=z[m[1]];return'<div class="pfr"><div class="pfb"><i style="width:'+Math.max(v?4:0,Math.round(v/mx*100))+'%;background:'+mcol(ix)+'"></i></div><b>'+v+(m[1]=="pd"&&z.pt?'<small>/'+z.pt+'</small>':'')+'</b></div>'}).join("")+'</div>'}).join("");
+ return'<div class="cd pfc"><h3><span>'+I("chart",18)+' Compare Managers</span><span class="hm">'+rng+'</span></h3>'
+  +'<div class="seg" style="margin:4px 0 12px">'+[["d","Day"],["w","7 Days"],["m","Month"]].map(function(x){return'<button class="'+(AP==x[0]?"on":"")+'" onclick="setAP(\''+x[0]+'\')">'+x[1]+'</button>'}).join("")+'</div>'
+  +'<div class="lgd2">'+us.map(function(u,ix){return'<span><i style="background:'+mcol(ix)+'"></i>'+esc(u.n)+'</span>'}).join("")+'</div>'+rows+'</div>'}
+function trendCard(us,D){if(!us.length)return"";var W=300,H=130,P=26,days=[],i;for(i=6;i>=0;i--)days.push(ad(D,-i));
+ var ser=us.map(function(u){return days.map(function(d){return acts(rec(u.id,d)).length})}),mx=Math.max(4,Math.max.apply(null,ser.map(function(z){return Math.max.apply(null,z)})));
+ var xs=function(j){return P+j*(W-P-8)/6},ys=function(v){return 10+(H-34)*(1-v/mx)};
+ var grid="";for(i=0;i<=4;i++){var gv2=Math.round(mx*i/4),yy=ys(gv2);grid+='<line x1="'+P+'" x2="'+(W-8)+'" y1="'+yy+'" y2="'+yy+'" class="gl"/><text x="'+(P-6)+'" y="'+(yy+3)+'" class="ga" text-anchor="end">'+gv2+'</text>'}
+ var lab=days.map(function(d,j){return'<text x="'+xs(j)+'" y="'+(H-6)+'" class="ga" text-anchor="middle">'+pd(d).toLocaleDateString("en",{weekday:"short"})+'</text>'}).join("");
+ var ln=ser.map(function(z,ix){var c=mcol(ix),pts=z.map(function(v,j){return xs(j).toFixed(1)+","+ys(v).toFixed(1)}).join(" ");
+  return'<polyline points="'+pts+'" fill="none" stroke="'+c+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>'+z.map(function(v,j){return'<circle cx="'+xs(j).toFixed(1)+'" cy="'+ys(v).toFixed(1)+'" r="3.4" fill="'+c+'" stroke="var(--sf)" stroke-width="1.5"><title>'+esc(us[ix].n)+': '+v+'</title></circle>'}).join("")}).join("");
+ return'<div class="cd"><h3><span>'+I("clock",18)+' Last 7 Days · Work Entries</span></h3><div class="lgd2">'+us.map(function(u,ix){return'<span><i style="background:'+mcol(ix)+'"></i>'+esc(u.n)+'</span>'}).join("")+'</div><svg class="trd" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Work entries per day for each sales manager">'+grid+lab+ln+'</svg></div>'}
+
+/* ===== Manager home: Today card ===== */
+function todayCard(r,T){var X=acts(r),m=mstat(U,T,T),tt=X.map(function(e){return(e.v||e.w).t}).filter(Boolean).sort(),P=pitems(T),pn=0;P.forEach(function(i){if(pdone(T,i))pn++});
+ return'<div class="hero tdc"><div class="tdh"><div><span class="tdk">Today</span><b>'+esc(fdt(T))+'</b></div>'+(X.length?'<span class="chip c1">Active</span>':'<span class="chip c0">Not Started</span>')+'</div>'
+ +'<div class="tdm"><div class="lv">'+X.length+'</div><div class="tdl"><b>Work Entries</b><small>'+(tt.length?'Since '+fmt(tt[0])+(tt.length>1?' · last at '+fmt(tt[tt.length-1]):''):'Tap ＋ Add Work below to start')+'</small></div></div>'
+ +'<div class="mgs tds">'+[["store",m.v,"Client Visits"],["plus",m.n,"New Clients"],["home",m.br,"Branch Visits"],["bag",m.so,"Shop Orders"],["coffee",m.ow,"Other Work"],["cal",pn+"/"+P.length,"Plan Done"]].map(function(q){return'<div><i>'+I(q[0],15)+'</i><b>'+q[1]+'</b><span>'+q[2]+'</span></div>'}).join("")+'</div></div>'}
 
 /* ===== Photo retention (admin choice; default keeps photos forever) ===== */
 var PCL=0;
