@@ -409,6 +409,11 @@ html[data-th=d] .lg .cd{box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 0 1px rg
 /* ===== Title Case: every word starts with a capital ===== */
 .hd h1,.cd h3,.pn h3,label,.btn,.mini,.nav button,.nav a,.seg button,.k span,.sg span,.hero .hl,.hero .hs,.chip,.tag,.srow>span,.thp b,.ti b,.tt b,.ev b,.lg p,.lg .brs,.hm,.cd h3 a,.cd h3 button,.lvb b,select,.pt span,.acc b,.acc small,.sbd,#spl small{text-transform:capitalize}
 .br>span,.lgd span,.mu.tcp{text-transform:capitalize!important}.pn h3.q,.srow small,.mu,.stp,.toast,.ev small,input,textarea,.lvb small{text-transform:none}
+
+.soi{display:flex;gap:9px;align-items:flex-start;margin:4px 0 2px;padding:10px 12px;border-radius:13px;background:var(--acs);color:var(--ac);font-size:12.5px;line-height:1.4}.soi svg{flex:none;margin-top:1px}.soi span{color:var(--tx)}
+.sgo{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border-radius:13px;background:var(--acs);color:var(--ac);font-size:13px}.sgo span{color:var(--tx)}.sgo b{font-weight:700}.sgo span{text-transform:capitalize}
+
+.acn.dup{color:var(--rd)!important;background:var(--rds)}.own{color:var(--ac)!important;font-weight:600}
 </style>
 </head>
 <body>
@@ -434,9 +439,9 @@ e.addEventListener("cancel",function(){try{e.close()}catch(x){}ES=null;CNL=1;if(
 e.onerror=function(){if(e.readyState===2){ES=null;setTimeout(live,6000)}}})}
 function ev2(x,m){var j;try{j=JSON.parse(x.data)}catch(e){return}if(!j)return;GOT=1;
 var ks=(j.path||"/").split("/").filter(Boolean),d=j.data,o,k,i;if(ks[0]=="zph")return;
-if(!ks.length){if(m){if(d)for(k in d){if(k!="zph")S[k]=d[k]===null?{}:d[k]}}else{if(!d||!d.users){if(me()&&me().r=="a"&&Object.keys(S.users).length){sv("users",S.users);sv("cl",S.cl);sv("days",S.days)}return}S.users=d.users;S.cl=d.cl||{};S.days=d.days||{};S.cfg=d.cfg||{};S.plans=d.plans||{};S.br=d.br||{};S.rp=d.rp||{};qapply();qflush()}}
+if(!ks.length){if(m){if(d)for(k in d){if(k!="zph")S[k]=d[k]===null?{}:d[k]}}else{if(!d||!d.users){var ad0=me()&&me().r=="a"&&Object.keys(S.users).length;if(ad0){sv("users",S.users);if(!d){sv("cl",S.cl);sv("days",S.days)}}if(!d||!ad0)return;d.users=S.users}S.users=d.users;S.cl=d.cl||{};S.days=d.days||{};S.cfg=d.cfg||{};S.plans=d.plans||{};S.br=d.br||{};S.rp=d.rp||{};qapply();qflush()}}
 else{o=S;for(i=0;i<ks.length-1;i++){o=o[ks[i]]=o[ks[i]]||{}}var l=ks[ks.length-1];if(m){var c=o[l]=o[l]||{};for(k in d){if(d[k]===null)delete c[k];else c[k]=d[k]}}else if(d===null)delete o[l];else o[l]=d}
-if(!S.cl)S.cl={};if(!S.days)S.days={};if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};if(!S.br)S.br={};if(!S.rp)S.rp={};qapply();
+if(!S.cl)S.cl={};if(!S.days)S.days={};if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};if(!S.br)S.br={};if(!S.rp)S.rp={};qapply();COWK="";setTimeout(ownMig,2500);
 try{localStorage.setItem("wm3",JSON.stringify(S))}catch(e){}
 clearTimeout(RT);RT=setTimeout(function(){var a=document.activeElement;if($("sh").className.indexOf("open")>=0||(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))){RP=1;return}if(U&&!S.users[U]){logout(1);return}if(snap()===LRH)return;render()},200)}
 var GB=0;
@@ -448,7 +453,7 @@ function cf(path,o){return tk().then(function(t){return fetch(CLOUD+"/"+path+".j
 var P={phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',wa:'<path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1.3-1.2-1.8-1-.8.6a3 3 0 0 1-1.6-1.6l.6-.8-1-1.8z"/>',cam:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',gear:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',power:'<path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/>',store:'<path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',inn:'<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',check:'<path d="M20 6 9 17l-5-5"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',trash:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',coffee:'<path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v3M10 2v3M14 2v3"/>',case:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',chev:'<path d="M15 18l-6-6 6-6"/>',chev2:'<path d="M9 18l6-6-6-6"/>',cal:'<rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M7.5 14h3M7.5 17.5h6"/>',pin:'<path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'};
 function I(n,z){z=z||20;return'<svg width="'+z+'" height="'+z+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+P[n]+'</svg>'}
 var S={users:{a0:{id:"a0",n:"Admin",u:"admin",pin:"1234",r:"a"},m1:{id:"m1",n:"Sales Manager 1",u:"user1",pin:"1111",r:"o"},m2:{id:"m2",n:"Sales Manager 2",u:"user2",pin:"2222",r:"o"}},cl:{},days:{},cfg:{}},U="",V="",HM=new Date(),SEL="",RF={a:"",b:"",o:""};
-try{var z=JSON.parse(localStorage.getItem("wm3"));if(z)S=z;U=localStorage.getItem("wm_u")||""}catch(e){}
+try{U=localStorage.getItem("wm_u")||""}catch(e){}try{var z=JSON.parse(localStorage.getItem("wm3"));if(z&&z.users)S=z}catch(e){}
 if(!S.cfg)S.cfg={};if(!S.plans)S.plans={};if(!S.br)S.br={};if(!S.rp)S.rp={};
 function $(i){return document.getElementById(i)}
 function p(n){return String(n).padStart(2,"0")}
@@ -510,9 +515,9 @@ var CB=null;function cfm(m,fn){CB=fn;sheet('<h3 class="q">'+m+'</h3><div class="
 function logout(f){if(f){doOut();return}cfm(Object.keys(Q).length?"Some work has not uploaded yet (no internet). It uploads the next time you sign in on this phone. Log out anyway?":"Log out?",doOut)}
 function doOut(){U="";V="";LVW="";try{localStorage.removeItem("wm_u");localStorage.removeItem("wm_uid")}catch(e){}if(secOn()){tclr();if(ES){try{ES.close()}catch(e){}ES=null}}render()}
 var VW={
-home:function(){var D=new Date(),T=ds(D),r=rec(U,T)||{},A=acts(r),nv=(r.v||[]).length,nw=wl(r).length,h=D.getHours(),g=h<12?"Good morning":h<17?"Good afternoon":"Good evening",ov="",DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+home:function(){var D=new Date(),T=ds(D),r=rec(U,T)||{},A=acts(r),nv=(r.v||[]).length,nw=wl(r).filter(function(w){return w.ty!="so"}).length,nso=wl(r).length-nw,h=D.getHours(),g=h<12?"Good morning":h<17?"Good afternoon":"Good evening",ov="",DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var q=rec(U,ds(d)),c=q?(q.v||[]).length+wl(q).length:0;ov+='<div class="'+(i?"":"tdy")+'">'+DN[d.getDay()]+'<b>'+d.getDate()+'</b><span class="'+(c?"ok":"no")+'">'+(c||"–")+'</span></div>'}
- return hd(g+", "+esc(String(me().n).split(" ")[0]),"WINDMILL · Marketing Team")+'<div class="bd"><div class="hero"><div class="hl">Today · '+esc(dl(T))+'</div><div class="lv">'+A.length+'</div><div class="hs">'+(A.length==1?"work entry":"work entries")+' · '+nv+(nv==1?" client visit":" client visits")+' · '+nw+' other</div><button class="btn" onclick="visit()">'+I("plus",18)+'Add work</button></div>'
+ return hd(g+", "+esc(String(me().n).split(" ")[0]),"WINDMILL · Marketing Team")+'<div class="bd"><div class="hero"><div class="hl">Today · '+esc(dl(T))+'</div><div class="lv">'+A.length+'</div><div class="hs">'+(A.length==1?"work entry":"work entries")+' · '+nv+(nv==1?" client visit":" client visits")+' · '+nw+' other'+(nso?' · '+nso+(nso==1?' shop order':' shop orders'):'')+'</div><button class="btn" onclick="visit()">'+I("plus",18)+'Add work</button></div>'
  +lvRow(U,ds(new Date()),0)+plCard()
  +'<div class="cd"><h3>Today\'s work <a href="#" onclick="go(\'hist\');return false">History</a></h3>'+(A.length?evs(r):'<div class="mu">Nothing added yet today. Tap “Add work” for every client visit, branch visit or other job you do.</div>')+'</div>'
  +'<div class="cd"><h3>Last 7 days <a href="#" onclick="go(\'hist\');return false">Calendar</a></h3><div class="ov">'+ov+'</div></div>'
@@ -522,7 +527,7 @@ hist:function(){var y=HM.getFullYear(),mo=HM.getMonth(),f=new Date(y,mo,1).getDa
  for(var d=1;d<=n;d++){var k=y+"-"+p(mo+1)+"-"+p(d),q=rec(U,k);c+='<button class="'+(acts(q).length?"dot ":"")+(k==sel?"on":"")+'" onclick="SEL=\''+k+'\';render()">'+d+'</button>'}
  var r=rec(U,sel),nv=acts(r).length;
  return hd("Work history","Your work by day")+'<div class="bd"><div class="cd"><div class="mn"><button aria-label="Previous month" onclick="HM=new Date(HM.getFullYear(),HM.getMonth()-1,1);render()">'+I("chev")+'</button>'+HM.toLocaleString("en",{month:"long",year:"numeric"})+'<button aria-label="Next month" onclick="HM=new Date(HM.getFullYear(),HM.getMonth()+1,1);render()">'+I("chev2")+'</button></div><div class="cal">'+c+'</div></div><div class="cd">'+sg(st(U,y+"-"+p(mo+1)+"-01",y+"-"+p(mo+1)+"-31"))+'</div><div class="cd"><h3>'+esc(dl(sel))+'<span class="hm">'+nv+(nv==1?" entry":" entries")+'</span></h3>'+evs(r)+'</div><button class="btn s" style="margin-top:0" onclick="go(\'rep\')">'+I("file",16)+'Reports &amp; CSV download</button></div>'},
-cl:function(){var ks=Object.keys(S.cl),nw=0,tv=0,k;for(k in S.days)tv+=(S.days[k].v||[]).length;ks.forEach(function(i){if(S.cl[i].k=="New")nw++});
+cl:function(){var ks=Object.keys(S.cl).filter(function(i){return mine(S.cl[i])}),nw=0,tv=0,k;for(k in S.days)if(isA()||S.days[k].u==U)tv+=(S.days[k].v||[]).length;ks.forEach(function(i){if(S.cl[i].k=="New")nw++});
  return hd("Clients","WINDMILL · Marketing Team")+'<div class="bd"><div class="cd"><h3>Client Summary</h3><div class="sg"><div><b>'+ks.length+'</b><span>Total</span></div><div><b style="color:var(--bl)">'+nw+'</b><span>New</span></div><div><b style="color:var(--g)">'+(ks.length-nw)+'</b><span>Old</span></div><div><b style="color:var(--or)">'+tv+'</b><span>Visits</span></div></div></div><div class="cd" style="padding:10px"><div class="srch">'+I("search",18)+'<input id="cq" type="search" autocomplete="off" placeholder="Search by name or phone" value="'+esc(CQ)+'" oninput="CQ=this.value;clList()"></div></div><div id="cll">'+clRows()+'</div></div>'},
 rep:function(){var T=ds(new Date()),A=isA();if(!RF.a)RF.a=T.slice(0,8)+"01";if(!RF.b)RF.b=T;var L=lst().filter(function(q){return acts(q).length}),s=st(A?RF.o:U,RF.a,RF.b);
  return hd("Reports",A?"All sales managers":"Your work summary")+'<div class="bd"><div class="cd noprint"><div class="two"><div><label>From</label><input type="date" value="'+esc(RF.a)+'" onchange="RF.a=this.value;render()"></div><div><label>To</label><input type="date" value="'+esc(RF.b)+'" onchange="RF.b=this.value;render()"></div></div>'
@@ -540,11 +545,11 @@ var cards=us.map(function(u){var y=rec(u.id,T),X=acts(y),m=st(u.id,A0,A1),s=X.le
 return'<div class="tc"><div class="tt"><div class="av big">'+ini(u.n)+'<i class="dt s'+s+'"></i></div><div class="ti"><b>'+esc(u.n)+'</b><small>@'+esc(u.u)+'</small><small>'+td+'</small></div><span class="chip c'+s+'">'+(s?"Active":"No work yet")+'</span></div><div class="tg"><div><b>'+m.d+'</b><span>Days</span></div><div><b>'+m.v+'</b><span>Visits</span></div><div><b>'+m.n+'</b><span>New</span></div><div><b>'+m.w+'</b><span>Other</span></div></div>'+tgBars(u.id)+'<div class="ta" style="grid-template-columns:repeat(3,1fr)"><button class="btn s" onclick="PUSR=\''+jq(u.id)+'\';PW=0;go(\'pl\')">'+I("cal",16)+'Plan</button><button class="btn s" onclick="ofSheet(\''+jq(u.id)+'\')">'+I("edit",16)+'Edit</button><button class="btn s dg" onclick="delOf(\''+jq(u.id)+'\')">'+I("trash",16)+'Remove</button></div></div>'}).join("");
 var empty='<div class="cd em"><div class="mu" style="padding:0 0 12px">No sales managers yet.<br>Add your first team member so they can add their work.</div><button class="btn pl" style="margin:auto!important" onclick="ofSheet()">'+I("plus",16)+'Add sales manager</button></div>';
 var sync=CLOUD?'<i class="dt s1"></i>Cloud sync is on. All devices share the same data.':'<i class="dt"></i>Cloud sync is off. Data is stored on this device only.';
-return hd("Team","Your sales team")+'<div class="bd"><div class="cd"><h3>Team overview <span class="hm">'+new Date().toLocaleString("en",{month:"long",year:"numeric"})+'</span></h3><div class="sg"><div><b>'+us.length+'</b><span>Managers</span></div><div><b style="color:var(--ok)">'+act+'</b><span>Active today</span></div><div><b>'+all.v+'</b><span>Client visits</span></div><div><b style="color:var(--ac)">'+all.w+'</b><span>Other work</span></div></div></div>'
+return hd("Team","Your sales team")+'<div class="bd"><div class="cd"><h3>Team overview <span class="hm">'+new Date().toLocaleString("en",{month:"long",year:"numeric"})+'</span></h3><div class="sg"><div><b>'+us.length+'</b><span>Managers</span></div><div><b style="color:var(--ok)">'+act+'</b><span>Active today</span></div><div><b>'+all.v+'</b><span>Client visits</span></div><div><b style="color:var(--ac)">'+all.w+'</b><span>Other work</span></div></div>'+soLine(all)+'</div>'
 +'<div class="sh2"><div class="sec">Sales managers <small>'+us.length+'</small></div><button class="btn pl" onclick="ofSheet()">'+I("plus",16)+'Add manager</button></div>'+(us.length?'<div class="tgrid">'+cards+'</div>':empty)+'</div>'}
 };
 /* ===== v9 additions: rules, client edit/search, duplicates, call/WhatsApp, photos ===== */
-var CQ="",PHT={},ALA=0,AK=[],CC="94",DBH=null;
+var CQ="",PHT={},ALA=0,AK=[],CC="971",DBH=null;
 function nn(s){return String(s==null?"":s).toLowerCase().replace(/\s+/g," ").trim()}
 function npn(p){var d=String(p||"").replace(/\D/g,"");return d.length>9?d.slice(-9):d}
 function wan(p){var d=String(p||"").replace(/\D/g,"");if(d.length<7)return"";if(d.slice(0,2)=="00")return d.slice(2);if(d[0]=="0")return CC+d.slice(1);if(d.length==9)return CC+d;return d}
@@ -553,16 +558,16 @@ function dmK(k){S.cfg.dm=S.cfg.dm||{};S.cfg.dm[k]=1;sv("cfg/dm/"+k,1)}
 function dmA(k){dmK(k);render()}
 function dmAll(){cfm("Dismiss all alerts?",function(){AK.forEach(dmK);render()})}
 /* clients */
-function clRows(){var cnt={},k;for(k in S.days)(S.days[k].v||[]).forEach(function(v){var n=String(v.c).toLowerCase();cnt[n]=(cnt[n]||0)+1});
- var q=nn(CQ),qd=q.replace(/\D/g,""),all=Object.keys(S.cl).map(function(i){return S.cl[i]}).sort(function(a,b){return a.n.localeCompare(b.n)}),
+function clRows(){var cnt={},k;for(k in S.days)(S.days[k].v||[]).forEach(function(v){var n=String(v.c).toLowerCase();cnt[n]=(cnt[n]||0)+1});for(k in S.days)wl(S.days[k]).forEach(function(w){if(w.ty=="so"){var n=String(w.c).toLowerCase();cnt[n]=(cnt[n]||0)+1}});
+ var q=nn(CQ),qd=q.replace(/\D/g,""),all=Object.keys(S.cl).map(function(i){return S.cl[i]}).filter(mine).sort(function(a,b){return a.n.localeCompare(b.n)}),
  L=all.filter(function(c){if(!q)return true;return nn(c.n).indexOf(q)>=0||(qd&&String(c.p||"").replace(/\D/g,"").indexOf(qd)>=0)||nn(c.cm).indexOf(q)>=0||nn(c.pa).indexOf(q)>=0});
- var h=L.map(function(c){var w=wan(c.p),tg=c.k=="New"?"New":"Old";return'<div class="cl"><div class="av">'+esc(String(c.n||"?")[0].toUpperCase())+'</div><div><b>'+esc(c.n)+'</b><br>'+(c.p?'<a href="tel:'+esc(c.p)+'">'+esc(c.p)+'</a> · ':"")+(c.pa?esc(c.pa)+' · ':"")+'<small style="color:var(--mu)">'+(cnt[c.n.toLowerCase()]||0)+' visits</small>'+(isA()?(okg(c.g)?' <a class="gp" target="_blank" rel="noopener" href="https://www.google.com/maps?q='+(+c.g.la)+','+(+c.g.ln)+'">'+I("pin",13)+'Shop pin</a>':' <span class="ng">No shop pin yet</span>'):"")+(c.cm?'<br><small style="color:var(--mu)">'+esc(c.cm)+'</small>':"")
+ var h=L.map(function(c){var w=wan(c.p),tg=c.k=="New"?"New":"Old";return'<div class="cl"><div class="av">'+esc(String(c.n||"?")[0].toUpperCase())+'</div><div><b>'+esc(c.n)+'</b><br>'+(c.p?'<a href="tel:'+esc(c.p)+'">'+esc(c.p)+'</a> · ':"")+(c.pa?esc(c.pa)+' · ':"")+'<small style="color:var(--mu)">'+(cnt[c.n.toLowerCase()]||0)+' visits</small>'+(isA()?' · <small class="own">'+esc(ownName(c))+'</small>':'')+(isA()?(okg(c.g)?' <a class="gp" target="_blank" rel="noopener" href="https://www.google.com/maps?q='+(+c.g.la)+','+(+c.g.ln)+'">'+I("pin",13)+'Shop pin</a>':' <span class="ng">No shop pin yet</span>'):"")+(c.cm?'<br><small style="color:var(--mu)">'+esc(c.cm)+'</small>':"")
  +'<div class="ca">'+(c.p?'<a href="tel:'+esc(c.p)+'">'+I("phone",15)+'Call</a>':"")+(w?'<a class="wa" target="_blank" rel="noopener" href="https://wa.me/'+w+'">'+I("wa",15)+'WhatsApp</a>':"")+'<button onclick="clEdit(\''+jq(c.id)+'\')">'+I("edit",15)+'Edit</button>'+(isA()?'<button class="dl" onclick="delCl(\''+jq(c.id)+'\')">'+I("trash",15)+'Delete</button>':"")+'</div></div><span class="tag '+tg+'">'+tg+'</span></div>'}).join("");
  return(q?'<div class="mu" style="padding:2px 0 10px">'+L.length+' of '+all.length+' clients</div>':"")+(h||'<div class="mu">'+(all.length?"No client matches your search":"No clients yet. New clients appear here when a visit is added")+'</div>')}
 function clList(){var e=$("cll");if(e)e.innerHTML=clRows()}
-function clEdit(id){var c=S.cl[id];if(!c)return;sheet('<h3>Edit client</h3><label>Client name</label><input id="ce_n" value="'+esc(c.n)+'"><label>Mobile number</label><input id="ce_p" type="tel" inputmode="tel" value="'+esc(c.p||"")+'"><label>Client type</label><select id="ce_k"><option value="New"'+(c.k=="New"?" selected":"")+'>New client</option><option value="Old"'+(c.k=="New"?"":" selected")+'>Old client</option></select><label>1st payment agreement</label><select id="ce_a"><option value="">Not set</option>'+pal().map(function(x){return'<option'+(x==c.pa?" selected":"")+'>'+esc(x)+'</option>'}).join("")+'</select>'+(isA()&&okg(c.g)?'<label>Shop location</label><select id="ce_g"><option value="k">Keep the saved shop pin</option><option value="r">Reset (save again on the next visit)</option></select>':"")+'<label>Comments</label><textarea id="ce_m" rows="3">'+esc(c.cm||"")+'</textarea><button class="btn" onclick="saveCl(\''+jq(id)+'\')">Save changes</button>')}
+function clEdit(id){var c=S.cl[id];if(!c)return;sheet('<h3>Edit client</h3><label>Client name</label><input id="ce_n" value="'+esc(c.n)+'"><label>Mobile number</label><input id="ce_p" type="tel" inputmode="tel" value="'+esc(c.p||"")+'"><label>Client type</label><select id="ce_k"><option value="New"'+(c.k=="New"?" selected":"")+'>New client</option><option value="Old"'+(c.k=="New"?"":" selected")+'>Old client</option></select><label>1st payment agreement</label><select id="ce_a"><option value="">Not set</option>'+pal().map(function(x){return'<option'+(x==c.pa?" selected":"")+'>'+esc(x)+'</option>'}).join("")+'</select>'+(isA()&&okg(c.g)?'<label>Shop location</label><select id="ce_g"><option value="k">Keep the saved shop pin</option><option value="r">Reset (save again on the next visit)</option></select>':"")+(isA()?'<label>Sales manager (owner)</label><select id="ce_o"><option value="">Not assigned (everyone sees)</option>'+offs().map(function(o){return'<option value="'+esc(o.id)+'"'+(o.id==cOwn(c)?" selected":"")+'>'+esc(o.n)+'</option>'}).join("")+'</select>':'')+'<label>Comments</label><textarea id="ce_m" rows="3">'+esc(c.cm||"")+'</textarea><button class="btn" onclick="saveCl(\''+jq(id)+'\')">Save changes</button>')}
 function saveCl(id){var c=S.cl[id];if(!c)return;var n=$("ce_n").value.trim().replace(/\s+/g," "),p=$("ce_p").value.trim();if(!n){toast("Enter the client name");return}
- var d=dupC(n,p,id);if(d){toast(d.w=="phone"?"This phone number already belongs to "+d.c.n:"Another client already has this name");return}
+ var d=dupC(n,p,id);if(d){toast(d.w=="phone"?"This phone number is already in the list ("+d.c.n+")":"This client is already in the list");return}if($("ce_o")){c.o=$("ce_o").value||"-";COWK=""}
  var o=c.n,k;c.n=n;c.p=p;c.k=$("ce_k").value;c.pa=$("ce_a").value;c.cm=$("ce_m").value.trim();if($("ce_g")&&$("ce_g").value=="r")delete c.g;
  if(o!=n)for(k in S.days){var r=S.days[k],ch=0;if(!isA()&&r.u!=U)continue;(r.v||[]).forEach(function(v){if(nn(v.c)==nn(o)){v.c=n;ch=1}});if(ch)sv("days/"+k,r)}
  sv("cl/"+id,c);cs();toast("Client updated");render()}
@@ -597,7 +602,7 @@ function tally(a){var o={};a.forEach(function(k){o[k]=(o[k]||0)+1});return Objec
 function bars(a){var mx=a.length?a[0][1]:1;return a.map(function(x){return'<div class="br"><span>'+esc(x[0])+'</span><div class="tr"><i style="width:'+Math.round(x[1]/mx*100)+'%"></i></div><b>'+x[1]+'</b></div>'}).join("")||'<div class="mu">No data for this period</div>'}
 function kc(ic,col,bg,v,l){return'<div class="k"><i style="background:'+bg+';color:'+col+'">'+I(ic,20)+'</i><div><b>'+v+'</b><span>'+l+'</span></div></div>'}
 function adv(){var T=ds(new Date()),D=AD||T,r=rg(),a=r[0],b=r[1],us=offs(),all=st("",a,b),act=0,pay=[],rs=[],tw=[],k,q,u;
- for(k in S.days){q=S.days[k];if(q.d>=a&&q.d<=b){(q.v||[]).forEach(function(v){if(v.pa)pay.push(v.pa);if(v.rs)rs.push(v.rs)});wl(q).forEach(function(w){tw.push(wtg(w.ty,w.tn)[0])})}}
+ for(k in S.days){q=S.days[k];if(q.d>=a&&q.d<=b){(q.v||[]).forEach(function(v){if(v.pa)pay.push(v.pa);if(v.rs)rs.push(v.rs)});wl(q).forEach(function(w){if(w.ty!="so")tw.push(wtg(w.ty,w.tn)[0])})}}
  us.forEach(function(x){if(acts(rec(x.id,D)).length)act++});
  var al=[],dm=S.cfg.dm||{},W=ad(T,-7);
  function pa(key,t,c){if(!dm[key])al.push({k:key,t:t,c:c})}
@@ -621,8 +626,8 @@ function adv(){var T=ds(new Date()),D=AD||T,r=rg(),a=r[0],b=r[1],us=offs(),all=s
  var alh=al.length?'<div class="cd al"><h3><span>Alerts · '+al.length+'</span>'+(al.length>1?'<a href="#" onclick="dmAll();return false">Dismiss all</a>':"")+'</h3>'+al.slice(0,ALA?al.length:5).map(function(x){return'<div class="ev"><i style="color:'+x.c+'">'+I("bell",16)+'</i><div>'+x.t+'</div><button class="sm" aria-label="Dismiss" onclick="dmA(\''+jq(x.k)+'\')">'+I("x",16)+'</button></div>'}).join("")+(al.length>5?'<div class="mu" style="padding:8px 0 0"><a href="#" onclick="ALA=!ALA;render();return false">'+(ALA?"Show fewer":"Show all "+al.length)+'</a></div>':"")+'</div>':"";
  var ch=[],mx=1,i,x;for(i=6;i>=0;i--){x=ad(D,-i);var n=0,o=0,w=0;for(k in S.days){q=S.days[k];if(q.d==x){(q.v||[]).forEach(function(v){v.k=="New"?n++:o++});w+=wl(q).length}}ch.push([x,n,o,w]);mx=Math.max(mx,n+o+w)}
  var col=ch.map(function(c){return'<div><small>'+((c[1]+c[2]+c[3])||"")+'</small><i style="height:'+Math.round(c[3]/mx*84)+'px;background:var(--wn)"></i><i style="height:'+Math.round(c[1]/mx*84)+'px;background:var(--bl)"></i><i style="height:'+Math.round(c[2]/mx*84)+'px;background:var(--ac)"></i><small>'+pd(c[0]).getDate()+'</small></div>'}).join("");
- var tmx=us.map(function(x){var s=st(x.id,a,b);s.t=s.v+s.w;return{u:x,s:s}}).sort(function(x,y){return y.s.t-x.s.t}),mv=tmx.length?Math.max(1,tmx[0].s.t):1;
- var tr=tmx.map(function(x){var s=x.s;return'<div class="cl"><div class="av">'+ini(x.u.n)+'</div><div><b>'+esc(x.u.n)+'</b><br><small style="color:var(--mu)">'+s.d+(s.d==1?" active day":" active days")+(s.d?' · avg '+(s.t/s.d).toFixed(1)+' entries/day':"")+'</small><div class="pbar"><i style="width:'+Math.round(s.t/mv*100)+'%"></i></div>'+tgLine(x.u.id)+'</div><div style="text-align:right"><b style="font-size:20px">'+s.t+'</b><br><small style="color:var(--mu)">'+s.v+' visits · '+s.w+' other</small></div></div>'}).join("")||'<div class="mu">Add sales managers in the Team tab</div>';
+ var tmx=us.map(function(x){var s=st(x.id,a,b);s.t=s.v+s.w+s.so;return{u:x,s:s}}).sort(function(x,y){return y.s.t-x.s.t}),mv=tmx.length?Math.max(1,tmx[0].s.t):1;
+ var tr=tmx.map(function(x){var s=x.s;return'<div class="cl"><div class="av">'+ini(x.u.n)+'</div><div><b>'+esc(x.u.n)+'</b><br><small style="color:var(--mu)">'+s.d+(s.d==1?" active day":" active days")+(s.d?' · avg '+(s.t/s.d).toFixed(1)+' entries/day':"")+'</small><div class="pbar"><i style="width:'+Math.round(s.t/mv*100)+'%"></i></div>'+tgLine(x.u.id)+'</div><div style="text-align:right"><b style="font-size:20px">'+s.t+'</b><br><small style="color:var(--mu)">'+s.v+' visits · '+s.w+' other'+(s.so?' · '+s.so+' orders':'')+'</small></div></div>'}).join("")||'<div class="mu">Add sales managers in the Team tab</div>';
  var rows=us.map(function(x){var y=rec(x.id,D),X=acts(y),P=pitems(D,x.id),pdn=0,t=X.map(function(e){return(e.v||e.w).t}).filter(Boolean);
   P.forEach(function(i2){if(pdone(D,i2,x.id))pdn++});
   var vs=X.map(function(e){return e.v?'<div class="ev"><i>'+I("store",16)+'</i><div><b>'+esc(e.v.c)+tgk(e.v.k)+'</b><small>'+esc(vd(e.v))+gv(e.v,y)+'</small></div><span>'+fmt(e.v.t)+'</span></div>':wrow(e.w,y)}).join("");
@@ -635,7 +640,7 @@ function adv(){var T=ds(new Date()),D=AD||T,r=rg(),a=r[0],b=r[1],us=offs(),all=s
  var nc=Object.keys(S.cl).sort().reverse().slice(0,5).map(function(c){c=S.cl[c];return'<div class="ev"><i>'+I("store",16)+'</i><div><b>'+esc(c.n)+tgk(c.k)+'</b><small>'+esc((c.p||"")+(c.pa?" · "+c.pa:""))+'</small></div></div>'}).join("")||'<div class="mu">No clients yet</div>';
  var ps=pst(a,b),vs2=vstat(a,b),G="var(--g)",rng=a==b?sl(a):sl(a)+' – '+sl(b);
  return hd("Admin dashboard",new Date().toDateString())+'<div class="bd"><div class="cd"><div class="mn"><button aria-label="Previous day" onclick="setAD(-1)">'+I("chev")+'</button><b>'+(D==T?"Today · ":"")+sl(D)+'</b><button aria-label="Next day" onclick="setAD(1)">'+I("chev2")+'</button></div><div class="seg">'+[["d","Day"],["w","7 days"],["m","Month"]].map(function(x){return'<button class="'+(AP==x[0]?"on":"")+'" onclick="AP=\''+x[0]+'\';render()">'+x[1]+'</button>'}).join("")+'</div><div class="mu" style="padding:10px 0 0">Showing '+rng+(D!=T?' · <a href="#" onclick="setAD(0);return false">Back to today</a>':"")+'</div></div>'
- +'<div class="kp">'+kc("users",G,"",AP=="d"?act+"/"+us.length:all.d,AP=="d"?(D==T?"Active today":"Active that day"):"Active days")+kc("case",G,"",all.v+all.w,"Work entries")+kc("store",G,"",all.v,"Client visits")+kc("plus",G,"",all.n,"New clients")+kc("coffee",G,"",all.w,"Other work")+kc("cal",G,"",ps.d+"/"+ps.t,"Plan items done")+kc("pin",G,"",vs2.ok+"/"+all.v,"Visits at the shop")+kc("bell",G,"",vs2.bad,"Flagged visits").replace('class="k"','class="k'+(vs2.bad?" bad":"")+'"')+'</div>'
+ +'<div class="kp">'+kc("users",G,"",AP=="d"?act+"/"+us.length:all.d,AP=="d"?(D==T?"Active today":"Active that day"):"Active days")+kc("case",G,"",all.v+all.w+all.so,"Work entries")+kc("store",G,"",all.v,"Client visits")+kc("plus",G,"",all.n,"New clients")+kc("coffee",G,"",all.w,"Other work")+kc("bag",G,"",all.so,"Shop orders")+kc("cash",G,"",lkr(all.am,1),"Order value")+kc("cal",G,"",ps.d+"/"+ps.t,"Plan items done")+kc("pin",G,"",vs2.ok+"/"+all.v,"Visits at the shop")+kc("bell",G,"",vs2.bad,"Flagged visits").replace('class="k"','class="k'+(vs2.bad?" bad":"")+'"')+'</div>'
  +alh+lvReq()
  +'<div class="sec">Team performance <small>'+rng+'</small></div>'+tr
  +'<div class="cd"><h3>Work – last 7 days</h3><div class="col">'+col+'</div><div class="lgd"><span><i style="background:var(--bl)"></i>New client</span><span><i style="background:var(--ac)"></i>Old client</span><span><i style="background:var(--wn)"></i>Other work</span></div></div>'
@@ -744,7 +749,7 @@ function cs(){$("sh").className="sh";if(SHO){SHO=0;try{history.replaceState({v:V
 /* ===== v11: GPS verification ===== */
 function hv(a,b){var t=Math.PI/180,x=(b.la-a.la)*t,y=(b.ln-a.ln)*t,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a.la*t)*Math.cos(b.la*t)*Math.sin(y/2)*Math.sin(y/2);return 12742000*Math.asin(Math.min(1,Math.sqrt(h)))}
 function dm(m){return m<1000?Math.round(m)+" m":(m/1000).toFixed(m<10000?1:0)+" km"}
-function DR(){return +S.cfg.dr||300}
+function DR(){return +S.cfg.dr||100}
 function clByName(n){n=nn(n);for(var i in S.cl)if(nn(S.cl[i].n)==n)return S.cl[i];return null}
 function vcl(v){return(v.ci&&S.cl[v.ci])||clByName(v.c)}
 function dtMin(a,b){if(a.ts&&b.ts)return Math.abs(b.ts-a.ts)/60000;if(/^\d\d:\d\d$/.test(a.t||"")&&/^\d\d:\d\d$/.test(b.t||""))return Math.abs(mi(b.t)-mi(a.t));return NaN}
@@ -777,15 +782,15 @@ function lfl(){if(window.L)return Promise.resolve(1);if(LFP)return LFP;LFP=new P
 function wtg(ty,tn){return WT[ty]||[tn||"Other work","edit"]}
 function wl(r){return(r&&r.w)||[]}
 function acts(r){var a=[];((r&&r.v)||[]).forEach(function(v,i){a.push({v:v,i:i})});wl(r).forEach(function(w,i){a.push({w:w,i:i})});return a.sort(function(x,y){var p1=(x.v||x.w).t||"",p2=(y.v||y.w).t||"";return p1<p2?-1:p1>p2?1:0})}
-function st(u,a,b){var d=0,v=0,n=0,x=0,w=0;for(var k in S.days){var r=S.days[k],L=r.v||[],W2=wl(r);if(u&&r.u!=u)continue;if(a&&r.d<a)continue;if(b&&r.d>b)continue;if(!L.length&&!W2.length)continue;d++;w+=W2.length;L.forEach(function(q){v++;q.k=="New"?n++:x++})}return{d:d,v:v,n:n,o:x,w:w}}
-function sg(s){return'<div class="sg"><div><b>'+s.d+'</b><span>Active days</span></div><div><b>'+s.v+'</b><span>Client visits</span></div><div><b style="color:var(--bl)">'+s.n+'</b><span>New clients</span></div><div><b style="color:var(--ac)">'+s.w+'</b><span>Other work</span></div></div>'}
+function st(u,a,b){var d=0,v=0,n=0,x=0,w=0,so=0,am=0;for(var k in S.days){var r=S.days[k],L=r.v||[],W2=wl(r);if(u&&r.u!=u)continue;if(a&&r.d<a)continue;if(b&&r.d>b)continue;if(!L.length&&!W2.length)continue;d++;W2.forEach(function(q){if(q.ty=="so"){so++;am+=+q.amt||0}else w++});L.forEach(function(q){v++;q.k=="New"?n++:x++})}return{d:d,v:v,n:n,o:x,w:w,so:so,am:am}}
+function sg(s){return'<div class="sg"><div><b>'+s.d+'</b><span>Active days</span></div><div><b>'+s.v+'</b><span>Client visits</span></div><div><b style="color:var(--bl)">'+s.n+'</b><span>New clients</span></div><div><b style="color:var(--ac)">'+s.w+'</b><span>Other work</span></div></div>'+soLine(s)}
 function wpl(w){return w.pd&&!w.ps?' <span class="ng">Photo removed</span>':w.ps&&w.ps.s?' <a class="gp" href="#" onclick="showPh(\''+jq(w.ps.s)+'\');return false">'+I("cam",13)+'Photo</a>':""}
-function wrow(w,r,del){var t=wtg(w.ty,w.tn);return ev(t[1],esc(w.c)+(nn(w.c)!=nn(t[0])?'<span class="tag Wk">'+esc(t[0])+'</span>':''),w.n||"",w.t,gl(w.g)+wpl(w)+(isA()?chk(w):"")+(del||""))}
+function wrow(w,r,del){var t=wtg(w.ty,w.tn);return ev(t[1],esc(w.c)+(nn(w.c)!=nn(t[0])?'<span class="tag Wk">'+esc(t[0])+'</span>':''),wsub(w),w.t,gl(w.g)+wpl(w)+(isA()?chk(w):"")+(del||""))}
 function evs(r){var A=acts(r);if(!A.length)return'<div class="mu">Nothing added</div>';return A.map(function(x){return x.v?ev("store",esc(x.v.c)+tgk(x.v.k),vd(x.v),x.v.t,gv(x.v,r)):wrow(x.w,r)}).join("")}
 /* branch distance checks (work entries and old plan check-ins) */
-function bdx(o){if(!o||o.ty!="br"||o.pin||!okg(o.g))return NaN;var b=brByName(o.c);return b&&okg(b.g)?hv(o.g,b.g):NaN}
-function chk(o){if(!okg(o.g))return'<span class="vr"><span class="vc r">No GPS</span></span>';var h="",d=bdx(o);if(o.ty=="br"){if(o.pin)h='<span class="vc n">'+I("pin",11)+'Branch pin saved</span>';else if(isFinite(d))h=d>DR()?'<span class="vc r">'+I("pin",11)+'Far from branch · '+dm(d)+'</span>':'<span class="vc g">'+I("check",11)+'At the branch · '+dm(d)+'</span>'}if(+o.g.ac>100)h+='<span class="vc w">Weak GPS</span>';return h?'<span class="vr">'+h+'</span>':""}
-function ctx(o){if(!o)return"";if(!okg(o.g))return"No GPS";var d=bdx(o),a=[];if(o.ty=="br"){if(o.pin)a.push("Branch pin saved");else if(isFinite(d))a.push(d>DR()?"Far from branch":"At the branch")}if(+o.g.ac>100)a.push("Weak GPS");return a.join("; ")}
+function bdx(o){if(!o||(o.ty!="br"&&!(o.ty=="so"&&o.br))||o.pin||!okg(o.g))return NaN;var b=brByName(o.ty=="so"?o.br:o.c);return b&&okg(b.g)?hv(o.g,b.g):NaN}
+function chk(o){if(!okg(o.g))return'<span class="vr"><span class="vc r">No GPS</span></span>';var h="",d=bdx(o);if(o.ty=="br"||(o.ty=="so"&&o.br)){if(o.pin)h='<span class="vc n">'+I("pin",11)+'Branch pin saved</span>';else if(isFinite(d))h=d>DR()?'<span class="vc r">'+I("pin",11)+'Far from branch · '+dm(d)+'</span>':'<span class="vc g">'+I("check",11)+'At the branch · '+dm(d)+'</span>'}if(+o.g.ac>100)h+='<span class="vc w">Weak GPS</span>';return h?'<span class="vr">'+h+'</span>':""}
+function ctx(o){if(!o)return"";if(!okg(o.g))return"No GPS";var d=bdx(o),a=[];if(o.ty=="br"||(o.ty=="so"&&o.br)){if(o.pin)a.push("Branch pin saved");else if(isFinite(d))a.push(d>DR()?"Far from branch":"At the branch")}if(+o.g.ac>100)a.push("Weak GPS");return a.join("; ")}
 function ldn(it){return it.dn?{ty:ity(it),c:it.c,g:it.dn.g,pin:it.dn.pin}:null}
 function bdist(it){return bdx(ldn(it))}
 function wch(it){var o=ldn(it);return o?chk(o):""}
@@ -793,17 +798,20 @@ function wtxt(it){return ctx(ldn(it))}
 
 /* the one form: Add work */
 function visit(pre){PHT={};pre=pre||{};wtR();var bs=Object.keys(S.br||{}).length;
- var op=[["nc","New client visit"],["oc","Old client visit"],["br","Branch visit"]].concat(otypes().map(function(k){return[k,WT[k][0]]}));
+ var op=[["nc","New client visit"],["oc","Old client visit"],["br","Branch visit"],["so","Shop order (client came to shop)"]].concat(otypes().map(function(k){return[k,WT[k][0]]}));
  sheet('<h3>Add work</h3><label>Type of work</label><select id="vk" onchange="vform()">'+op.map(function(x){return'<option value="'+esc(x[0])+'">'+esc(x[1])+'</option>'}).join("")+'</select><div id="vf"></div><div id="vph"></div><div id="vgs" class="mu" style="text-align:left;padding:10px 0 0;display:flex;gap:6px;align-items:center"></div><button class="btn" onclick="saveV()">Save</button>');
  if(pre.ty&&op.some(function(x){return x[0]==pre.ty}))$("vk").value=pre.ty;else if(pre.ty)$("vk").value="dw";
  vform(pre);vloc()}
 function vform(pre){pre=pre||{};var k=$("vk").value,h="",cli=k=="nc"||k=="oc",tn=wtg(k)[0];
- if(k=="nc")h='<label>Client name</label><input id="vc" placeholder="Shop / client name" value="'+esc(pre.c||"")+'"><label>Mobile number</label><input id="vp" type="tel" inputmode="tel" placeholder="07X XXX XXXX"><label>1st payment agreement</label><select id="vq">'+opt(pal())+'</select>';
+ if(k=="nc")h='<label>Client name</label><input id="vc" placeholder="Shop / client name" value="'+esc(pre.c||"")+'"><label>Mobile number</label><input id="vp" type="tel" inputmode="tel" placeholder="05X XXX XXXX"><label>1st payment agreement</label><select id="vq">'+opt(pal())+'</select>';
  else if(k=="oc")h='<label>Client name</label><div class="ac"><input id="vc" autocomplete="off" autocapitalize="words" placeholder="Type the client name or phone" oninput="acf()" onfocus="acf()" onblur="setTimeout(ach,180)"><div id="acl" class="acl" role="listbox"></div></div><div id="acn" class="acn"></div><label>Reason for visit</label><select id="vr">'+opt(rsl())+'</select>';
- else if(k=="br")h='<label>Branch</label><select id="vb" onchange="$(\'vb0\').style.display=this.value?\'none\':\'block\'"><option value="">New branch (type the name)</option>'+Object.keys(S.br||{}).map(function(i){return S.br[i]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)}).map(function(b){return'<option value="'+esc(b.n)+'">'+esc(b.n)+'</option>'}).join("")+'</select><div id="vb0"><input id="vbn" placeholder="e.g. Jimi Branch" style="margin-top:8px"></div>';
+ else if(k=="br")h='<label>Branch</label><select id="vb" onchange="$(\'vb0\').style.display=this.value?\'none\':\'block\'"><option value="">New branch (type the name)</option>'+Object.keys(S.br||{}).map(function(i){return S.br[i]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)}).map(function(b){return'<option value="'+esc(b.n)+'">'+esc(b.n)+'</option>'}).join("")+'</select><div id="vb0">style="margin-top:8px"></div>';
+ else if(k=="so")h='<div class="soi">'+I("bag",16)+'<span>The client came to our shop and gave an order. No shop photo needed.</span></div><label>Client name</label><div class="ac"><input id="vc" autocomplete="off" autocapitalize="words" placeholder="Type the client name or phone" oninput="acf()" onfocus="acf()" onblur="setTimeout(ach,180)"><div id="acl" class="acl" role="listbox"></div></div><div id="acn" class="acn"></div>'
+  +'<label>At which shop / branch</label><select id="vsb"><option value="">Not in the list</option>'+Object.keys(S.br||{}).map(function(i){return S.br[i]}).filter(Boolean).sort(function(a,b){return String(a.n).localeCompare(b.n)}).map(function(b){return'<option value="'+esc(b.n)+'">'+esc(b.n)+'</option>'}).join("")+'</select>'
+  +'<div class="two"><div><label>Order value (AED)</label><input id="vam" type="text" inputmode="decimal" placeholder="e.g. 1500"></div><div><label>Payment</label><select id="vq">'+opt(pal())+'</select></div></div>';
  else h='<label>Title / place (optional)</label><input id="vt" placeholder="e.g. '+(k=="rh"?"Main roastery":k=="ws"?"Helping at Jimi Branch":"Head office")+'" value="'+esc(pre.c&&nn(pre.c)!=nn(tn)?pre.c:"")+'">';
- $("vf").innerHTML=h+'<label>'+(cli?"Comments":"What did you do? *")+'</label><textarea id="vn" rows="3" placeholder="'+(cli?"Any other notes...":"Describe the work you did")+'"></textarea>';
- if(k=="oc"&&pre.c&&$("vc")){$("vc").value=pre.c;acn()}
+ $("vf").innerHTML=h+'<label>'+(cli?"Comments":k=="so"?"Order details *":"What did you do? *")+'</label><textarea id="vn" rows="3" placeholder="'+(cli?"Any other notes...":k=="so"?"e.g. 5 kg coffee beans, 2 boxes of cups":"Describe the work you did")+'"></textarea>';
+ if((k=="oc"||k=="so")&&pre.c&&$("vc")){$("vc").value=pre.c;acn()}
  if(k=="br"&&pre.c){var b=brByName(pre.c);if(b){$("vb").value=b.n;$("vb0").style.display="none"}else $("vbn").value=pre.c}
  phUI()}
 function phUI(){var e=$("vph");if(!e)return;var k=$("vk")?$("vk").value:"nc",cli=k=="nc"||k=="oc",sl2=cli?[["s","Shop photo"],["i","Invoice photo"]]:[["s","Photo"]],h;if(!cli)delete PHT.i;
@@ -811,22 +819,23 @@ function phUI(){var e=$("vph");if(!e)return;var k=$("vk")?$("vk").value:"nc",cli
  sl2.forEach(function(x){var t=x[0];h+=PHT[t]?'<div class="pt"><img src="'+PHT[t]+'" alt=""><button type="button" class="px" aria-label="Remove photo" onclick="phDel(\''+t+'\')">'+I("x",14)+'</button><span>'+x[1]+'</span></div>':'<div><button type="button" class="btn s pa" onclick="$(\'pf_'+t+'\').click()">'+I("cam",22)+x[1]+'</button><input id="pf_'+t+'" type="file" accept="image/*" capture="environment" hidden onchange="phPick(this,\''+t+'\')"></div>'});e.innerHTML=h+'</div>'}
 function saveV(){var k=$("vk").value,cli=k=="nc"||k=="oc",Td=ds(new Date()),note=$("vn").value.trim(),v,ph="";
  if(cli){var c=$("vc")?$("vc").value.trim().replace(/\s+/g," "):"";if(!c){toast("Type the client name");return}
-  if(k=="oc"){var cm=acMatch(c);if(cm)c=cm.n}v={c:c,k:k=="nc"?"New":"Old",n:note,t:tm()};
+  if(k=="oc"){var cm=acMatch(c);if(cm&&!mine(cm)){toast(othMsg(cm));return}if(cm)c=cm.n}v={c:c,k:k=="nc"?"New":"Old",n:note,t:tm()};
   if(k=="nc"){ph=$("vp").value.trim();if(!ph){toast("Enter the mobile number");return}
-   var d=dupC(c,ph);if(d){toast(d.w=="phone"?"This phone number already belongs to "+d.c.n+". Choose Old client visit":"This client already exists. Choose Old client visit");return}
+   var d=dupC(c,ph);if(d){toast(dupMsg(d));return}
    v.ph=ph;v.pa=$("vq").value;if(S.cfg.ph!==0&&!PHT.s){toast("Take a shop photo to save a new client");return}}
   else v.rs=$("vr").value}
- else{if(note.length<3){toast("Write what you did");return}var tn=wtg(k)[0],c2;
-  if(k=="br"){c2=($("vb").value||$("vbn").value).trim().replace(/\s+/g," ");if(!c2){toast("Select or type the branch");return}}else c2=$("vt").value.trim().replace(/\s+/g," ")||tn;
-  v={ty:k,tn:tn,c:c2,n:note,t:tm()}}
+ else{if(k=="so"&&!$("vc").value.trim()){toast("Type the client name");return}if(note.length<3){toast(k=="so"?"Write the order details":"Write what you did");return}var tn=wtg(k)[0],c2;
+  if(k=="so"){c2=$("vc").value.trim().replace(/\s+/g," ");if(!c2){toast("Type the client name");return}var cm2=acMatch(c2);if(cm2&&!mine(cm2)){toast(othMsg(cm2));return}if(cm2)c2=cm2.n}else if(k=="br"){c2=($("vb").value||$("vbn").value).trim().replace(/\s+/g," ");if(!c2){toast("Select or type the branch");return}}else c2=$("vt").value.trim().replace(/\s+/g," ")||tn;
+  v={ty:k,tn:tn,c:c2,n:note,t:tm()};if(k=="so"){var am=parseFloat(String($("vam").value).replace(/[^\d.]/g,""));if(am>0)v.amt=Math.round(am*100)/100;v.pa=$("vq").value;if($("vsb").value)v.br=$("vsb").value}}
  if(GB)return;GB=1;
  (VG&&Date.now()-VGT<60000?function(f){f(VG)}:function(f){gps(f,1)})(function(g){GB=0;if(!g){toast("Location is required to save. Turn on location and try again");return}
   v.g=g;v.ts=Date.now();
-  if(cli){if(k=="nc"){var id="c"+Date.now();S.cl[id]={id:id,n:v.c,p:ph,k:"New",pa:v.pa,cm:v.n,g:g};sv("cl/"+id,S.cl[id]);v.ci=id;v.pin=1}
-   else{var cc=clByName(v.c);if(cc){v.ci=cc.id;if(!okg(cc.g)){cc.g=g;sv("cl/"+cc.id,cc);v.pin=1}}else{var oid="c"+Date.now();S.cl[oid]={id:oid,n:v.c,p:"",k:"Old",g:g};sv("cl/"+oid,S.cl[oid]);v.ci=oid;v.pin=1}}}
+  if(cli){if(k=="nc"){var id="c"+Date.now();S.cl[id]={id:id,n:v.c,p:ph,k:"New",pa:v.pa,cm:v.n,g:g,o:U};sv("cl/"+id,S.cl[id]);v.ci=id;v.pin=1}
+   else{var cc=clByName(v.c);if(cc){v.ci=cc.id;if(!okg(cc.g)){cc.g=g;sv("cl/"+cc.id,cc);v.pin=1}}else{var oid="c"+Date.now();S.cl[oid]={id:oid,n:v.c,p:"",k:"Old",g:g,o:U};sv("cl/"+oid,S.cl[oid]);v.ci=oid;v.pin=1}}}
+  else if(k=="so"){var c3=clByName(v.c);if(c3)v.ci=c3.id;else{var sid="c"+Date.now();S.cl[sid]={id:sid,n:v.c,p:"",k:"Old",o:U};sv("cl/"+sid,S.cl[sid]);v.ci=sid}if(v.br){var sb=brByName(v.br);if(sb&&!okg(sb.g)){sb.g=g;v.pin=1;sv("br/"+sb.id,sb)}}}
   else if(k=="br"){var b=brByName(v.c);if(!b){var bid="b"+Date.now();b=S.br[bid]={id:bid,n:v.c}}if(!okg(b.g)){b.g=g;v.pin=1}sv("br/"+b.id,b)}
   var ps=savePh();if(ps)v.ps=ps;
-  var dk=U+"_"+Td;cs();upd("days/"+dk,function(r){r=r||{u:U,d:Td,v:[]};var L=cli?(r.v=r.v||[]):(r.w=r.w||[]);if(L.some(function(x){return same(x,v)}))return r;L.push(v);return r},function(){hp(15);toast(cli?"Visit saved ✓":"Work saved ✓");render()})})}
+  var dk=U+"_"+Td;cs();upd("days/"+dk,function(r){r=r||{u:U,d:Td,v:[]};var L=cli?(r.v=r.v||[]):(r.w=r.w||[]);if(L.some(function(x){return same(x,v)}))return r;L.push(v);return r},function(){hp(15);toast(cli?"Visit saved ✓":k=="so"?"Shop order saved ✓":"Work saved ✓");render()})})}
 function delWk(k,i){if(!isA())return;var r0=S.days[k],e=r0&&r0.w&&r0.w[i];if(!e)return;cfm("Delete this work entry?",function(){upd("days/"+k,function(r){if(!r||!r.w)return;var j=r.w.findIndex(function(x){return same(x,e)});if(j<0)return;dropVP(r.w[j]);r.w.splice(j,1);return r},function(ok){toast(ok?"Deleted":"Already removed");render()})})}
 
 /* plan, now using the same work types */
@@ -842,7 +851,7 @@ function prow(d,it,o){o=o||{};var u=o.u||U,ty=ity(it),w=wtg(ty,it.tn),dn=pdone(d
  return'<div class="ev"><i class="'+(dn?"okc":ms?"msc":"")+'">'+I(dn?"check":w[1],17)+'</i><div><b>'+title+'</b>'+(sub?'<small>'+sub+'</small>':"")+(x?'<small>'+x+'</small>':"")+(acts2?'<div class="pa2">'+acts2+'</div>':"")+'</div><span class="'+(dn?"sd":ms?"sx":"")+'">'+st2+'</span></div>'}
 function padd(d){wtR();sheet('<h3>Add to plan · '+esc(dl(d))+'</h3>'+(isA()?'<div class="mu" style="text-align:left;padding:0">For <b>'+esc((S.users[PU()]||{}).n||"")+'</b></div>':'')+'<label>Type of work</label><select id="pty" onchange="pform()">'+["cv","br"].concat(otypes()).map(function(k){return'<option value="'+esc(k)+'">'+esc(WT[k][0])+'</option>'}).join("")+'</select><div id="pf"></div><label>Time (optional)</label><input id="pt" type="time"><label>Note</label><textarea id="pno" rows="2" placeholder="Anything to remember..."></textarea><button class="btn" onclick="padd2(\''+jq(d)+'\')">Add to plan</button>');pform()}
 function pform(){var t=$("pty").value,h="",srt=function(a,b){return String(a.n).localeCompare(b.n)},vals=function(o){return Object.keys(o||{}).map(function(k){return o[k]}).filter(Boolean).sort(srt)},op=function(x){return'<option value="'+esc(x.n)+'">'+esc(x.n)+'</option>'};
- if(t=="cv")h='<label>Client</label><select id="pc" onchange="pcs()"><option value="">New prospect (type the name)</option>'+vals(S.cl).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="Shop / prospect name" style="margin-top:8px"></div><label>Purpose</label><select id="pr">'+opt(rsl())+'</select>';
+ if(t=="cv")h='<label>Client</label><select id="pc" onchange="pcs()"><option value="">New prospect (type the name)</option>'+vals(S.cl).filter(function(c){return ownBy(c,PU())}).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="Shop / prospect name" style="margin-top:8px"></div><label>Purpose</label><select id="pr">'+opt(rsl())+'</select>';
  else if(t=="br")h='<label>Branch</label><select id="pc" onchange="pcs()"><option value="">New branch (type the name)</option>'+vals(S.br).map(op).join("")+'</select><div id="pn0"><input id="pnm" placeholder="e.g. Jimi Branch" style="margin-top:8px"></div>';
  else h='<label>Title / place (optional)</label><input id="pnm" placeholder="e.g. '+(t=="rh"?"Main roastery":"Head office")+'">';
  $("pf").innerHTML=h}
@@ -879,12 +888,12 @@ function route(u,d){var r=rec(u,d)||{v:[]},us=S.users[u],V=r.v||[],F=dfl(r),P=pi
 
 /* copy text + CSVs */
 function cp(){var t="WINDMILL CAFE – WORK REPORT\n"+RF.a+" to "+RF.b+"\n";lst().forEach(function(x){var X=acts(x);if(!X.length)return;var u=S.users[x.u];t+="\n"+x.d+" | "+(u?u.n:"?")+" | "+X.length+(X.length==1?" entry":" entries")+"\n";
- X.forEach(function(e){if(e.v)t+="  - "+e.v.c+" ("+e.v.k+" client) "+(e.v.t||"")+": "+vd(e.v)+"\n";else{var tn=wtg(e.w.ty,e.w.tn)[0];t+="  - "+tn+(nn(e.w.c)!=nn(tn)?" · "+e.w.c:"")+" "+(e.w.t||"")+": "+(e.w.n||"")+"\n"}})});
+ X.forEach(function(e){if(e.v)t+="  - "+e.v.c+" ("+e.v.k+" client) "+(e.v.t||"")+": "+vd(e.v)+"\n";else{var tn=wtg(e.w.ty,e.w.tn)[0];t+="  - "+tn+(nn(e.w.c)!=nn(tn)?" · "+e.w.c:"")+" "+(e.w.t||"")+": "+(e.w.n||"")+(e.w.amt?" · "+lkr(e.w.amt):"")+"\n"}})});
  try{navigator.clipboard.writeText(t).then(function(){toast("Copied")},function(){prompt("Copy:",t)})}catch(e){prompt("Copy:",t)}}
-function csvDl(){var A=isA(),R=[["Date","Sales manager","Type of work","Client / place","Time","Mobile","Payment","Reason","What was done / notes","Latitude","Longitude","GPS accuracy (m)"].concat(A?["Distance (m)","GPS check"]:[])];
+function csvDl(){var A=isA(),R=[["Date","Sales manager","Type of work","Client / place","Time","Mobile","Payment","Reason","What was done / notes","Order value (AED)","Shop / branch","Latitude","Longitude","GPS accuracy (m)"].concat(A?["Distance (m)","GPS check"]:[])];
  lst().slice().reverse().forEach(function(r){var u=S.users[r.u],F=A?dfl(r):[];acts(r).forEach(function(e){var x=e.v||e.w,g=x.g||{},row,dd,ck;
-  if(e.v){var f=F[e.i]||{};row=[r.d,u?u.n:"?",x.k=="New"?"New client visit":"Old client visit",x.c,x.t||"",x.ph||"",x.pa||"",x.rs||"",x.n||""];dd=f.d;ck=ckt(f)}
-  else{row=[r.d,u?u.n:"?",wtg(x.ty,x.tn)[0],x.c,x.t||"","","","",x.n||""];dd=bdx(x);ck=ctx(x)}
+  if(e.v){var f=F[e.i]||{};row=[r.d,u?u.n:"?",x.k=="New"?"New client visit":"Old client visit",x.c,x.t||"",x.ph||"",x.pa||"",x.rs||"",x.n||"","",""];dd=f.d;ck=ckt(f)}
+  else{row=[r.d,u?u.n:"?",wtg(x.ty,x.tn)[0],x.c,x.t||"","",x.pa||"","",x.n||"",x.amt||"",x.br||""];dd=bdx(x);ck=ctx(x)}
   row=row.concat([g.la!=null?g.la:"",g.ln!=null?g.ln:"",g.ac!=null?g.ac:""]);if(A)row.push(isFinite(dd)?Math.round(dd):"",ck);R.push(row)})});
  if(R.length<2){toast("Nothing in this range");return}dlcsv(R,"windmill-work-log_")}
 function csvPl(){var A=isA(),o=A?RF.o:U,T=ds(new Date()),R=[["Date","Sales manager","Type","Place / client","Planned time","Status","Done at","Latitude","Longitude"].concat(A?["GPS check"]:[]).concat(["Plan note","Work note"])];
@@ -1003,7 +1012,7 @@ function arr(a){return Array.isArray(a)?a.filter(function(x){return x!=null&&x!=
 function wkList(){var a=arr(S.cfg.wk);if(a)return a.filter(function(x){return x&&x.id&&x.n});return DWT.concat((arr(S.cfg.wt)||[]).filter(function(x){return x&&x.id}).map(function(x){return{id:x.id,n:x.n,ic:"file"}}))}
 function rsl(){var a=arr(S.cfg.rs);return a&&a.length?a:RS}
 function pal(){var a=arr(S.cfg.pa);return a&&a.length?a:PA}
-function wtR(){WT={cv:["Client visit","store"],nc:["New client visit","plus"],oc:["Old client visit","store"],br:["Branch visit","home"],dw:["Daily work","case"],rh:["Roasting help","coffee"],ws:["Work support","users"],sp:["Special work","edit"],mt:["Meeting","users"],dv:["Delivery","case"],of:["Office work","file"],ot:["Other","edit"]};
+function wtR(){WT={cv:["Client visit","store"],nc:["New client visit","plus"],oc:["Old client visit","store"],br:["Branch visit","home"],so:["Shop order","bag"],dw:["Daily work","case"],rh:["Roasting help","coffee"],ws:["Work support","users"],sp:["Special work","edit"],mt:["Meeting","users"],dv:["Delivery","case"],of:["Office work","file"],ot:["Other","edit"]};
  (arr(S.cfg.wt)||[]).forEach(function(x){if(x&&x.id)WT[x.id]=[x.n,"file"]});wkList().forEach(function(x){WT[x.id]=[x.n,x.ic||"file"]})}
 function otypes(){return wkList().map(function(x){return x.id})}
 function lcard(k,t,d,L){return'<div class="cd"><h3>'+t+'<span class="hm">'+L.length+'</span></h3><div class="mu" style="text-align:left;padding:0 0 4px">'+d+'</div>'
@@ -1042,7 +1051,7 @@ VW.st=function(){var a=me(),A=isA(),sec=!!S.cfg.sec;wtR();
 
 /* ===== Old client: type-ahead client search ===== */
 function acMatch(t){var q=nn(t),qd=String(t||"").replace(/\D/g,"");if(!q)return null;var c=clByName(t);if(c)return c;if(qd.length>=7)for(var i in S.cl){var x=S.cl[i];if(x&&npn(x.p)&&npn(x.p)==npn(qd))return x}return null}
-function acf(){var e=$("vc"),l=$("acl");if(!e||!l)return;var q=nn(e.value),qd=e.value.replace(/\D/g,""),all=Object.keys(S.cl).map(function(k){return S.cl[k]}).filter(function(c){return c&&c.n});
+function acf(){var e=$("vc"),l=$("acl");if(!e||!l)return;var q=nn(e.value),qd=e.value.replace(/\D/g,""),all=Object.keys(S.cl).map(function(k){return S.cl[k]}).filter(function(c){return c&&c.n&&mine(c)});
  var L=all.filter(function(c){return!q||nn(c.n).indexOf(q)>=0||(qd.length>=3&&String(c.p||"").replace(/\D/g,"").indexOf(qd)>=0)}).sort(function(a,b){var x=nn(a.n).indexOf(q)==0?0:1,y=nn(b.n).indexOf(q)==0?0:1;return x-y||String(a.n).localeCompare(b.n)}).slice(0,6);
  if(L.length==1&&nn(L[0].n)==q)L=[];
  l.innerHTML=L.map(function(c){return'<button type="button" role="option" onmousedown="event.preventDefault()" onclick="acPick(\''+jq(c.id)+'\')"><span>'+esc(c.n)+'</span><small>'+esc(c.p||"")+'</small></button>'}).join("");
@@ -1050,7 +1059,7 @@ function acf(){var e=$("vc"),l=$("acl");if(!e||!l)return;var q=nn(e.value),qd=e.
 function acPick(id){var c=S.cl[id],e=$("vc");if(!c||!e)return;e.value=c.n;ach();acn();var r=$("vr");if(r)r.focus()}
 function ach(){var l=$("acl");if(l)l.className="acl"}
 function acn(){var e=$("vc"),n=$("acn");if(!e||!n)return;var t=e.value.trim(),c=acMatch(t);
- n.innerHTML=!t?"":c?'<span class="ok">'+I("check",13)+esc(c.n)+(c.p?" · "+esc(c.p):"")+'</span>':I("plus",13)+'Not in the client list yet. It will be added as an existing client.';n.className="acn"+(t&&!c?" nw":"")}
+ var ot=c&&!mine(c);n.innerHTML=!t?"":ot?I("x",13)+'Already in the list – another sales manager\'s client. Ask the admin.':c?'<span class="ok">'+I("check",13)+esc(c.n)+(c.p?" · "+esc(c.p):"")+'</span>':I("plus",13)+'Not in your client list yet. It will be added as your client.';n.className="acn"+(ot?" dup":t&&!c?" nw":"")}
 
 /* ===== Admin plans for managers ===== */
 var PUSR="";
@@ -1112,7 +1121,7 @@ function mrCard(){var A=isA(),m=MR||ds(new Date()).slice(0,7);
  +'</div><button class="btn" onclick="mrMake()">'+I("file",16)+'Create PDF report</button><div class="mu" style="text-align:left;padding:8px 0 0">Opens the report. In the print window choose <b>Save as PDF</b>.</div></div>'}
 function mrData(u,a,b){var s=st(u,a,b),ps=pst(a,b,u),ok=0,bad=0,ty={},cls={},rows=[],lv=0,d;
  for(d=a;d<=b;d=ad(d,1)){var r=rec(u,d),X=acts(r),l=lvOf(u,d);if(l&&l.st!="no")lv++;
-  if(r){dfl(r).forEach(function(f){if(f.ok)ok++;if(f.nog||f.far||f.same||f.fast)bad++});(r.v||[]).forEach(function(v){cls[v.c]=(cls[v.c]||0)+1});wl(r).forEach(function(w){var n=wtg(w.ty,w.tn)[0];ty[n]=(ty[n]||0)+1})}
+  if(r){dfl(r).forEach(function(f){if(f.ok)ok++;if(f.nog||f.far||f.same||f.fast)bad++});(r.v||[]).forEach(function(v){cls[v.c]=(cls[v.c]||0)+1});wl(r).forEach(function(w){if(w.ty=="so")return;var n=wtg(w.ty,w.tn)[0];ty[n]=(ty[n]||0)+1})}
   if(X.length||l){var t=X.map(function(e){return(e.v||e.w).t}).filter(Boolean).sort();rows.push([d,X.length,(r&&r.v||[]).length,wl(r).length,t.length?fmt(t[0])+(t.length>1?" – "+fmt(t[t.length-1]):""):"",l&&l.st!="no"?l.t:""])}}
  return{s:s,ps:ps,ok:ok,bad:bad,ty:ty,cls:cls,rows:rows,lv:lv}}
 function mrMake(){var m=$("mrm").value||ds(new Date()).slice(0,7),A=isA(),one=A?$("mru").value:U,us=one?[S.users[one]].filter(Boolean):offs(),a=m+"-01",b=ad(ds(new Date(+m.slice(0,4),+m.slice(5,7),0)),0);MR=m;
@@ -1121,7 +1130,7 @@ function mrMake(){var m=$("mrm").value||ds(new Date()).slice(0,7),A=isA(),one=A?
  function top(o,n){return Object.keys(o).map(function(k){return[k,o[k]]}).sort(function(x,y){return y[1]-x[1]}).slice(0,n)}
  var body=us.map(function(u){var x=mrData(u.id,a,b),t=tgOf(u.id);
   return'<section><h2>'+esc(u.n)+' <span>@'+esc(u.u)+'</span></h2><div class="k">'
-   +[["Active days",x.s.d],["Client visits",x.s.v],["New clients",x.s.n],["Old client visits",x.s.o],["Other work",x.s.w],["Plan done",x.ps.d+" / "+x.ps.t],["Visits at the shop (GPS)",x.ok+" / "+x.s.v],["Flagged visits",x.bad],["Leave days",x.lv]].map(function(k){return'<div><b>'+k[1]+'</b><span>'+k[0]+'</span></div>'}).join("")+'</div>'
+   +[["Active days",x.s.d],["Client visits",x.s.v],["New clients",x.s.n],["Old client visits",x.s.o],["Other work",x.s.w],["Shop orders",x.s.so],["Order value",x.s.am?lkr(x.s.am):"–"],["Plan done",x.ps.d+" / "+x.ps.t],["Visits at the shop (GPS)",x.ok+" / "+x.s.v],["Flagged visits",x.bad],["Leave days",x.lv]].map(function(k){return'<div><b>'+k[1]+'</b><span>'+k[0]+'</span></div>'}).join("")+'</div>'
    +(t?'<p class="tg">Monthly target: '+(+t.v?x.s.v+" / "+t.v+" client visits ("+Math.round(x.s.v/t.v*100)+"%)":"")+(+t.v&&+t.n?" · ":"")+(+t.n?x.s.n+" / "+t.n+" new clients ("+Math.round(x.s.n/t.n*100)+"%)":"")+'</p>':'')
    +'<div class="two"><div><h3>Other work by type</h3>'+(top(x.ty,8).map(function(r){return'<p>'+esc(r[0])+'<b>'+r[1]+'</b></p>'}).join("")||'<p class="mu">None</p>')+'</div><div><h3>Most visited clients</h3>'+(top(x.cls,8).map(function(r){return'<p>'+esc(r[0])+'<b>'+r[1]+'</b></p>'}).join("")||'<p class="mu">None</p>')+'</div></div>'
    +'<h3>Day by day</h3><table><tr><th>Date</th><th>Entries</th><th>Visits</th><th>Other</th><th>Time</th><th>Leave</th></tr>'+(x.rows.map(function(r){return'<tr><td>'+esc(dl(r[0]))+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+esc(r[4])+'</td><td>'+esc(r[5])+'</td></tr>'}).join("")||'<tr><td colspan="6" class="mu">No work this month</td></tr>')+'</table></section>'}).join("");
@@ -1183,6 +1192,26 @@ function thCard(){var t=thGet();return'<div class="sec">Appearance</div><div cla
  +[["l","Light","sun"],["d","Dark","moon"],["a","Auto","auto"]].map(function(x){return'<button class="'+(t==x[0]?"on":"")+'" onclick="thSet(\''+x[0]+'\')"><span class="sw sw'+x[0]+'"><i></i><i></i></span><b>'+x[1]+'</b></button>'}).join("")
  +'</div><div class="mu" style="text-align:left;padding:10px 2px 0">Auto follows your phone\'s light or dark setting.</div></div>'}
 
+/* ===== Shop orders (client came to our shop) ===== */
+P.bag='<path d="M5 8h14l-1.2 12.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9L5 8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/>';
+P.cash='<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5v.01M17.5 14.5v.01"/>';
+function lkr(n,short){n=+n||0;if(short&&n>=100000)return"AED "+(n>=1e6?(n/1e6).toFixed(n>=1e7?0:1)+"M":Math.round(n/1000)+"K");return"AED "+n.toLocaleString("en-US",{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})}
+function wsub(w){if(w.ty!="so")return w.n||"";return[w.n,w.amt?lkr(w.amt):"",w.pa||"",w.br?"At "+w.br:""].filter(Boolean).join(" · ")}
+function soLine(s){return s&&s.so?'<div class="sgo">'+I("bag",15)+'<span><b>'+s.so+'</b> shop '+(s.so==1?"order":"orders")+(s.am?' · <b>'+lkr(s.am)+'</b>':'')+'</span></div>':""}
+
+/* ===== Client owner: each sales manager sees only their own clients ===== */
+var COW={},COWN={},COWK="";
+function ownMap(){var k=Object.keys(S.days).length+":"+Object.keys(S.cl).length;if(k==COWK)return;COWK=k;COW={};COWN={};
+ Object.keys(S.days).map(function(x){return S.days[x]}).filter(Boolean).sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0}).forEach(function(r){
+  ((r.v||[]).concat(wl(r).filter(function(w){return w.ty=="so"}))).slice().sort(function(a,b){return(a.ts||0)-(b.ts||0)}).forEach(function(v){if(v.ci&&!COW[v.ci])COW[v.ci]=r.u;var n=nn(v.c);if(n&&!COWN[n])COWN[n]=r.u})})}
+function cOwn(c){if(!c)return"";if(c.o)return c.o=="-"?"":c.o;ownMap();return COW[c.id]||COWN[nn(c.n)]||""}
+function ownBy(c,u){var o=cOwn(c);return!o||o==u}
+function mine(c){return isA()||ownBy(c,U)}
+function ownName(c){var o=cOwn(c);return o?((S.users[o]||{}).n||"Removed manager"):"Not assigned"}
+function othMsg(c){return"“"+c.n+"” is already in the list. This is another sales manager's client. Ask the admin"}
+function dupMsg(d){return mine(d.c)?(d.w=="phone"?"This phone number is already in your list ("+d.c.n+"). Choose Old client visit":"This client is already in your list. Choose Old client visit"):(d.w=="phone"?"This phone number is already in the list (another sales manager's client). Ask the admin":othMsg(d.c))}
+var OMG=0;function ownMig(){if(OMG||!isA()||!CLOUD||!navigator.onLine)return;OMG=1;var n=0;for(var i in S.cl){var c=S.cl[i];if(c&&!c.o){var o=cOwn(c);if(o){c.o=o;sv("cl/"+i+"/o",o);n++}}}}
+
 /* ===== Photo retention (admin choice; default keeps photos forever) ===== */
 var PCL=0;
 function phClean(){var n=+S.cfg.pk;if(!n||!isA())return;var cut=ad(ds(new Date()),-n),c=0;
@@ -1192,7 +1221,7 @@ function phClean(){var n=+S.cfg.pk;if(!n||!isA())return;var cut=ad(ds(new Date()
 /* ===== visit rules ===== */
 var PKO=[[0,"Keep forever"],[90,"Delete after 3 months"],[180,"Delete after 6 months"],[365,"Delete after 1 year"]];
 function rsum(){var pk=+S.cfg.pk;return"Shop radius "+dm(DR())+" · Shop photo for new clients "+(S.cfg.ph===0?"optional":"required")+" · Photos "+(pk?"kept "+(pk>=365?"1 year":pk/30+" months"):"kept forever")+" · Visits always need GPS"}
-function rulesSheet(){var c=S.cfg;sheet('<h3>Visit rules</h3><label>Shop radius (a visit further than this is flagged)</label><select id="rd">'+[100,200,300,500,1000].map(function(x){return'<option value="'+x+'"'+(x==DR()?" selected":"")+'>'+dm(x)+'</option>'}).join("")+'</select>'
+function rulesSheet(){var c=S.cfg;sheet('<h3>Visit rules</h3><label>Shop radius (a visit further than this is flagged)</label><select id="rd">'+[30,50,100,200,300,500,1000].map(function(x){return'<option value="'+x+'"'+(x==DR()?" selected":"")+'>'+dm(x)+'</option>'}).join("")+'</select>'
  +'<label>Shop photo for new clients</label><select id="rp"><option value="1"'+(c.ph===0?"":" selected")+'>Required</option><option value="0"'+(c.ph===0?" selected":"")+'>Optional</option></select>'
  +'<label>Visit photos</label><select id="rk">'+PKO.map(function(x){return'<option value="'+x[0]+'"'+(x[0]==(+c.pk||0)?" selected":"")+'>'+x[1]+'</option>'}).join("")+'</select>'
  +'<div class="mu" style="text-align:left;padding:10px 0 0">Visits always need GPS. The shop pin is saved automatically on the first visit to each client. Deleting old photos frees database space; the visit, its GPS check and the report stay.</div><button class="btn" onclick="saveRules()">Save</button>')}
